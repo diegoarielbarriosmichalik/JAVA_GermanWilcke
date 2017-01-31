@@ -1,8 +1,6 @@
 package DEV;
 
-import DEV.Metodos;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
@@ -13,10 +11,10 @@ public class Logueo extends javax.swing.JFrame {
 
     public Logueo() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
        // hoy = DEV.Metodos.getHoy_format2();
-        this.setTitle("Blocked Access");
-        new File(".").getAbsolutePath();
+        setTitle("Blocked Access");
+      
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
 
         jTextField1.setEditable(false);
@@ -62,6 +60,11 @@ public class Logueo extends javax.swing.JFrame {
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
             }
         });
 
@@ -185,12 +188,12 @@ public class Logueo extends javax.swing.JFrame {
       
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+
+    }//GEN-LAST:event_jTextField1KeyPressed
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -201,19 +204,8 @@ public class Logueo extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Logueo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Logueo().setVisible(true);
-
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Logueo().setVisible(true);
         });
     }
 
