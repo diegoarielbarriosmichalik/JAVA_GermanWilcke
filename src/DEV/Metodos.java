@@ -21,12 +21,12 @@ public class Metodos {
         boolean entro = false;
         try {
             String pass = new String(password);
-            PreparedStatement ps = conexion.prepareStatement("select * from usuario where nombre ='" + nombre + "' and contrasenha = '" + pass + "'");
+            PreparedStatement ps = conexion.prepareStatement("select * from usuario where usuario ='" + nombre + "' and contrasenha = '" + pass + "'");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                nombre = rs.getString("nombre_real").trim();
+                nombre = rs.getString("nombre").trim();
                 id_usuario = rs.getInt("id_usuario");
-                privilegio = rs.getInt("privilegio");
+                privilegio = rs.getInt("id_privilegio");
                 ubicacion_proyecto = new File("").getAbsolutePath();
                 new Principal().setVisible(true);
                 entro = true;
@@ -35,7 +35,7 @@ public class Metodos {
                 JOptionPane.showMessageDialog(null, "Error de usuario y/o contraseña.");
             }
         } catch (SQLException ex) {
-            System.err.println(ex);
+           JOptionPane.showMessageDialog(null, ex);
         }
         return entro;
     }

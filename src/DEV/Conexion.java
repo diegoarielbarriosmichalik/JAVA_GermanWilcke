@@ -57,9 +57,9 @@ public class Conexion {
                 pass = "postgres";
                 mac_adress = "-792900638";
             }
-            if (result.equals("-1878214831")) { // muni
-                db = "4k"; 
-                host = "190.104.167.162"; 
+            if (result.equals("-1878214831")) { // muni 
+                db = "german_wilcke"; 
+                host = "localhost"; 
                 user = "postgres";
                 pass = "postgres";
                 mac_adress = "-1878214831";
