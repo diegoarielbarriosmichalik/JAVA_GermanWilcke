@@ -9,7 +9,14 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 
+
 public class Metodos {
+
+    public static int id_usuario = 0;
+    public static int privilegio = 0;
+    public static String ubicacion_proyecto = "";
+    public static String titulo = "";
+    
     public synchronized static boolean getIngresar(String nombre, char[] password) {
         boolean entro = false;
         try {
@@ -20,14 +27,9 @@ public class Metodos {
                 nombre = rs.getString("nombre_real").trim();
                 id_usuario = rs.getInt("id_usuario");
                 privilegio = rs.getInt("privilegio");
-                Comercio_obtener_datos();
-                Configuracion_inicial();
                 ubicacion_proyecto = new File("").getAbsolutePath();
                 new Principal().setVisible(true);
                 entro = true;
-                String hoy = DEV.Metodos.getHoy_format3();
-                Metodos.Configuracion_iniciar_datos();
-                Metodos.Control_de_acceso();
             }
             if (entro == false) {
                 JOptionPane.showMessageDialog(null, "Error de usuario y/o contraseña.");
