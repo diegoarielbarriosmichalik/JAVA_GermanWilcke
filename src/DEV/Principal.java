@@ -98,7 +98,6 @@ public class Principal extends javax.swing.JFrame {
         jMenu8 = new javax.swing.JMenu();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
         jMenuItem21 = new javax.swing.JMenuItem();
-        jMenuItem22 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jSeparator19 = new javax.swing.JPopupMenu.Separator();
@@ -450,14 +449,6 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu8.add(jMenuItem21);
 
-        jMenuItem22.setText("Configuraciones de Impresion");
-        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem22ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem22);
-
         jMenuItem11.setText("Usuarios del sistema");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -600,19 +591,11 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
         if (Metodos.privilegio == 1) {
-//            new Configuraciones().setVisible(true);
+            new Configuracion().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "No puedes acceder a este menu. Consulta con el administrador");
         }
     }//GEN-LAST:event_jMenuItem21ActionPerformed
-
-    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
-        if (Metodos.privilegio == 1) {
-//            new Configuracion_impresion().setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "No puedes acceder a este menu. Consulta con el administrador");
-        }
-    }//GEN-LAST:event_jMenuItem22ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
         if (Metodos.privilegio == 1) {
@@ -711,7 +694,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem21;
-    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem26;

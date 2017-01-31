@@ -163,8 +163,8 @@ public class Logueo extends javax.swing.JFrame {
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
         if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
-            boolean entro = DEV.Metodos.getIngresar(jTextField1.getText(), jPasswordField1.getPassword());
-            if (entro == true) {
+           DEV.Metodos.getIngresar(jTextField1.getText(), jPasswordField1.getPassword());
+            if (Metodos.entro == true) {
                 this.setVisible(false);
             }
         }
@@ -176,8 +176,8 @@ public class Logueo extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean entro = DEV.Metodos.getIngresar(jTextField1.getText(), jPasswordField1.getPassword());
-        if (entro == true) {
+        DEV.Metodos.getIngresar(jTextField1.getText(), jPasswordField1.getPassword());
+        if (Metodos.entro == true) {
             this.setVisible(false);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
