@@ -5,9 +5,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class Producto_ABM extends javax.swing.JFrame {
+public class Producto extends javax.swing.JFrame {
 
-    public Producto_ABM() {
+    public Producto() {
 
         initComponents();
         setTitle("Productos");
@@ -18,7 +18,7 @@ public class Producto_ABM extends javax.swing.JFrame {
 
   //      ImageIcon imagen = new ImageIcon(ubicacion_proyecto + "\\imagenes\\0.jpg");
    //     imagen.getImage().flush();
-     //   Producto_ABM.jLabel_imagen.setIcon(imagen);
+     //   Producto.jLabel_imagen.setIcon(imagen);
      //   Producto_Nuevo();
        // Metodos.Productos_historial_compra();
 //        jLabel_mensaje.setVisible(false);
@@ -38,19 +38,22 @@ public class Producto_ABM extends javax.swing.JFrame {
         producto_precio = new javax.swing.JTextField();
         jTextField_porcentaje = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        ubicacion = new javax.swing.JTextField();
         producto_stock_bajo = new javax.swing.JTextField();
         jDateChooser_vencimiento = new com.toedter.calendar.JDateChooser();
         jTextField_Tipo = new javax.swing.JTextField();
         producto_proveedor = new javax.swing.JTextField();
         jTextField_iva = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable_historial = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton5 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_precios = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable_historial = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -174,24 +177,14 @@ public class Producto_ABM extends javax.swing.JFrame {
 
         jLabel8.setText("% sobre el precio de la última compra");
 
-        ubicacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Ubicación (F1 para buscar)"));
-        ubicacion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                ubicacionKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ubicacionKeyReleased(evt);
-            }
-        });
-
         producto_stock_bajo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         producto_stock_bajo.setBorder(javax.swing.BorderFactory.createTitledBorder("Stock bajo"));
         producto_stock_bajo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                producto_stock_bajoKeyReleased(evt);
-            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 producto_stock_bajoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                producto_stock_bajoKeyReleased(evt);
             }
         });
 
@@ -219,11 +212,6 @@ public class Producto_ABM extends javax.swing.JFrame {
 
         producto_proveedor.setToolTipText("Click para buscar");
         producto_proveedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Proveedor (F1 para buscar)"));
-        producto_proveedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                producto_proveedorFocusGained(evt);
-            }
-        });
         producto_proveedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 producto_proveedorMouseClicked(evt);
@@ -232,6 +220,11 @@ public class Producto_ABM extends javax.swing.JFrame {
         producto_proveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 producto_proveedorActionPerformed(evt);
+            }
+        });
+        producto_proveedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                producto_proveedorFocusGained(evt);
             }
         });
         producto_proveedor.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -265,7 +258,6 @@ public class Producto_ABM extends javax.swing.JFrame {
                         .addComponent(producto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(producto_nombre))
-                    .addComponent(ubicacion)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -298,13 +290,11 @@ public class Producto_ABM extends javax.swing.JFrame {
                     .addComponent(producto_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField_precio_de_compra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(producto_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jTextField_porcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(producto_stock_bajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,60 +304,61 @@ public class Producto_ABM extends javax.swing.JFrame {
                     .addComponent(jTextField_Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(producto_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField_iva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(115, 115, 115))
+                .addGap(164, 164, 164))
         );
 
         jTabbedPane1.addTab("Información general", jPanel3);
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable_historial.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Fecha", "Proveedor", "Precio Unitario", "Unidades", "Total"
+                "ID", "Ubicación"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable_historial);
-        if (jTable_historial.getColumnModel().getColumnCount() > 0) {
-            jTable_historial.getColumnModel().getColumn(0).setResizable(false);
-            jTable_historial.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable_historial.getColumnModel().getColumn(1).setResizable(false);
-            jTable_historial.getColumnModel().getColumn(1).setPreferredWidth(200);
-            jTable_historial.getColumnModel().getColumn(2).setResizable(false);
-            jTable_historial.getColumnModel().getColumn(2).setPreferredWidth(20);
-            jTable_historial.getColumnModel().getColumn(3).setResizable(false);
-            jTable_historial.getColumnModel().getColumn(3).setPreferredWidth(20);
-            jTable_historial.getColumnModel().getColumn(4).setResizable(false);
+        jScrollPane3.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(280);
         }
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        jButton5.setText("Agregar Ubicación");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 861, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(521, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Historial de compras", jPanel5);
+        jTabbedPane1.addTab("Ubicaciones", jPanel1);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -432,6 +423,56 @@ public class Producto_ABM extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Precios de Venta", jPanel4);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        jTable_historial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Fecha", "Proveedor", "Precio Unitario", "Unidades", "Total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTable_historial);
+        if (jTable_historial.getColumnModel().getColumnCount() > 0) {
+            jTable_historial.getColumnModel().getColumn(0).setResizable(false);
+            jTable_historial.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable_historial.getColumnModel().getColumn(1).setResizable(false);
+            jTable_historial.getColumnModel().getColumn(1).setPreferredWidth(200);
+            jTable_historial.getColumnModel().getColumn(2).setResizable(false);
+            jTable_historial.getColumnModel().getColumn(2).setPreferredWidth(20);
+            jTable_historial.getColumnModel().getColumn(3).setResizable(false);
+            jTable_historial.getColumnModel().getColumn(3).setPreferredWidth(20);
+            jTable_historial.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 861, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Historial de compras", jPanel5);
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/exit1.png"))); // NOI18N
@@ -502,20 +543,19 @@ public class Producto_ABM extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton_borrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton_buscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton_borrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_buscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -657,15 +697,6 @@ public class Producto_ABM extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formKeyReleased
 
-    private void ubicacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ubicacionKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_F4) {
-          //  Producto_Guardar();
-        }
-        if (evt.getKeyCode() == KeyEvent.VK_F2) {
-            Producto_Nuevo();
-        }
-    }//GEN-LAST:event_ubicacionKeyReleased
-
     private void producto_stock_bajoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_producto_stock_bajoKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_F4) {
           //  Producto_Guardar();
@@ -738,20 +769,11 @@ public class Producto_ABM extends javax.swing.JFrame {
 
     private void producto_codigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_producto_codigoFocusLost
 
-        if (Producto_ABM.producto_codigo.getText().length() > 0) {
+        if (Producto.producto_codigo.getText().length() > 0) {
      //       Metodos.Producto_Buscar_por_codigo_de_barras();
             producto_nombre.requestFocus();
         }
     }//GEN-LAST:event_producto_codigoFocusLost
-
-    private void ubicacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ubicacionKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-   //         new Productos_ubicacion_buscar().setVisible(true);
-        }
-        if (evt.getKeyCode() == KeyEvent.VK_F1) {
-    //        new Productos_ubicacion_buscar().setVisible(true);
-        }
-    }//GEN-LAST:event_ubicacionKeyPressed
 
     private void jTextField_ivaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ivaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -802,9 +824,9 @@ public class Producto_ABM extends javax.swing.JFrame {
 //        producto_stock_bajo.setText("");
 //        producto_nombre.requestFocus();
 //        producto_codigo.setText("");
-//        Producto_ABM.producto_nombre.setEditable(true);
-//        Producto_ABM.jTextField_porcentaje.setText("0");
-//        Producto_ABM.jTextField_precio_de_compra.setText("0");
+//        Producto.producto_nombre.setEditable(true);
+//        Producto.jTextField_porcentaje.setText("0");
+//        Producto.jTextField_precio_de_compra.setText("0");
 //        jTextField_iva.setText("10");
 //        jButton_borrar.setVisible(false);
 //        producto_codigo.requestFocus();
@@ -820,11 +842,11 @@ public class Producto_ABM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Producto_ABM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
         java.awt.EventQueue.invokeLater(() -> {
-            new Producto_ABM().setVisible(true);
+            new Producto().setVisible(true);
         });
     }
 
@@ -833,17 +855,21 @@ public class Producto_ABM extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     public static javax.swing.JButton jButton_borrar;
     public static javax.swing.JButton jButton_buscar;
     public static com.toedter.calendar.JDateChooser jDateChooser_vencimiento;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTable1;
     public static javax.swing.JTable jTable_historial;
     public static javax.swing.JTable jTable_precios;
     public static javax.swing.JTextField jTextField_Tipo;
@@ -855,6 +881,5 @@ public class Producto_ABM extends javax.swing.JFrame {
     public static javax.swing.JTextField producto_precio;
     public static javax.swing.JTextField producto_proveedor;
     public static javax.swing.JTextField producto_stock_bajo;
-    public static javax.swing.JTextField ubicacion;
     // End of variables declaration//GEN-END:variables
 }

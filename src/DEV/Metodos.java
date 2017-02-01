@@ -26,11 +26,102 @@ public class Metodos {
     public static int id_proveedor = 0;
     public static int id_cuenta = 0;
     public static int id_cliente = 0;
+    public static int id_unidad_medida = 0;
     public static int privilegio = 0;
     public static String ubicacion_proyecto = "";
     public static String titulo = "";
     public static boolean entro = false;
     public static Date hoy = new Date();
+
+    public synchronized static void Proveedor_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
+        id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
+    }
+
+    public synchronized static void Cliente_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Clientes.jTable_cliente.getModel();
+        id_cliente = Integer.parseInt(String.valueOf(tm.getValueAt(Clientes.jTable_cliente.getSelectedRow(), 0)));
+    }
+    public synchronized static void Unidad_medida_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Unidad_de_medida.jTable_unidad_medida.getModel();
+        id_unidad_medida = Integer.parseInt(String.valueOf(tm.getValueAt(Unidad_de_medida.jTable_unidad_medida.getSelectedRow(), 0)));
+    }
+
+    public static void Cliente_clear() {
+        Clientes.jTextField_ci.setText("");
+        Clientes.jt_direccion.setText("");
+        Clientes.jt_email.setText("");
+        Clientes.jt_nombre.setText("");
+        Clientes.jt_telefono.setText("");
+        Clientes.jt_ruc.setText("");
+        Clientes.jt_ruc.requestFocus();
+        Clientes.jButton_borrar.setVisible(false);
+        id_cliente = 0;
+
+    }
+
+    public static void Proveedor_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT * FROM proveedor where id_proveedor = '" + id_proveedor + "'");
+            if (result.next()) {
+                if (result.getString("direccion") != null) {
+                    Proveedor.JT_Direccion.setText(result.getString("direccion").trim());
+                }
+                if (result.getString("nombre") != null) {
+                    Proveedor.JT_Nombre.setText(result.getString("nombre").trim());
+                }
+                if (result.getString("ruc") != null) {
+                    Proveedor.JT_Ruc.setText(result.getString("ruc").trim());
+                }
+                if (result.getString("telefono") != null) {
+                    Proveedor.JT_Telefono.setText(result.getString("telefono").trim());
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public static void Cliente_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT * FROM cliente where id_cliente = '" + id_cliente + "'");
+            if (result.next()) {
+                if (result.getString("direccion") != null) {
+                    Clientes.jt_direccion.setText(result.getString("direccion").trim());
+                }
+                if (result.getString("nombre") != null) {
+                    Clientes.jt_nombre.setText(result.getString("nombre").trim());
+                }
+                if (result.getString("ruc") != null) {
+                    Clientes.jt_ruc.setText(result.getString("ruc").trim());
+                }
+                if (result.getString("telef") != null) {
+                    Clientes.jt_telefono.setText(result.getString("telef").trim());
+                }
+                if (result.getString("email") != null) {
+                    Clientes.jt_email.setText(result.getString("email").trim());
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public static void Unidad_medida_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT * FROM unidad_medida "
+                    + "where id_unidad_medida = '" + id_unidad_medida + "'");
+            if (result.next()) {
+                if (result.getString("unidad_medida") != null) {
+                    Unidad_de_medida.jt_unidad.setText(result.getString("unidad_medida").trim());
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
 
     public synchronized static void Proveedor_guardar(String nombre_proveedor, String ruc, String telefono, String direccion) {
         try {
@@ -54,7 +145,7 @@ public class Metodos {
                 stUpdateProducto.setString(5, direccion);
                 stUpdateProducto.setInt(6, 0);
                 stUpdateProducto.executeUpdate();
-                Proveedor_ABM.jButton_borrar.setVisible(false);
+                Proveedor.jButton_borrar.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
             } else {
                 PreparedStatement st = conexion.prepareStatement(
@@ -62,7 +153,7 @@ public class Metodos {
                         + " SET nombre ='" + nombre_proveedor + "',"
                         + " direccion ='" + direccion + "',"
                         + " telefono ='" + telefono + "',"
-                        + " ruc ='" + ruc + "',"
+                        + " ruc ='" + ruc + "' "
                         + " WHERE id_proveedor = '" + Metodos.id_proveedor + "'");
                 st.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
@@ -71,42 +162,42 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
     public synchronized static void Proveedor_buscar_por_ruc() {
         try {
             if (id_proveedor == 0) {
-                if (Proveedor_ABM.JT_Ruc.getText().length() > 1) {
+                if (Proveedor.JT_Ruc.getText().length() > 1) {
                     Statement ST = conexion.createStatement();
                     ResultSet RS = ST.executeQuery("Select * "
                             + "from proveedor "
-                            + "WHERE ruc ='" + Proveedor_ABM.JT_Ruc.getText() + "'");
+                            + "WHERE ruc ='" + Proveedor.JT_Ruc.getText() + "'");
                     if (RS.next()) {
                         JOptionPane.showMessageDialog(null, "R.U.C. registrado. Se mostrarán los datos del comercio");
 
-                        Proveedor_ABM.JT_Nombre.setText(RS.getString("nombre").trim());
-                        Proveedor_ABM.JT_Direccion.setText(RS.getString("direccion").trim());
-                        Proveedor_ABM.JT_Ruc.setText(RS.getString("ruc").trim());
-                        Proveedor_ABM.JT_Telefono.setText(RS.getString("telefono").trim());
-                        Proveedor_ABM.jButton_borrar.setVisible(true);
-                        Proveedor_ABM.JT_Nombre.setEditable(true);
+                        Proveedor.JT_Nombre.setText(RS.getString("nombre").trim());
+                        Proveedor.JT_Direccion.setText(RS.getString("direccion").trim());
+                        Proveedor.JT_Ruc.setText(RS.getString("ruc").trim());
+                        Proveedor.JT_Telefono.setText(RS.getString("telefono").trim());
+                        Proveedor.jButton_borrar.setVisible(true);
+                        Proveedor.JT_Nombre.setEditable(true);
 
                     }
                 }
-            } else if (Proveedor_ABM.JT_Ruc.getText().length() > 1) {
+            } else if (Proveedor.JT_Ruc.getText().length() > 1) {
                 Statement ST = conexion.createStatement();
                 ResultSet RS = ST.executeQuery("Select * "
                         + "from proveedor "
-                        + "WHERE ruc ='" + Proveedor_ABM.JT_Ruc.getText() + "' "
+                        + "WHERE ruc ='" + Proveedor.JT_Ruc.getText() + "' "
                         + "and id_proveedor != '" + id_proveedor + "'");
                 if (RS.next()) {
                     JOptionPane.showMessageDialog(null, "R.U.C. registrado. Se mostrarán los datos del comercio");
 
-                    Proveedor_ABM.JT_Nombre.setText(RS.getString("nombre").trim());
-                    Proveedor_ABM.JT_Direccion.setText(RS.getString("direccion").trim());
-                    Proveedor_ABM.JT_Ruc.setText(RS.getString("ruc").trim());
-                    Proveedor_ABM.JT_Telefono.setText(RS.getString("telefono").trim());
-                    Proveedor_ABM.jButton_borrar.setVisible(true);
-                    Proveedor_ABM.JT_Nombre.setEditable(true);
+                    Proveedor.JT_Nombre.setText(RS.getString("nombre").trim());
+                    Proveedor.JT_Direccion.setText(RS.getString("direccion").trim());
+                    Proveedor.JT_Ruc.setText(RS.getString("ruc").trim());
+                    Proveedor.JT_Telefono.setText(RS.getString("telefono").trim());
+                    Proveedor.jButton_borrar.setVisible(true);
+                    Proveedor.JT_Nombre.setEditable(true);
                 }
             }
 
@@ -114,7 +205,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
-    
+
     public synchronized static void Proveedores_delete() {
         try {
             PreparedStatement Update2 = conexion.prepareStatement(""
@@ -129,7 +220,7 @@ public class Metodos {
         }
 
     }
-    
+
     public synchronized static void getIngresar(String nombre, char[] password) {
 
         try {
@@ -159,10 +250,10 @@ public class Metodos {
         }
 
     }
-    
+
     public synchronized static void Cuentas_imprimir() {
         try {
-         
+
             String path = ubicacion_proyecto + "\\reports\\plan_de_cuentas.jasper";
 
             JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path);
@@ -170,11 +261,11 @@ public class Metodos {
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
         } catch (JRException ex) {
-         JOptionPane.showMessageDialog(null, ex);
+            JOptionPane.showMessageDialog(null, ex);
         }
 
     }
-    
+
     public synchronized static void Cuentas_guardar() {
         try {
             if (id_cuenta == 0) {
@@ -264,8 +355,7 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
-    
+
     public static void Cuentas_clear() {
         id_cuenta = 0;
         Cuentas_ABM.jTextField_nv1.setText("");
@@ -275,8 +365,7 @@ public class Metodos {
         Cuentas_ABM.jTextField_nv5.setText("");
         Cuentas_ABM.jTextField_cuenta.setText("");
     }
-    
-    
+
     public synchronized static void Cuentas_seleccionar() {
         DefaultTableModel tm = (DefaultTableModel) Cuentas.jTable1.getModel();
         id_cuenta = Integer.parseInt(String.valueOf(tm.getValueAt(Cuentas.jTable1.getSelectedRow(), 0)));
@@ -297,7 +386,7 @@ public class Metodos {
         }
 
     }
-    
+
     public synchronized static void Cuentas_cargar_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Cuentas.jTable1.getModel();
@@ -333,6 +422,60 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
+    public synchronized static void Cliente_jatble(String buscar) {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Clientes.jTable_cliente.getModel();
+            for (int j = 0; j < Clientes.jTable_cliente.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement("select id_cliente, nombre from cliente where nombre ilike '%" + buscar + "%'");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1);
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Clientes.jTable_cliente.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public synchronized static void Unidad_de_Medida_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Unidad_de_medida.jTable_unidad_medida.getModel();
+            for (int j = 0; j < Unidad_de_medida.jTable_unidad_medida.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement("select id_unidad_medida, unidad_medida from unidad_medida order by unidad_medida ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1);
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Unidad_de_medida.jTable_unidad_medida.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public synchronized static void Proveedor_jtable(String buscar) {
         try {
             PreparedStatement ps = conexion.prepareStatement(""
@@ -342,8 +485,8 @@ public class Metodos {
                     + "and borrado != '1' ");
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rsm = rs.getMetaData();
-            DefaultTableModel dtm = (DefaultTableModel) Proveedor_ABM.jTable_proveedor.getModel();
-            for (int j = 0; j < Proveedor_ABM.jTable_proveedor.getRowCount(); j++) {
+            DefaultTableModel dtm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
+            for (int j = 0; j < Proveedor.jTable_proveedor.getRowCount(); j++) {
                 dtm.removeRow(j);
                 j -= 1;
             }
@@ -361,7 +504,7 @@ public class Metodos {
                 }
                 data.add(rows);
             }
-            dtm = (DefaultTableModel) Proveedor_ABM.jTable_proveedor.getModel();
+            dtm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
             for (int i = 0; i < data.size(); i++) {
                 dtm.addRow(data.get(i));
             }
@@ -400,8 +543,21 @@ public class Metodos {
         }
     }
 
+    public synchronized static boolean isNumeric(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
     public static void Cliente_Guardar(String ruc, String ci, String direccion, String email, String nombre, String telefono) {
         try {
+
+            if (!isNumeric(ci.replace(".", ""))) {
+                ci = "0";
+            }
 
             if (id_cliente == 0) {
 
@@ -421,14 +577,14 @@ public class Metodos {
                 st2.setString(7, email);
                 st2.setInt(8, 0);
                 st2.executeUpdate();
-                
+
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
 
             } else {
                 PreparedStatement Update = conexion.prepareStatement("UPDATE cliente "
                         + "SET nombre = '" + nombre + "', "
                         + "ruc = '" + ruc + "', "
-                        + "telefono = '" + telefono + "', "
+                        + "telef = '" + telefono + "', "
                         + "ci = '" + Integer.parseInt(ci) + "', "
                         + "email = '" + email + "', "
                         + "direccion = '" + direccion + "' "
@@ -441,6 +597,30 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+    
+    public static void Unidad_medida_Guardar(String unidad) {
+        try {
+            if (id_unidad_medida == 0) {
+                PreparedStatement ps = conexion.prepareStatement("select max(id_unidad_medida) from unidad_medida");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_unidad_medida = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO unidad_medida VALUES(?,?)");
+                st2.setInt(1, id_unidad_medida);
+                st2.setString(2, unidad);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+                PreparedStatement Update = conexion.prepareStatement("UPDATE unidad_medida "
+                        + "SET unidad_medida = '" + unidad + "' "
+                        + "WHERE id_unidad_medida ='" + id_unidad_medida + "'");
+                Update.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
 
-   
 }

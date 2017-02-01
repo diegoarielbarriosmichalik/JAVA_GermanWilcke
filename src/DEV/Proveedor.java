@@ -5,9 +5,9 @@ import DEV.Metodos;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
-public class Proveedor_ABM extends javax.swing.JFrame {
+public class Proveedor extends javax.swing.JFrame {
 
-    public Proveedor_ABM() {
+    public Proveedor() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Proveedores");
@@ -72,6 +72,16 @@ public class Proveedor_ABM extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable_proveedor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_proveedorMouseClicked(evt);
+            }
+        });
+        jTable_proveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_proveedorKeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(jTable_proveedor);
@@ -338,6 +348,25 @@ public class Proveedor_ABM extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField_buscarKeyPressed
 
+    private void jTable_proveedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_proveedorKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            this.setVisible(false);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Metodos.Proveedor_selected();
+            Metodos.Proveedor_traer_datos();
+            jDialog_buscar.setVisible(false);
+            JT_Nombre.requestFocus();
+        }
+    }//GEN-LAST:event_jTable_proveedorKeyPressed
+
+    private void jTable_proveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_proveedorMouseClicked
+        Metodos.Proveedor_selected();
+        Metodos.Proveedor_traer_datos();
+        jDialog_buscar.setVisible(false);
+        JT_Nombre.requestFocus();
+    }//GEN-LAST:event_jTable_proveedorMouseClicked
+
     public void jDialog_buscar() {
         jDialog_buscar.setVisible(true);
         jDialog_buscar.setTitle("Buscar");
@@ -362,10 +391,10 @@ public class Proveedor_ABM extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Proveedor_ABM.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Proveedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         java.awt.EventQueue.invokeLater(() -> {
-            new Proveedor_ABM().setVisible(true);
+            new Proveedor().setVisible(true);
         });
     }
 

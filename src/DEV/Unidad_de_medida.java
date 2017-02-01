@@ -1,21 +1,22 @@
 package DEV;
 
-import DEV.Conexion;
-import DEV.Metodos;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class Clientes extends javax.swing.JFrame {
+public class Unidad_de_medida extends javax.swing.JFrame {
 
-    public Clientes() {
+    public Unidad_de_medida() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Clientes");
+        setTitle("Unidad de Medida");
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Conexion.Verificar_conexion();
 
-        Metodos.Cliente_clear();
+//        Metodos.Cliente_clear();
+        Metodos.id_unidad_medida = 0;
+        jButton_borrar.setVisible(false);
+        jt_unidad.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -25,16 +26,10 @@ public class Clientes extends javax.swing.JFrame {
         jDialog_buscar = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_cliente = new javax.swing.JTable();
-        jTextField_buscar = new javax.swing.JTextField();
+        jTable_unidad_medida = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jt_ruc = new javax.swing.JTextField();
-        jt_nombre = new javax.swing.JTextField();
-        jt_direccion = new javax.swing.JTextField();
-        jt_telefono = new javax.swing.JTextField();
-        jTextField_ci = new javax.swing.JTextField();
-        jt_email = new javax.swing.JTextField();
+        jt_unidad = new javax.swing.JTextField();
         jButton_borrar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -48,12 +43,12 @@ public class Clientes extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
 
-        jTable_cliente.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_unidad_medida.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombre"
+                "ID", "Unidad de Medida"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -64,33 +59,23 @@ public class Clientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable_unidad_medida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable_clienteMouseClicked(evt);
+                jTable_unidad_medidaMouseClicked(evt);
             }
         });
-        jTable_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTable_unidad_medida.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTable_clienteKeyPressed(evt);
+                jTable_unidad_medidaKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable_cliente);
-        if (jTable_cliente.getColumnModel().getColumnCount() > 0) {
-            jTable_cliente.getColumnModel().getColumn(0).setResizable(false);
-            jTable_cliente.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTable_cliente.getColumnModel().getColumn(1).setResizable(false);
-            jTable_cliente.getColumnModel().getColumn(1).setPreferredWidth(470);
+        jScrollPane1.setViewportView(jTable_unidad_medida);
+        if (jTable_unidad_medida.getColumnModel().getColumnCount() > 0) {
+            jTable_unidad_medida.getColumnModel().getColumn(0).setResizable(false);
+            jTable_unidad_medida.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_unidad_medida.getColumnModel().getColumn(1).setResizable(false);
+            jTable_unidad_medida.getColumnModel().getColumn(1).setPreferredWidth(470);
         }
-
-        jTextField_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
-        jTextField_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_buscarKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_buscarKeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -98,18 +83,14 @@ public class Clientes extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-                    .addComponent(jTextField_buscar))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -137,45 +118,20 @@ public class Clientes extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
 
-        jt_ruc.setBorder(javax.swing.BorderFactory.createTitledBorder("RUC"));
-        jt_ruc.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jt_rucFocusLost(evt);
-            }
-        });
-        jt_ruc.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jt_rucKeyPressed(evt);
-            }
-        });
-
-        jt_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre y Apellido"));
-        jt_nombre.addFocusListener(new java.awt.event.FocusAdapter() {
+        jt_unidad.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad de medida"));
+        jt_unidad.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jt_nombreFocusGained(evt);
+                jt_unidadFocusGained(evt);
             }
         });
-        jt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        jt_unidad.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jt_nombreKeyPressed(evt);
+                jt_unidadKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jt_nombreKeyReleased(evt);
+                jt_unidadKeyReleased(evt);
             }
         });
-
-        jt_direccion.setBorder(javax.swing.BorderFactory.createTitledBorder("Dirección"));
-        jt_direccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jt_direccionActionPerformed(evt);
-            }
-        });
-
-        jt_telefono.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefono"));
-
-        jTextField_ci.setBorder(javax.swing.BorderFactory.createTitledBorder("CI"));
-
-        jt_email.setBorder(javax.swing.BorderFactory.createTitledBorder("Correo Electrónico"));
 
         jButton_borrar.setBackground(new java.awt.Color(255, 255, 255));
         jButton_borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/del_mini.png"))); // NOI18N
@@ -235,14 +191,9 @@ public class Clientes extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jt_direccion)
-                    .addComponent(jt_nombre)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jt_email))
+                    .addComponent(jt_unidad)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 175, Short.MAX_VALUE)
                         .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -251,12 +202,7 @@ public class Clientes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jt_ruc, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_ci, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 148, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -265,18 +211,8 @@ public class Clientes extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jt_ruc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_ci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jt_unidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -319,28 +255,26 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Metodos.Cliente_Guardar(jt_ruc.getText(), jTextField_ci.getText(), jt_direccion.getText(), jt_email.getText(), jt_nombre.getText(), jt_telefono.getText());
-        jt_ruc.requestFocus();
+        Metodos.Unidad_medida_Guardar(jt_unidad.getText());
+        jt_unidad.requestFocus();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //  Metodos.Cliente_clear();
+        jt_unidad.setText("");
+        Metodos.id_unidad_medida = 0;
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jt_nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyReleased
+    private void jt_unidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_unidadKeyReleased
 
-    }//GEN-LAST:event_jt_nombreKeyReleased
+    }//GEN-LAST:event_jt_unidadKeyReleased
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
         //  Metodos.Cliente_update();
         jButton_borrar.setVisible(false);
     }//GEN-LAST:event_jButton_borrarActionPerformed
 
-    private void jt_direccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_direccionActionPerformed
-    }//GEN-LAST:event_jt_direccionActionPerformed
-
-    private void jt_nombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreFocusGained
-    }//GEN-LAST:event_jt_nombreFocusGained
+    private void jt_unidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_unidadFocusGained
+    }//GEN-LAST:event_jt_unidadFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
@@ -359,81 +293,55 @@ public class Clientes extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jt_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyPressed
+    private void jt_unidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_unidadKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
 
 
-    }//GEN-LAST:event_jt_nombreKeyPressed
-
-    private void jt_rucFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_rucFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jt_rucFocusLost
-
-    private void jt_rucKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_rucKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            this.setVisible(false);
-        }
-//
-//        if (evt.getKeyCode() == KeyEvent.VK_F1) {
-//            new Cliente_buscar().setVisible(true);
-//            Cliente_buscar.jT_Buscar.setText("");
-//            Cliente_buscar.formulario = 1;
-//        }
-
-    }//GEN-LAST:event_jt_rucKeyPressed
+    }//GEN-LAST:event_jt_unidadKeyPressed
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         jDialog_buscar();
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
     public void jDialog_buscar() {
-        jTextField_buscar.setText("");
-        jTextField_buscar.requestFocus();
+
         jDialog_buscar.setVisible(true);
-        jDialog_buscar.setTitle("Buscar cliente");
+        jDialog_buscar.setTitle("Buscar Unidad de Medida");
         jDialog_buscar.setSize(500, 500);
         jDialog_buscar.setLocationRelativeTo(null);
         jDialog_buscar.setAlwaysOnTop(true);
         jDialog_buscar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+
+        Metodos.Unidad_de_Medida_jtable();
+
     }
 
-
-    private void jTable_clienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_clienteKeyPressed
+    private void jTable_unidad_medidaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_unidad_medidaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             jDialog_buscar.setVisible(false);
-            jt_ruc.requestFocus();
+            jt_unidad.requestFocus();
         }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jDialog_buscar.setVisible(false);
-            Metodos.Cliente_selected();
+            Metodos.Unidad_medida_selected();
             Metodos.Cliente_traer_datos();
-            jt_ruc.requestFocus();
+            Metodos.Unidad_medida_traer_datos();
+            jt_unidad.requestFocus();
             jButton_borrar.setVisible(true);
 
         }
-    }//GEN-LAST:event_jTable_clienteKeyPressed
+    }//GEN-LAST:event_jTable_unidad_medidaKeyPressed
 
-    private void jTextField_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscarKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            jDialog_buscar.setVisible(false);
-            jt_ruc.requestFocus();
-        }
-
-
-    }//GEN-LAST:event_jTextField_buscarKeyPressed
-
-    private void jTable_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_clienteMouseClicked
-        Metodos.Cliente_selected();
-        Metodos.Cliente_traer_datos();
+    private void jTable_unidad_medidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_unidad_medidaMouseClicked
         jDialog_buscar.setVisible(false);
+        Metodos.Unidad_medida_selected();
+        Metodos.Cliente_traer_datos();
+        Metodos.Unidad_medida_traer_datos();
+        jt_unidad.requestFocus();
         jButton_borrar.setVisible(true);
-    }//GEN-LAST:event_jTable_clienteMouseClicked
-
-    private void jTextField_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscarKeyReleased
-        Metodos.Cliente_jatble(jTextField_buscar.getText());
-    }//GEN-LAST:event_jTextField_buscarKeyReleased
+    }//GEN-LAST:event_jTable_unidad_medidaMouseClicked
 
     public static void main(String args[]) {
         try {
@@ -448,7 +356,7 @@ public class Clientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
         java.awt.EventQueue.invokeLater(() -> {
-            new Clientes().setVisible(true);
+            new Unidad_de_medida().setVisible(true);
         });
     }
 
@@ -465,13 +373,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    public static javax.swing.JTable jTable_cliente;
-    private javax.swing.JTextField jTextField_buscar;
-    public static javax.swing.JTextField jTextField_ci;
-    public static javax.swing.JTextField jt_direccion;
-    public static javax.swing.JTextField jt_email;
-    public static javax.swing.JTextField jt_nombre;
-    public static javax.swing.JTextField jt_ruc;
-    public static javax.swing.JTextField jt_telefono;
+    public static javax.swing.JTable jTable_unidad_medida;
+    public static javax.swing.JTextField jt_unidad;
     // End of variables declaration//GEN-END:variables
 }

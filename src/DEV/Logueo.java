@@ -12,9 +12,9 @@ public class Logueo extends javax.swing.JFrame {
     public Logueo() {
         initComponents();
         setLocationRelativeTo(null);
-       // hoy = DEV.Metodos.getHoy_format2();
+        // hoy = DEV.Metodos.getHoy_format2();
         setTitle("Blocked Access");
-      
+
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
 
         jTextField1.setEditable(false);
@@ -163,7 +163,7 @@ public class Logueo extends javax.swing.JFrame {
 
     private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
         if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
-           DEV.Metodos.getIngresar(jTextField1.getText(), jPasswordField1.getPassword());
+            DEV.Metodos.getIngresar(jTextField1.getText(), jPasswordField1.getPassword());
             if (Metodos.entro == true) {
                 this.setVisible(false);
             }
@@ -185,11 +185,14 @@ public class Logueo extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
         System.exit(-1);
-      
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            this.setVisible(false);
+            System.exit(-1);
+        }
     }//GEN-LAST:event_jTextField1KeyPressed
 
     public static void main(String args[]) {
