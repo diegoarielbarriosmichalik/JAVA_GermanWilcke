@@ -48,7 +48,7 @@ public class Conexion {
             String mac_adress2 = null;
             System.err.println(result);
             if (result.equals("-792900638")) { // 4k 
-                db = "4k"; 
+                db = "german_wilcke"; 
 //                db = "pipas_bar"; 
                 //db = "mca_novedades_nuevo";
 //                db = "mca"; // del campo
@@ -63,58 +63,6 @@ public class Conexion {
                 user = "postgres";
                 pass = "postgres";
                 mac_adress = "-1878214831";
-            }
-            if (result.equals("-320289644")) { // pipas
-                db = "pipas_bar"; 
-                host = "localhost"; 
-                user = "postgres";
-                pass = "0985846411";
-                mac_adress = "-320289644";
-            }
-            if (result.equals("-968703509")) { // la faena
-                db = "lafaena"; 
-                host = "localhost"; 
-                user = "postgres";
-                pass = "postgres";
-                mac_adress = "-968703509";
-            }
-            if (result.equals("-1799429616")) { // alfa
-                db = "alfa"; 
-                host = "localhost"; 
-                user = "postgres";
-                pass = "postgres";
-                mac_adress = "-1799429616";
-            }
-            if (result.equals("1748823206")) { // 4k 
-               db = "alfa"; 
-               host = "localhost";
-              //  db = "mca_novedades_nuevo";
-              //  host = "localhost"; //mca
-                user = "postgres";
-                pass = "postgres";
-                mac_adress = "1748823206";
-            }
-
-            if (result.equals("-1963187798")) { // fredy
-                db = "CostaSurtidor";
-                host = "localhost";
-                user = "postgres";
-                pass = "postgres";
-                mac_adress = "-1963187798";
-            }
-            if (result.equals("-1471024726")) { // fredy
-                db = "mca_novedades_nuevo";
-                user = "postgres";
-                pass = "postgres";
-                host = "localhost";
-                mac_adress = "-1471024726";
-            }
-            if (result.equals("-1764525605")) { // fredy
-                db = "mca";
-                user = "postgres";
-                pass = "postgres";
-                host = "localhost";
-                mac_adress = "-1764525605";
             }
 
             if ((result.equals(mac_adress)) || (result.equals(mac_adress2))) {
@@ -144,7 +92,6 @@ public class Conexion {
     public static void Verificar_conexion() {
         try {
             if (conexion.isClosed() == false) {
-                System.err.println("conexion OK");
             } else {
                 System.err.println("conexion FAIL");
                 Iniciar_Conexion();

@@ -21,10 +21,11 @@ public class Clientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
+        jDialog_buscar = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jt_ruc = new javax.swing.JTextField();
@@ -39,9 +40,9 @@ public class Clientes extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jButton5 = new javax.swing.JButton();
+        jButton_buscar = new javax.swing.JButton();
 
-        jDialog1.setUndecorated(true);
+        jDialog_buscar.setUndecorated(true);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
@@ -75,31 +76,42 @@ public class Clientes extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(470);
         }
 
+        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                    .addComponent(jTextField1))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jDialog_buscarLayout = new javax.swing.GroupLayout(jDialog_buscar.getContentPane());
+        jDialog_buscar.getContentPane().setLayout(jDialog_buscarLayout);
+        jDialog_buscarLayout.setHorizontalGroup(
+            jDialog_buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDialog_buscarLayout.setVerticalGroup(
+            jDialog_buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -195,13 +207,13 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar_mini.png"))); // NOI18N
-        jButton5.setToolTipText("");
-        jButton5.setBorder(null);
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButton_buscar.setBackground(new java.awt.Color(255, 255, 255));
+        jButton_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/buscar_mini.png"))); // NOI18N
+        jButton_buscar.setToolTipText("");
+        jButton_buscar.setBorder(null);
+        jButton_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                jButton_buscarActionPerformed(evt);
             }
         });
 
@@ -224,7 +236,7 @@ public class Clientes extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -263,7 +275,7 @@ public class Clientes extends javax.swing.JFrame {
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -298,7 +310,7 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // Cliente_Guardar();
+        Metodos.Cliente_Guardar(jt_ruc.getText(), jTextField_ci.getText(), jt_direccion.getText(), jt_email.getText(), jt_nombre.getText(), jt_telefono.getText());
         jt_ruc.requestFocus();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -351,9 +363,9 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_rucFocusLost
 
     private void jt_rucKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_rucKeyPressed
-//        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//            this.setVisible(false);
-//        }
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            this.setVisible(false);
+        }
 //
 //        if (evt.getKeyCode() == KeyEvent.VK_F1) {
 //            new Cliente_buscar().setVisible(true);
@@ -363,15 +375,33 @@ public class Clientes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jt_rucKeyPressed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        jDialog1.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
+        jDialog_buscar();
+    }//GEN-LAST:event_jButton_buscarActionPerformed
 
+    public void jDialog_buscar() {
+        jDialog_buscar.setVisible(true);
+        jDialog_buscar.setTitle("Buscar cliente");
+        jDialog_buscar.setSize(500, 500);
+        jDialog_buscar.setLocationRelativeTo(null);
+        jDialog_buscar.setAlwaysOnTop(true);
+        jDialog_buscar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+
+    
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            jDialog1.setVisible(false);
+            jDialog_buscar.setVisible(false);
+            jt_ruc.requestFocus();
         }
     }//GEN-LAST:event_jTable1KeyPressed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+      if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_buscar.setVisible(false);
+            jt_ruc.requestFocus();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
     
     public static void main(String args[]) {
         try {
@@ -394,9 +424,9 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     public static javax.swing.JButton jButton_borrar;
-    private javax.swing.JDialog jDialog1;
+    private javax.swing.JButton jButton_buscar;
+    private javax.swing.JDialog jDialog_buscar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -404,6 +434,7 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     public static javax.swing.JTextField jTextField_ci;
     public static javax.swing.JTextField jt_direccion;
     public static javax.swing.JTextField jt_email;
