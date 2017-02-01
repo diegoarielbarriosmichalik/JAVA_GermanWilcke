@@ -8,6 +8,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -22,13 +23,113 @@ import net.sf.jasperreports.view.JasperViewer;
 public class Metodos {
 
     public static int id_usuario = 0;
+    public static int id_proveedor = 0;
     public static int id_cuenta = 0;
     public static int id_cliente = 0;
     public static int privilegio = 0;
     public static String ubicacion_proyecto = "";
     public static String titulo = "";
     public static boolean entro = false;
+    public static Date hoy = new Date();
 
+    public synchronized static void Proveedor_guardar(String nombre_proveedor, String ruc, String telefono, String direccion) {
+        try {
+
+            if ((nombre_proveedor == null) && (nombre_proveedor.length() < 1)) {
+                JOptionPane.showMessageDialog(null, "Ingresar el Nombre");
+            } else if (Metodos.id_proveedor == 0) {
+
+                int id = 0;
+                Statement st1 = conexion.createStatement();
+                ResultSet result = st1.executeQuery("SELECT MAX(id_proveedor) FROM proveedor");
+                if (result.next()) {
+                    id = result.getInt(1) + 1;
+                }
+
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO proveedor VALUES(?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id);
+                stUpdateProducto.setString(2, nombre_proveedor);
+                stUpdateProducto.setString(3, ruc);
+                stUpdateProducto.setString(4, telefono);
+                stUpdateProducto.setString(5, direccion);
+                stUpdateProducto.setInt(6, 0);
+                stUpdateProducto.executeUpdate();
+                Proveedor_ABM.jButton_borrar.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+                PreparedStatement st = conexion.prepareStatement(
+                        " UPDATE proveedor "
+                        + " SET nombre ='" + nombre_proveedor + "',"
+                        + " direccion ='" + direccion + "',"
+                        + " telefono ='" + telefono + "',"
+                        + " ruc ='" + ruc + "',"
+                        + " WHERE id_proveedor = '" + Metodos.id_proveedor + "'");
+                st.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            }
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public synchronized static void Proveedor_buscar_por_ruc() {
+        try {
+            if (id_proveedor == 0) {
+                if (Proveedor_ABM.JT_Ruc.getText().length() > 1) {
+                    Statement ST = conexion.createStatement();
+                    ResultSet RS = ST.executeQuery("Select * "
+                            + "from proveedor "
+                            + "WHERE ruc ='" + Proveedor_ABM.JT_Ruc.getText() + "'");
+                    if (RS.next()) {
+                        JOptionPane.showMessageDialog(null, "R.U.C. registrado. Se mostrarán los datos del comercio");
+
+                        Proveedor_ABM.JT_Nombre.setText(RS.getString("nombre").trim());
+                        Proveedor_ABM.JT_Direccion.setText(RS.getString("direccion").trim());
+                        Proveedor_ABM.JT_Ruc.setText(RS.getString("ruc").trim());
+                        Proveedor_ABM.JT_Telefono.setText(RS.getString("telefono").trim());
+                        Proveedor_ABM.jButton_borrar.setVisible(true);
+                        Proveedor_ABM.JT_Nombre.setEditable(true);
+
+                    }
+                }
+            } else if (Proveedor_ABM.JT_Ruc.getText().length() > 1) {
+                Statement ST = conexion.createStatement();
+                ResultSet RS = ST.executeQuery("Select * "
+                        + "from proveedor "
+                        + "WHERE ruc ='" + Proveedor_ABM.JT_Ruc.getText() + "' "
+                        + "and id_proveedor != '" + id_proveedor + "'");
+                if (RS.next()) {
+                    JOptionPane.showMessageDialog(null, "R.U.C. registrado. Se mostrarán los datos del comercio");
+
+                    Proveedor_ABM.JT_Nombre.setText(RS.getString("nombre").trim());
+                    Proveedor_ABM.JT_Direccion.setText(RS.getString("direccion").trim());
+                    Proveedor_ABM.JT_Ruc.setText(RS.getString("ruc").trim());
+                    Proveedor_ABM.JT_Telefono.setText(RS.getString("telefono").trim());
+                    Proveedor_ABM.jButton_borrar.setVisible(true);
+                    Proveedor_ABM.JT_Nombre.setEditable(true);
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    
+    public synchronized static void Proveedores_delete() {
+        try {
+            PreparedStatement Update2 = conexion.prepareStatement(""
+                    + "UPDATE proveedor "
+                    + "SET borrado_int = '1' "
+                    + "WHERE id_proveedor ='" + id_proveedor + "'");
+            Update2.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Proveedor eliminado.");
+
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+
+    }
+    
     public synchronized static void getIngresar(String nombre, char[] password) {
 
         try {
@@ -230,6 +331,42 @@ public class Metodos {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+        }
+    }
+    public synchronized static void Proveedor_jtable(String buscar) {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_proveedor, nombre "
+                    + "from proveedor "
+                    + "where nombre ilike '%" + buscar + "%' "
+                    + "and borrado_int != '1' ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Proveedor_ABM.jTable_proveedor.getModel();
+            for (int j = 0; j < Proveedor_ABM.jTable_proveedor.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    if (rs.getObject(i + 1) == null) {
+                        System.err.println("Es NULL");
+                    } else if (rs.getObject(i + 1).toString().length() > 1) {
+                        rows[i] = rs.getObject(i + 1).toString().trim();
+                    } else {
+                        rows[i] = rs.getObject(i + 1);
+                    }
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Proveedor_ABM.jTable_proveedor.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
         }
     }
 
