@@ -4,14 +4,25 @@ import static DEV.Conexion.conexion;
 import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Metodos {
 
     public static int id_usuario = 0;
+    public static int id_cuenta = 0;
     public static int id_cliente = 0;
     public static int privilegio = 0;
     public static String ubicacion_proyecto = "";
@@ -46,6 +57,180 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, ex);
         }
 
+    }
+    
+    public synchronized static void Cuentas_imprimir() {
+        try {
+         
+            String path = ubicacion_proyecto + "\\reports\\plan_de_cuentas.jasper";
+
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, conexion);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        } catch (JRException ex) {
+         JOptionPane.showMessageDialog(null, ex);
+        }
+
+    }
+    
+    public synchronized static void Cuentas_guardar() {
+        try {
+            if (id_cuenta == 0) {
+                if ((Cuentas_ABM.jTextField_nv1.getText().length() < 1)
+                        || (Cuentas_ABM.jTextField_cuenta.getText().length() < 1)) {
+                    System.err.println("Complete todos los campos");
+                } else {
+
+                    Statement st1 = conexion.createStatement();
+
+                    ResultSet result = st1.executeQuery("SELECT MAX(id_cuenta) FROM cuenta");
+                    if (result.next()) {
+                        id_cuenta = result.getInt(1) + 1;
+                    }
+                    int nv1 = 0;
+                    if (Cuentas_ABM.jTextField_nv1.getText().length() > 0) {
+                        nv1 = Integer.parseInt(Cuentas_ABM.jTextField_nv1.getText());
+                    }
+                    int nv2 = 0;
+                    if (Cuentas_ABM.jTextField_nv2.getText().length() > 0) {
+                        nv2 = Integer.parseInt(Cuentas_ABM.jTextField_nv2.getText());
+                    }
+                    int nv3 = 0;
+                    if (Cuentas_ABM.jTextField_nv3.getText().length() > 0) {
+                        nv3 = Integer.parseInt(Cuentas_ABM.jTextField_nv3.getText());
+                    }
+                    int nv4 = 0;
+                    if (Cuentas_ABM.jTextField_nv4.getText().length() > 0) {
+                        nv4 = Integer.parseInt(Cuentas_ABM.jTextField_nv4.getText());
+                    }
+                    int nv5 = 0;
+                    if (Cuentas_ABM.jTextField_nv5.getText().length() > 0) {
+                        nv5 = Integer.parseInt(Cuentas_ABM.jTextField_nv5.getText());
+                    }
+                    PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO cuenta VALUES(?,?,?,?,?,?,?,?)");
+                    stUpdateProducto.setInt(1, id_cuenta);
+                    stUpdateProducto.setInt(2, nv1);
+                    stUpdateProducto.setInt(3, nv2);
+                    stUpdateProducto.setInt(4, nv3);
+                    stUpdateProducto.setInt(5, nv4);
+                    stUpdateProducto.setInt(6, nv5);
+                    stUpdateProducto.setString(7, Cuentas_ABM.jTextField_cuenta.getText());
+                    stUpdateProducto.setInt(8, 0);
+                    stUpdateProducto.executeUpdate();
+
+                }
+            } else if (Cuentas_ABM.jTextField_cuenta.getText().length() > 0) {
+
+                int nv1 = 0;
+                if (Cuentas_ABM.jTextField_nv1.getText().length() > 0) {
+                    nv1 = Integer.parseInt(Cuentas_ABM.jTextField_nv1.getText());
+                }
+                int nv2 = 0;
+                if (Cuentas_ABM.jTextField_nv2.getText().length() > 0) {
+                    nv2 = Integer.parseInt(Cuentas_ABM.jTextField_nv2.getText());
+                }
+                int nv3 = 0;
+                if (Cuentas_ABM.jTextField_nv3.getText().length() > 0) {
+                    nv3 = Integer.parseInt(Cuentas_ABM.jTextField_nv3.getText());
+                }
+                int nv4 = 0;
+                if (Cuentas_ABM.jTextField_nv4.getText().length() > 0) {
+                    nv4 = Integer.parseInt(Cuentas_ABM.jTextField_nv4.getText());
+                }
+                int nv5 = 0;
+                if (Cuentas_ABM.jTextField_nv5.getText().length() > 0) {
+                    nv5 = Integer.parseInt(Cuentas_ABM.jTextField_nv5.getText());
+                }
+
+                PreparedStatement st = conexion.prepareStatement(""
+                        + "UPDATE cuenta "
+                        + "SET cuenta ='" + Cuentas_ABM.jTextField_cuenta.getText().trim() + "', "
+                        + "nv1 ='" + nv1 + "', "
+                        + "nv2 ='" + nv2 + "', "
+                        + "nv3 ='" + nv3 + "', "
+                        + "nv4 = '" + nv4 + "', "
+                        + "nv5 = '" + nv5 + "' "
+                        + "WHERE id_cuenta = '" + id_cuenta + "'");
+                st.executeUpdate();
+            } else {
+                JOptionPane.showMessageDialog(null, "Complete todos los campos");
+            }
+
+            JOptionPane.showMessageDialog(null, "Guardado correctamente");
+
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    
+    public static void Cuentas_clear() {
+        id_cuenta = 0;
+        Cuentas_ABM.jTextField_nv1.setText("");
+        Cuentas_ABM.jTextField_nv2.setText("");
+        Cuentas_ABM.jTextField_nv3.setText("");
+        Cuentas_ABM.jTextField_nv4.setText("");
+        Cuentas_ABM.jTextField_nv5.setText("");
+        Cuentas_ABM.jTextField_cuenta.setText("");
+    }
+    
+    
+    public synchronized static void Cuentas_seleccionar() {
+        DefaultTableModel tm = (DefaultTableModel) Cuentas.jTable1.getModel();
+        id_cuenta = Integer.parseInt(String.valueOf(tm.getValueAt(Cuentas.jTable1.getSelectedRow(), 0)));
+
+        try {
+            Statement ST = conexion.createStatement();
+            ResultSet RS = ST.executeQuery("SELECT * FROM cuenta where id_cuenta = '" + id_cuenta + "'");
+            if (RS.next()) {
+                Cuentas_ABM.jTextField_nv1.setText(RS.getString("nv1"));
+                Cuentas_ABM.jTextField_nv2.setText(RS.getString("nv2"));
+                Cuentas_ABM.jTextField_nv3.setText(RS.getString("nv3"));
+                Cuentas_ABM.jTextField_nv4.setText(RS.getString("nv4"));
+                Cuentas_ABM.jTextField_nv5.setText(RS.getString("nv5"));
+                Cuentas_ABM.jTextField_cuenta.setText(RS.getString("cuenta").trim());
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+
+    }
+    
+    public synchronized static void Cuentas_cargar_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Cuentas.jTable1.getModel();
+            for (int j = 0; j < Cuentas.jTable1.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_cuenta,  (nv1 || '.' || nv2|| '.' || nv3|| '.' || nv4|| '.' || nv5|| ' ' || cuenta) AS cuenta  "
+                    + "from cuenta "
+                    + "where cuenta ilike '%" + Cuentas.jTextField_buscar.getText() + "%' order by nv1, nv2,nv3,nv4,nv5");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+
+                    String cadena = rs2.getObject(i + 1).toString().trim().replace("....", "                    ");
+                    cadena = cadena.replace(".0.0.0.0", " ");
+                    cadena = cadena.replace(".0.0.0", " ");
+                    cadena = cadena.replace(".0.0", " ");
+                    cadena = cadena.replace(".0", " ");
+                    rows[i] = cadena;
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Cuentas.jTable1.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
     }
 
     public static void Configuracion_guardar(String empresa, String ruc, String telefono, String direccion) {
@@ -119,4 +304,6 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+
+   
 }

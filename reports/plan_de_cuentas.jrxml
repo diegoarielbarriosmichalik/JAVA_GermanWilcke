@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="plan_de_cuentas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65eb46d0-0dff-4bf9-862e-1b9c6c5a832e">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from cuenta]]>
+	</queryString>
+	<field name="id_cuenta" class="java.lang.Integer"/>
+	<field name="nv1" class="java.lang.Integer"/>
+	<field name="nv2" class="java.lang.Integer"/>
+	<field name="nv3" class="java.lang.Integer"/>
+	<field name="nv4" class="java.lang.Integer"/>
+	<field name="nv5" class="java.lang.Integer"/>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="borrado" class="java.lang.Integer"/>
+	<field name="iva" class="java.lang.Integer"/>
+	<field name="deducible" class="java.lang.Integer"/>
+	<field name="gravada" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="17" width="517" height="36" uuid="4ec85260-f16b-4d4d-8093-4a0f507b60fa"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INFORME	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="6" y="95" width="100" height="13" uuid="4dd50ba7-eabd-46a7-a39b-f36eeb0d255a"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuentas	]]></text>
+			</staticText>
+			<line>
+				<reportElement x="6" y="107" width="549" height="1" uuid="e3e1e4be-30dc-4591-8c09-b921707f1646"/>
+			</line>
+			<staticText>
+				<reportElement x="6" y="70" width="100" height="20" uuid="abba040a-a705-46c5-9543-6f152cc000dd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plan de Cuentas]]></text>
+			</staticText>
+			<line>
+				<reportElement x="6" y="91" width="549" height="1" uuid="001f5872-ea83-4703-869f-d9205e975b1a"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="12" y="1" width="417" height="11" uuid="6f4b4dfd-5eb3-4aca-a369-7df2661bfd8e"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nv1}+"."+$F{nv2}+"."+$F{nv3}+"."+$F{nv4}+"."+$F{nv5}+"  "+$F{cuenta}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="11" y="13" width="532" height="1" uuid="2e531aca-d215-4b0e-8630-9bc8797311c3"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
