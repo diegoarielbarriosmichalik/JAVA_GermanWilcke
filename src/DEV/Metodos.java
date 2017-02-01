@@ -339,7 +339,7 @@ public class Metodos {
                     + "select id_proveedor, nombre "
                     + "from proveedor "
                     + "where nombre ilike '%" + buscar + "%' "
-                    + "and borrado_int != '1' ");
+                    + "and borrado != '1' ");
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rsm = rs.getMetaData();
             DefaultTableModel dtm = (DefaultTableModel) Proveedor_ABM.jTable_proveedor.getModel();

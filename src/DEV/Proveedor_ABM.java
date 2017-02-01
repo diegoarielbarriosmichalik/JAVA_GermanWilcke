@@ -52,6 +52,11 @@ public class Proveedor_ABM extends javax.swing.JFrame {
                 jTextField_buscarActionPerformed(evt);
             }
         });
+        jTextField_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_buscarKeyPressed(evt);
+            }
+        });
 
         jTable_proveedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -325,6 +330,13 @@ public class Proveedor_ABM extends javax.swing.JFrame {
     private void jTextField_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_buscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_buscarActionPerformed
+
+    private void jTextField_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_buscar.setVisible(false);
+            JT_Nombre.requestFocus();
+        }
+    }//GEN-LAST:event_jTextField_buscarKeyPressed
 
     public void jDialog_buscar() {
         jDialog_buscar.setVisible(true);
