@@ -4,7 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[select * from cuenta]]>
+		<![CDATA[select * from cuenta order by nv1, nv2,nv3,nv4,nv5]]>
 	</queryString>
 	<field name="id_cuenta" class="java.lang.Integer"/>
 	<field name="nv1" class="java.lang.Integer"/>
