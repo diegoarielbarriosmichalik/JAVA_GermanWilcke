@@ -1,30 +1,31 @@
 package DEV;
 
-import static DEV.Metodos.ubicacion_proyecto;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Producto extends javax.swing.JFrame {
-
+    
     public Producto() {
-
+        
         initComponents();
         setTitle("Productos");
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
-    //    jButton_borrar.setVisible(false);
-    //    Conexion.Verificar_conexion();
+        //    jButton_borrar.setVisible(false);
+        //    Conexion.Verificar_conexion();
 
-  //      ImageIcon imagen = new ImageIcon(ubicacion_proyecto + "\\imagenes\\0.jpg");
-   //     imagen.getImage().flush();
-     //   Producto.jLabel_imagen.setIcon(imagen);
-     //   Producto_Nuevo();
-       // Metodos.Productos_historial_compra();
+        //      ImageIcon imagen = new ImageIcon(ubicacion_proyecto + "\\imagenes\\0.jpg");
+        //     imagen.getImage().flush();
+        //   Producto.jLabel_imagen.setIcon(imagen);
+           Metodos.Producto_Nuevo();
+        // Metodos.Productos_historial_compra();
 //        jLabel_mensaje.setVisible(false);
-
+        jTextField_porcentaje.setVisible(false);
+        jLabel8.setVisible(false);
+        
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -346,7 +347,7 @@ public class Producto extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(521, Short.MAX_VALUE))
+                .addContainerGap(539, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,7 +408,7 @@ public class Producto extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 861, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -461,7 +462,7 @@ public class Producto extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 861, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -542,10 +543,12 @@ public class Producto extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane1)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 643, Short.MAX_VALUE)
                         .addComponent(jButton_borrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_buscar)
@@ -554,8 +557,7 @@ public class Producto extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -603,10 +605,10 @@ public class Producto extends javax.swing.JFrame {
 
     private void producto_proveedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_producto_proveedorKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-          //  new Productos_buscar_proveedores().setVisible(true);
+            //  new Productos_buscar_proveedores().setVisible(true);
         }
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
-         //   new Productos_buscar_proveedores().setVisible(true);
+            //   new Productos_buscar_proveedores().setVisible(true);
         }
     }//GEN-LAST:event_producto_proveedorKeyPressed
 
@@ -615,13 +617,13 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_producto_nombreFocusLost
 
     private void producto_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_producto_nombreKeyPressed
-
+        
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
-        //    new Producto_buscar().setVisible(true);
-        //    Producto_buscar.formulario = 1;
+            //    new Producto_buscar().setVisible(true);
+            //    Producto_buscar.formulario = 1;
         }
     }//GEN-LAST:event_producto_nombreKeyPressed
 
@@ -638,8 +640,8 @@ public class Producto extends javax.swing.JFrame {
             this.setVisible(false);
         }
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
-          //  new Producto_buscar().setVisible(true);
-          //  Producto_buscar.formulario = 1;
+            //  new Producto_buscar().setVisible(true);
+            //  Producto_buscar.formulario = 1;
         }
     }//GEN-LAST:event_producto_codigoKeyPressed
 
@@ -663,7 +665,7 @@ public class Producto extends javax.swing.JFrame {
 //            Producto_Guardar();
 //        }
     }//GEN-LAST:event_producto_precioKeyReleased
-
+    
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 //        Metodos.Producto_Guardar();
@@ -676,33 +678,33 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Producto_Nuevo();
+        Metodos.Producto_Nuevo();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void producto_nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_producto_nombreKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_F4) {
-        //    Producto_Guardar();
+            //    Producto_Guardar();
         }
         if (evt.getKeyCode() == KeyEvent.VK_F2) {
-            Producto_Nuevo();
+            Metodos.Producto_Nuevo();
         }
     }//GEN-LAST:event_producto_nombreKeyReleased
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_F4) {
-          //  Producto_Guardar();
+            //  Producto_Guardar();
         }
         if (evt.getKeyCode() == KeyEvent.VK_F2) {
-            Producto_Nuevo();
+            Metodos.Producto_Nuevo();
         }
     }//GEN-LAST:event_formKeyReleased
 
     private void producto_stock_bajoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_producto_stock_bajoKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_F4) {
-          //  Producto_Guardar();
+            //  Producto_Guardar();
         }
         if (evt.getKeyCode() == KeyEvent.VK_F2) {
-            Producto_Nuevo();
+            Metodos.Producto_Nuevo();
         }
     }//GEN-LAST:event_producto_stock_bajoKeyReleased
 
@@ -716,10 +718,10 @@ public class Producto extends javax.swing.JFrame {
 
     private void jTextField_TipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_TipoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-        //    new Productos_rubro_listado().setVisible(true);
+            //    new Productos_rubro_listado().setVisible(true);
         }
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
-       //     new Productos_rubro_listado().setVisible(true);
+            //     new Productos_rubro_listado().setVisible(true);
         }
     }//GEN-LAST:event_jTextField_TipoKeyPressed
 
@@ -737,15 +739,15 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_TipoMouseClicked
 
     private void jTextField_ivaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_ivaMouseClicked
-     //   new Iva().setVisible(true);
+        //   new Iva().setVisible(true);
     }//GEN-LAST:event_jTextField_ivaMouseClicked
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
-
+        
         if (JOptionPane.showConfirmDialog(
                 rootPane, "¿Desea borrar este producto?", "AVISO",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-     //       Metodos.Productos_delete();
+            //       Metodos.Productos_delete();
             jButton_borrar.setVisible(false);
         }
     }//GEN-LAST:event_jButton_borrarActionPerformed
@@ -764,23 +766,23 @@ public class Producto extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-   //     Facturacion.jT_buscador.requestFocus();
+        //     Facturacion.jT_buscador.requestFocus();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void producto_codigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_producto_codigoFocusLost
-
+        
         if (Producto.producto_codigo.getText().length() > 0) {
-     //       Metodos.Producto_Buscar_por_codigo_de_barras();
+            //       Metodos.Producto_Buscar_por_codigo_de_barras();
             producto_nombre.requestFocus();
         }
     }//GEN-LAST:event_producto_codigoFocusLost
 
     private void jTextField_ivaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ivaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-     //       new Iva().setVisible(true);
+            //       new Iva().setVisible(true);
         }
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
-    //       new Iva().setVisible(true);
+            //       new Iva().setVisible(true);
         }
     }//GEN-LAST:event_jTextField_ivaKeyPressed
 
@@ -798,42 +800,23 @@ public class Producto extends javax.swing.JFrame {
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
 
-     //   new Producto_buscar().setVisible(true);
-     //   Producto_buscar.formulario = 1;
+        //   new Producto_buscar().setVisible(true);
+        //   Producto_buscar.formulario = 1;
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    //    new Producto_precio().setVisible(true);
+        //    new Producto_precio().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTable_preciosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_preciosMouseClicked
-     //   Metodos.Productos_precio_seleccionar();
-    //    new Productos_precio_opciones().setVisible(true);
+        //   Metodos.Productos_precio_seleccionar();
+        //    new Productos_precio_opciones().setVisible(true);
     }//GEN-LAST:event_jTable_preciosMouseClicked
-
-    public static void Producto_Nuevo() {
-//        Metodos.id_producto = 0;
-//        Metodos.id_proveedor = 0;
-//        Metodos.id_ubicacion = 0;
-//        Metodos.id_proveedor = 1;
-//        producto_nombre.setText("");
-//        producto_precio.setText("");
-//        ubicacion.setText("");
-//        producto_proveedor.setText("No especificado");
-//        jTextField_Tipo.setText("No especificado");
-//        producto_stock_bajo.setText("");
-//        producto_nombre.requestFocus();
-//        producto_codigo.setText("");
-//        Producto.producto_nombre.setEditable(true);
-//        Producto.jTextField_porcentaje.setText("0");
-//        Producto.jTextField_precio_de_compra.setText("0");
-//        jTextField_iva.setText("10");
-//        jButton_borrar.setVisible(false);
-//        producto_codigo.requestFocus();
-    }
-
+    
+    
+    
     public static void main(String args[]) {
-
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -844,7 +827,7 @@ public class Producto extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
+        
         java.awt.EventQueue.invokeLater(() -> {
             new Producto().setVisible(true);
         });

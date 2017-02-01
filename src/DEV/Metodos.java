@@ -23,10 +23,12 @@ import net.sf.jasperreports.view.JasperViewer;
 public class Metodos {
 
     public static int id_usuario = 0;
+    public static int id_producto = 0;
     public static int id_proveedor = 0;
     public static int id_cuenta = 0;
     public static int id_cliente = 0;
     public static int id_unidad_medida = 0;
+    public static int id_ubicacion = 0;
     public static int privilegio = 0;
     public static String ubicacion_proyecto = "";
     public static String titulo = "";
@@ -46,7 +48,32 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Unidad_de_medida.jTable_unidad_medida.getModel();
         id_unidad_medida = Integer.parseInt(String.valueOf(tm.getValueAt(Unidad_de_medida.jTable_unidad_medida.getSelectedRow(), 0)));
     }
+    public synchronized static void Ubicacion_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Ubicacion.jTable_ubicacion.getModel();
+        id_ubicacion = Integer.parseInt(String.valueOf(tm.getValueAt(Ubicacion.jTable_ubicacion.getSelectedRow(), 0)));
+    }
 
+    public static void Producto_Nuevo() {
+        Metodos.id_producto = 0;
+//        Metodos.id_proveedor = 0;
+//        Metodos.id_ubicacion = 0;
+//        Metodos.id_proveedor = 1;
+//        producto_nombre.setText("");
+//        producto_precio.setText("");
+//        ubicacion.setText("");
+//        producto_proveedor.setText("No especificado");
+//        jTextField_Tipo.setText("No especificado");
+//        producto_stock_bajo.setText("");
+//        producto_nombre.requestFocus();
+//        producto_codigo.setText("");
+//        Producto.producto_nombre.setEditable(true);
+//        Producto.jTextField_porcentaje.setText("0");
+//        Producto.jTextField_precio_de_compra.setText("0");
+//        jTextField_iva.setText("10");
+//        jButton_borrar.setVisible(false);
+//        producto_codigo.requestFocus();
+    }
+    
     public static void Cliente_clear() {
         Clientes.jTextField_ci.setText("");
         Clientes.jt_direccion.setText("");
@@ -102,6 +129,19 @@ public class Metodos {
                 }
                 if (result.getString("email") != null) {
                     Clientes.jt_email.setText(result.getString("email").trim());
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public static void Ubicacion_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT * FROM ubicacion where id_ubicacion = '" + id_ubicacion + "'");
+            if (result.next()) {
+                if (result.getString("ubicacion") != null) {
+                    Ubicacion.jt_ubicacion.setText(result.getString("ubicacion").trim());
                 }
             }
         } catch (SQLException ex) {
@@ -463,11 +503,37 @@ public class Metodos {
             while (rs2.next()) {
                 Object[] rows = new Object[rsm.getColumnCount()];
                 for (int i = 0; i < rows.length; i++) {
-                    rows[i] = rs2.getObject(i + 1);
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
                 }
                 data2.add(rows);
             }
             dtm = (DefaultTableModel) Unidad_de_medida.jTable_unidad_medida.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public synchronized static void Ubicacion_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Ubicacion.jTable_ubicacion.getModel();
+            for (int j = 0; j < Ubicacion.jTable_ubicacion.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement("select id_ubicacion, ubicacion from ubicacion order by ubicacion ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Ubicacion.jTable_ubicacion.getModel();
             for (int i = 0; i < data2.size(); i++) {
                 dtm.addRow(data2.get(i));
             }
@@ -615,6 +681,30 @@ public class Metodos {
                 PreparedStatement Update = conexion.prepareStatement("UPDATE unidad_medida "
                         + "SET unidad_medida = '" + unidad + "' "
                         + "WHERE id_unidad_medida ='" + id_unidad_medida + "'");
+                Update.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public static void Ubicacion_Guardar(String ubicacion) {
+        try {
+            if (id_ubicacion == 0) {
+                PreparedStatement ps = conexion.prepareStatement("select max(id_ubicacion) from ubicacion");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_ubicacion = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO ubicacion VALUES(?,?)");
+                st2.setInt(1, id_ubicacion);
+                st2.setString(2, ubicacion);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+                PreparedStatement Update = conexion.prepareStatement("UPDATE ubicacion "
+                        + "SET ubicacion = '" + ubicacion + "' "
+                        + "WHERE id_ubicacion ='" + id_ubicacion + "'");
                 Update.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Actualizado correctamente");
             }
