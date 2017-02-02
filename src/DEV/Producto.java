@@ -1,5 +1,7 @@
 package DEV;
 
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -20,6 +22,16 @@ public class Producto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog_proveedor = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jTextField_buscar = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable_proveedor = new javax.swing.JTable();
+        jDialog_rubro = new javax.swing.JDialog();
+        jPanel7 = new javax.swing.JPanel();
+        jTextField_buscar_rubro = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable_rubro = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -33,6 +45,7 @@ public class Producto extends javax.swing.JFrame {
         jDateChooser_vencimiento = new com.toedter.calendar.JDateChooser();
         producto_proveedor = new javax.swing.JTextField();
         jTextField_iva = new javax.swing.JTextField();
+        producto_rubro = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -49,6 +62,162 @@ public class Producto extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton_borrar = new javax.swing.JButton();
         jButton_buscar = new javax.swing.JButton();
+
+        jDialog_proveedor.setUndecorated(true);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTextField_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
+        jTextField_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_buscarActionPerformed(evt);
+            }
+        });
+        jTextField_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_buscarKeyPressed(evt);
+            }
+        });
+
+        jTable_proveedor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Proveedor"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_proveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_proveedorKeyPressed(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTable_proveedor);
+        if (jTable_proveedor.getColumnModel().getColumnCount() > 0) {
+            jTable_proveedor.getColumnModel().getColumn(0).setResizable(false);
+            jTable_proveedor.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable_proveedor.getColumnModel().getColumn(1).setResizable(false);
+            jTable_proveedor.getColumnModel().getColumn(1).setPreferredWidth(450);
+        }
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                    .addComponent(jTextField_buscar))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog_proveedorLayout = new javax.swing.GroupLayout(jDialog_proveedor.getContentPane());
+        jDialog_proveedor.getContentPane().setLayout(jDialog_proveedorLayout);
+        jDialog_proveedorLayout.setHorizontalGroup(
+            jDialog_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_proveedorLayout.setVerticalGroup(
+            jDialog_proveedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jDialog_rubro.setUndecorated(true);
+
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTextField_buscar_rubro.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
+        jTextField_buscar_rubro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_buscar_rubroActionPerformed(evt);
+            }
+        });
+        jTextField_buscar_rubro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_buscar_rubroKeyPressed(evt);
+            }
+        });
+
+        jTable_rubro.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Rubro"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_rubro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_rubroKeyPressed(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTable_rubro);
+        if (jTable_rubro.getColumnModel().getColumnCount() > 0) {
+            jTable_rubro.getColumnModel().getColumn(0).setResizable(false);
+            jTable_rubro.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable_rubro.getColumnModel().getColumn(1).setResizable(false);
+            jTable_rubro.getColumnModel().getColumn(1).setPreferredWidth(450);
+        }
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                    .addComponent(jTextField_buscar_rubro))
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField_buscar_rubro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog_rubroLayout = new javax.swing.GroupLayout(jDialog_rubro.getContentPane());
+        jDialog_rubro.getContentPane().setLayout(jDialog_rubroLayout);
+        jDialog_rubroLayout.setHorizontalGroup(
+            jDialog_rubroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_rubroLayout.setVerticalGroup(
+            jDialog_rubroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         setUndecorated(true);
         setResizable(false);
@@ -76,17 +245,17 @@ public class Producto extends javax.swing.JFrame {
 
         producto_codigo.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         producto_codigo.setBorder(javax.swing.BorderFactory.createTitledBorder("Códigos de barra"));
-        producto_codigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                producto_codigoActionPerformed(evt);
-            }
-        });
         producto_codigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                producto_codigoFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 producto_codigoFocusLost(evt);
             }
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                producto_codigoFocusGained(evt);
+        });
+        producto_codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                producto_codigoActionPerformed(evt);
             }
         });
         producto_codigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -98,7 +267,6 @@ public class Producto extends javax.swing.JFrame {
             }
         });
 
-        producto_nombre.setBackground(new java.awt.Color(255, 255, 255));
         producto_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre del producto o servicio"));
         producto_nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,14 +321,14 @@ public class Producto extends javax.swing.JFrame {
         jTextField_porcentaje.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField_porcentaje.setText("0");
         jTextField_porcentaje.setBorder(javax.swing.BorderFactory.createTitledBorder("Recargo"));
-        jTextField_porcentaje.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_porcentajeActionPerformed(evt);
-            }
-        });
         jTextField_porcentaje.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField_porcentajeFocusGained(evt);
+            }
+        });
+        jTextField_porcentaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_porcentajeActionPerformed(evt);
             }
         });
 
@@ -183,6 +351,11 @@ public class Producto extends javax.swing.JFrame {
 
         producto_proveedor.setToolTipText("Click para buscar");
         producto_proveedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Proveedor (F1 para buscar)"));
+        producto_proveedor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                producto_proveedorFocusGained(evt);
+            }
+        });
         producto_proveedor.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 producto_proveedorMouseClicked(evt);
@@ -193,11 +366,6 @@ public class Producto extends javax.swing.JFrame {
                 producto_proveedorActionPerformed(evt);
             }
         });
-        producto_proveedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                producto_proveedorFocusGained(evt);
-            }
-        });
         producto_proveedor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 producto_proveedorKeyPressed(evt);
@@ -206,7 +374,7 @@ public class Producto extends javax.swing.JFrame {
 
         jTextField_iva.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField_iva.setText("10");
-        jTextField_iva.setBorder(javax.swing.BorderFactory.createTitledBorder("Impuesto (F1 para cambiar)"));
+        jTextField_iva.setBorder(javax.swing.BorderFactory.createTitledBorder("I.V.A."));
         jTextField_iva.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTextField_ivaMouseClicked(evt);
@@ -215,6 +383,29 @@ public class Producto extends javax.swing.JFrame {
         jTextField_iva.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField_ivaKeyPressed(evt);
+            }
+        });
+
+        producto_rubro.setToolTipText("Click para buscar");
+        producto_rubro.setBorder(javax.swing.BorderFactory.createTitledBorder("Rubro (F1 para buscar)"));
+        producto_rubro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                producto_rubroFocusGained(evt);
+            }
+        });
+        producto_rubro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                producto_rubroMouseClicked(evt);
+            }
+        });
+        producto_rubro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                producto_rubroActionPerformed(evt);
+            }
+        });
+        producto_rubro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                producto_rubroKeyPressed(evt);
             }
         });
 
@@ -228,27 +419,30 @@ public class Producto extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(producto_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(producto_nombre))
+                        .addComponent(producto_nombre)
+                        .addGap(340, 340, 340))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(producto_rubro, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(producto_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField_iva))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jTextField_precio_de_compra, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(producto_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField_porcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(producto_stock_bajo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(producto_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 18, Short.MAX_VALUE)))
-                .addGap(340, 340, 340))
+                                .addComponent(jDateChooser_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_porcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addGap(0, 194, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,20 +453,20 @@ public class Producto extends javax.swing.JFrame {
                     .addComponent(producto_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField_precio_de_compra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(producto_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField_porcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextField_porcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(producto_stock_bajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDateChooser_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(producto_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField_iva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(164, 164, 164))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(producto_rubro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 164, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Información general", jPanel3);
@@ -573,7 +767,7 @@ public class Producto extends javax.swing.JFrame {
             //  new Productos_buscar_proveedores().setVisible(true);
         }
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
-            //   new Productos_buscar_proveedores().setVisible(true);
+            jDialog_proveedor();
         }
     }//GEN-LAST:event_producto_proveedorKeyPressed
 
@@ -744,7 +938,7 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_precio_de_compraActionPerformed
 
     private void jTextField_precio_de_compraFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_precio_de_compraFocusGained
-        // TODO add your handling code here:
+        producto_precio.requestFocus();
     }//GEN-LAST:event_jTextField_precio_de_compraFocusGained
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
@@ -762,8 +956,102 @@ public class Producto extends javax.swing.JFrame {
         //    new Productos_precio_opciones().setVisible(true);
     }//GEN-LAST:event_jTable_preciosMouseClicked
 
-    public static void main(String args[]) {
+    private void jTextField_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_proveedor.setVisible(false);
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+            try {
+                jTable_proveedor.requestFocus();
+                Robot r = new Robot();
+                r.keyPress(KeyEvent.VK_DOWN);
+            } catch (AWTException ex) {
+                System.err.println(ex);
+            }
+        } else {
+            Metodos.Proveedor_jtable(jTextField_buscar.getText());
+        }
+    }//GEN-LAST:event_jTextField_buscarKeyPressed
 
+    private void jTextField_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_buscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_buscarActionPerformed
+
+    private void jTable_proveedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_proveedorKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_proveedor.setVisible(false);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Metodos.Productos_proveedor_selected();
+            jDialog_proveedor.setVisible(false);
+        }
+    }//GEN-LAST:event_jTable_proveedorKeyPressed
+
+    private void producto_rubroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_producto_rubroFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_producto_rubroFocusGained
+
+    private void producto_rubroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_producto_rubroMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_producto_rubroMouseClicked
+
+    private void producto_rubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_producto_rubroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_producto_rubroActionPerformed
+
+    private void producto_rubroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_producto_rubroKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_F1) {
+            jDialog_rubro();
+        }
+    }//GEN-LAST:event_producto_rubroKeyPressed
+
+    private void jTextField_buscar_rubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_buscar_rubroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_buscar_rubroActionPerformed
+
+    private void jTextField_buscar_rubroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscar_rubroKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_rubro.setVisible(false);
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+            try {
+                jTable_rubro.requestFocus();
+                Robot r = new Robot();
+                r.keyPress(KeyEvent.VK_DOWN);
+            } catch (AWTException ex) {
+                System.err.println(ex);
+            }
+        } else {
+            Metodos.Rubro_jtable(jTextField_buscar_rubro.getText());
+        }
+    }//GEN-LAST:event_jTextField_buscar_rubroKeyPressed
+
+    private void jTable_rubroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_rubroKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Metodos.Rubro_proveedor_selected();
+            jDialog_rubro.setVisible(false);
+        }
+    }//GEN-LAST:event_jTable_rubroKeyPressed
+
+    public void jDialog_proveedor() {
+        jDialog_proveedor.setVisible(true);
+        jDialog_proveedor.setTitle("Buscar Proveedor");
+        jDialog_proveedor.setSize(500, 500);
+        jDialog_proveedor.setLocationRelativeTo(null);
+        jDialog_proveedor.setAlwaysOnTop(true);
+        jDialog_proveedor.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+
+    public void jDialog_rubro() {
+        jDialog_rubro.setVisible(true);
+        jDialog_rubro.setTitle("Buscar Rubro");
+        jDialog_rubro.setSize(500, 500);
+        jDialog_rubro.setLocationRelativeTo(null);
+        jDialog_rubro.setAlwaysOnTop(true);
+        jDialog_rubro.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+
+    public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -789,19 +1077,29 @@ public class Producto extends javax.swing.JFrame {
     public static javax.swing.JButton jButton_borrar;
     public static javax.swing.JButton jButton_buscar;
     public static com.toedter.calendar.JDateChooser jDateChooser_vencimiento;
+    private javax.swing.JDialog jDialog_proveedor;
+    private javax.swing.JDialog jDialog_rubro;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     public static javax.swing.JTable jTable_historial;
     public static javax.swing.JTable jTable_precios;
+    public static javax.swing.JTable jTable_proveedor;
+    public static javax.swing.JTable jTable_rubro;
+    public static javax.swing.JTextField jTextField_buscar;
+    public static javax.swing.JTextField jTextField_buscar_rubro;
     public static javax.swing.JTextField jTextField_iva;
     public static javax.swing.JTextField jTextField_porcentaje;
     public static javax.swing.JTextField jTextField_precio_de_compra;
@@ -809,6 +1107,7 @@ public class Producto extends javax.swing.JFrame {
     public static javax.swing.JTextField producto_nombre;
     public static javax.swing.JTextField producto_precio;
     public static javax.swing.JTextField producto_proveedor;
+    public static javax.swing.JTextField producto_rubro;
     public static javax.swing.JTextField producto_stock_bajo;
     // End of variables declaration//GEN-END:variables
 }

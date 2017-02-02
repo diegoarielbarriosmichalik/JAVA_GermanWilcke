@@ -1,7 +1,5 @@
 package DEV;
 
-import DEV.Conexion;
-import DEV.Metodos;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 

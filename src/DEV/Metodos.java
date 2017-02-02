@@ -26,6 +26,9 @@ public class Metodos {
     public static int id_rubro = 0;
     public static int id_producto = 0;
     public static int id_proveedor = 0;
+    public static int producto_id_proveedor = 0;
+    public static int producto_id_rubro = 0;
+    public static int producto_id_unidad_medida = 0;
     public static int id_productos_tipo = 0;
     public static int id_cuenta = 0;
     public static int id_cliente = 0;
@@ -41,6 +44,17 @@ public class Metodos {
     public synchronized static void Proveedor_selected() {
         DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
         id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
+    }
+    
+    public synchronized static void Productos_proveedor_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Producto.jTable_proveedor.getModel();
+        producto_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Producto.jTable_proveedor.getSelectedRow(), 0)));
+        Producto.producto_proveedor.setText((String.valueOf(tm.getValueAt(Producto.jTable_proveedor.getSelectedRow(), 1))));
+    }
+    public synchronized static void Rubro_proveedor_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Producto.jTable_rubro.getModel();
+        producto_id_rubro = Integer.parseInt(String.valueOf(tm.getValueAt(Producto.jTable_rubro.getSelectedRow(), 0)));
+        Producto.producto_rubro.setText((String.valueOf(tm.getValueAt(Producto.jTable_rubro.getSelectedRow(), 1))));
     }
 
     public synchronized static void Cliente_selected() {
@@ -276,9 +290,9 @@ public class Metodos {
                 stUpdateProducto.setDate(7, util_Date_to_sql_date(vencimiento));
                 stUpdateProducto.setInt(8, 0);
                 stUpdateProducto.setString(9, "");
-                stUpdateProducto.setInt(10, id_proveedor);
-                stUpdateProducto.setInt(11, id_productos_tipo);
-                stUpdateProducto.setInt(12, id_unidad_medida);
+                stUpdateProducto.setInt(10, producto_id_proveedor);
+                stUpdateProducto.setInt(11, producto_id_rubro);
+                stUpdateProducto.setInt(12, producto_id_unidad_medida);
                 stUpdateProducto.setInt(10, 0);
                 stUpdateProducto.executeUpdate();
                 Proveedor.jButton_borrar.setVisible(false);
@@ -692,6 +706,32 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+    public synchronized static void Proveedor_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
+            for (int j = 0; j < Proveedor.jTable_proveedor.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement("select id_proveedor, nombre from proveedor order by proveedor ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
 
     public synchronized static void Proveedor_jtable(String buscar) {
         try {
@@ -702,8 +742,8 @@ public class Metodos {
                     + "and borrado != '1' ");
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rsm = rs.getMetaData();
-            DefaultTableModel dtm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
-            for (int j = 0; j < Proveedor.jTable_proveedor.getRowCount(); j++) {
+            DefaultTableModel dtm = (DefaultTableModel) Producto.jTable_proveedor.getModel();
+            for (int j = 0; j < Producto.jTable_proveedor.getRowCount(); j++) {
                 dtm.removeRow(j);
                 j -= 1;
             }
@@ -721,7 +761,43 @@ public class Metodos {
                 }
                 data.add(rows);
             }
-            dtm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
+            dtm = (DefaultTableModel) Producto.jTable_proveedor.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+    public synchronized static void Rubro_jtable(String buscar) {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_productos_tipo, productos_tipo "
+                    + "from productos_tipo "
+                    + "where productos_tipo ilike '%" + buscar + "%' "
+                    + " ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Producto.jTable_rubro.getModel();
+            for (int j = 0; j < Producto.jTable_rubro.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    if (rs.getObject(i + 1) == null) {
+                        System.err.println("Es NULL");
+                    } else if (rs.getObject(i + 1).toString().length() > 1) {
+                        rows[i] = rs.getObject(i + 1).toString().trim();
+                    } else {
+                        rows[i] = rs.getObject(i + 1);
+                    }
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Producto.jTable_rubro.getModel();
             for (int i = 0; i < data.size(); i++) {
                 dtm.addRow(data.get(i));
             }
