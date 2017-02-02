@@ -280,7 +280,7 @@ public class Metodos {
                     id_producto = result.getInt(1) + 1;
                 }
 
-                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO productos VALUES(?,?,?,?,?,?)");
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO productos VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
                 stUpdateProducto.setInt(1, id_producto);
                 stUpdateProducto.setString(2, nombre);
                 stUpdateProducto.setString(3, codigo);
@@ -293,9 +293,9 @@ public class Metodos {
                 stUpdateProducto.setInt(10, producto_id_proveedor);
                 stUpdateProducto.setInt(11, producto_id_rubro);
                 stUpdateProducto.setInt(12, producto_id_unidad_medida);
-                stUpdateProducto.setInt(10, 0);
+                stUpdateProducto.setInt(13, 0);
                 stUpdateProducto.executeUpdate();
-                Proveedor.jButton_borrar.setVisible(false);
+//                Proveedor.jButton_borrar.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
             } else {
 //                PreparedStatement st = conexion.prepareStatement(
@@ -798,6 +798,42 @@ public class Metodos {
                 data.add(rows);
             }
             dtm = (DefaultTableModel) Producto.jTable_rubro.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+    public synchronized static void Producto_jtable(String buscar) {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_producto, nombre "
+                    + "from productos "
+                    + "where nombre ilike '%" + buscar + "%' "
+                    + " ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Producto.jTable_producto.getModel();
+            for (int j = 0; j < Producto.jTable_producto.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    if (rs.getObject(i + 1) == null) {
+                        System.err.println("Es NULL");
+                    } else if (rs.getObject(i + 1).toString().length() > 1) {
+                        rows[i] = rs.getObject(i + 1).toString().trim();
+                    } else {
+                        rows[i] = rs.getObject(i + 1);
+                    }
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Producto.jTable_producto.getModel();
             for (int i = 0; i < data.size(); i++) {
                 dtm.addRow(data.get(i));
             }

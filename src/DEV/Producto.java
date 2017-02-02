@@ -32,6 +32,11 @@ public class Producto extends javax.swing.JFrame {
         jTextField_buscar_rubro = new javax.swing.JTextField();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable_rubro = new javax.swing.JTable();
+        jDialog_productos = new javax.swing.JDialog();
+        jPanel8 = new javax.swing.JPanel();
+        jTextField_buscar_producto = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable_producto = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -219,6 +224,84 @@ public class Producto extends javax.swing.JFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jDialog_productos.setUndecorated(true);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTextField_buscar_producto.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
+        jTextField_buscar_producto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_buscar_productoActionPerformed(evt);
+            }
+        });
+        jTextField_buscar_producto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_buscar_productoKeyPressed(evt);
+            }
+        });
+
+        jTable_producto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Producto"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_producto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_productoKeyPressed(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTable_producto);
+        if (jTable_producto.getColumnModel().getColumnCount() > 0) {
+            jTable_producto.getColumnModel().getColumn(0).setResizable(false);
+            jTable_producto.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable_producto.getColumnModel().getColumn(1).setResizable(false);
+            jTable_producto.getColumnModel().getColumn(1).setPreferredWidth(450);
+        }
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                    .addComponent(jTextField_buscar_producto))
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField_buscar_producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog_productosLayout = new javax.swing.GroupLayout(jDialog_productos.getContentPane());
+        jDialog_productos.getContentPane().setLayout(jDialog_productosLayout);
+        jDialog_productosLayout.setHorizontalGroup(
+            jDialog_productosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_productosLayout.setVerticalGroup(
+            jDialog_productosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -291,14 +374,14 @@ public class Producto extends javax.swing.JFrame {
         jTextField_precio_de_compra.setBackground(new java.awt.Color(255, 255, 255));
         jTextField_precio_de_compra.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField_precio_de_compra.setBorder(javax.swing.BorderFactory.createTitledBorder("Pr Compra"));
-        jTextField_precio_de_compra.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_precio_de_compraActionPerformed(evt);
-            }
-        });
         jTextField_precio_de_compra.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextField_precio_de_compraFocusGained(evt);
+            }
+        });
+        jTextField_precio_de_compra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_precio_de_compraActionPerformed(evt);
             }
         });
 
@@ -942,9 +1025,7 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_precio_de_compraFocusGained
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
-
-        //   new Producto_buscar().setVisible(true);
-        //   Producto_buscar.formulario = 1;
+        jDialog_productos();
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1033,6 +1114,35 @@ public class Producto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable_rubroKeyPressed
 
+    private void jTextField_buscar_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_buscar_productoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_buscar_productoActionPerformed
+
+    private void jTextField_buscar_productoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscar_productoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_productos.setVisible(false);
+            producto_codigo.requestFocus();
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+            try {
+                jTable_producto.requestFocus();
+                Robot r = new Robot();
+                r.keyPress(KeyEvent.VK_DOWN);
+            } catch (AWTException ex) {
+                System.err.println(ex);
+            }
+        } else {
+            Metodos.Producto_jtable(jTextField_buscar_producto.getText());
+        }
+    }//GEN-LAST:event_jTextField_buscar_productoKeyPressed
+
+    private void jTable_productoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_productoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_productos.setVisible(false);
+            producto_codigo.requestFocus();
+        }
+    }//GEN-LAST:event_jTable_productoKeyPressed
+
     public void jDialog_proveedor() {
         jDialog_proveedor.setVisible(true);
         jDialog_proveedor.setTitle("Buscar Proveedor");
@@ -1040,6 +1150,15 @@ public class Producto extends javax.swing.JFrame {
         jDialog_proveedor.setLocationRelativeTo(null);
         jDialog_proveedor.setAlwaysOnTop(true);
         jDialog_proveedor.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+
+    public void jDialog_productos() {
+        jDialog_productos.setVisible(true);
+        jDialog_productos.setTitle("Buscar Producto");
+        jDialog_productos.setSize(500, 500);
+        jDialog_productos.setLocationRelativeTo(null);
+        jDialog_productos.setAlwaysOnTop(true);
+        jDialog_productos.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
 
     public void jDialog_rubro() {
@@ -1077,6 +1196,7 @@ public class Producto extends javax.swing.JFrame {
     public static javax.swing.JButton jButton_borrar;
     public static javax.swing.JButton jButton_buscar;
     public static com.toedter.calendar.JDateChooser jDateChooser_vencimiento;
+    private javax.swing.JDialog jDialog_productos;
     private javax.swing.JDialog jDialog_proveedor;
     private javax.swing.JDialog jDialog_rubro;
     private javax.swing.JLabel jLabel8;
@@ -1087,18 +1207,22 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     public static javax.swing.JTable jTable_historial;
     public static javax.swing.JTable jTable_precios;
+    public static javax.swing.JTable jTable_producto;
     public static javax.swing.JTable jTable_proveedor;
     public static javax.swing.JTable jTable_rubro;
     public static javax.swing.JTextField jTextField_buscar;
+    public static javax.swing.JTextField jTextField_buscar_producto;
     public static javax.swing.JTextField jTextField_buscar_rubro;
     public static javax.swing.JTextField jTextField_iva;
     public static javax.swing.JTextField jTextField_porcentaje;
