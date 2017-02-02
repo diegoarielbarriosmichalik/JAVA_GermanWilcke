@@ -5,27 +5,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Producto extends javax.swing.JFrame {
-    
+
     public Producto() {
-        
         initComponents();
         setTitle("Productos");
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
-        //    jButton_borrar.setVisible(false);
-        //    Conexion.Verificar_conexion();
-
-        //      ImageIcon imagen = new ImageIcon(ubicacion_proyecto + "\\imagenes\\0.jpg");
-        //     imagen.getImage().flush();
-        //   Producto.jLabel_imagen.setIcon(imagen);
-           Metodos.Producto_Nuevo();
-        // Metodos.Productos_historial_compra();
-//        jLabel_mensaje.setVisible(false);
+        Metodos.Producto_Nuevo();
         jTextField_porcentaje.setVisible(false);
         jLabel8.setVisible(false);
-        
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -41,7 +31,6 @@ public class Producto extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         producto_stock_bajo = new javax.swing.JTextField();
         jDateChooser_vencimiento = new com.toedter.calendar.JDateChooser();
-        jTextField_Tipo = new javax.swing.JTextField();
         producto_proveedor = new javax.swing.JTextField();
         jTextField_iva = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
@@ -93,11 +82,11 @@ public class Producto extends javax.swing.JFrame {
             }
         });
         producto_codigo.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                producto_codigoFocusGained(evt);
-            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 producto_codigoFocusLost(evt);
+            }
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                producto_codigoFocusGained(evt);
             }
         });
         producto_codigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -109,7 +98,6 @@ public class Producto extends javax.swing.JFrame {
             }
         });
 
-        producto_nombre.setEditable(false);
         producto_nombre.setBackground(new java.awt.Color(255, 255, 255));
         producto_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre del producto o servicio"));
         producto_nombre.addActionListener(new java.awt.event.ActionListener() {
@@ -193,24 +181,6 @@ public class Producto extends javax.swing.JFrame {
         jDateChooser_vencimiento.setBorder(javax.swing.BorderFactory.createTitledBorder("Vencimiento"));
         jDateChooser_vencimiento.setDateFormatString("dd/MMM/yyyy");
 
-        jTextField_Tipo.setToolTipText("Click para buscar ");
-        jTextField_Tipo.setBorder(javax.swing.BorderFactory.createTitledBorder("Rubro (F1 para buscar)"));
-        jTextField_Tipo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField_TipoMouseClicked(evt);
-            }
-        });
-        jTextField_Tipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_TipoActionPerformed(evt);
-            }
-        });
-        jTextField_Tipo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_TipoKeyPressed(evt);
-            }
-        });
-
         producto_proveedor.setToolTipText("Click para buscar");
         producto_proveedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Proveedor (F1 para buscar)"));
         producto_proveedor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -274,12 +244,10 @@ public class Producto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jDateChooser_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jTextField_Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(producto_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(producto_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField_iva, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 18, Short.MAX_VALUE)))
                 .addGap(340, 340, 340))
         );
         jPanel3Layout.setVerticalGroup(
@@ -301,8 +269,7 @@ public class Producto extends javax.swing.JFrame {
                     .addComponent(producto_stock_bajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDateChooser_vencimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(producto_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField_iva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(164, 164, 164))
@@ -548,14 +515,14 @@ public class Producto extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTabbedPane1)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 643, Short.MAX_VALUE)
-                        .addComponent(jButton_borrar)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_buscar)
+                        .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -590,13 +557,11 @@ public class Producto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void producto_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_producto_nombreActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_producto_nombreActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-//        producto_nombre.requestFocus();
-//        jB_guardar.setEnabled(false);
-//        producto_proveedor.setText("Varios");
+
     }//GEN-LAST:event_formWindowActivated
 
     private void producto_proveedorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_producto_proveedorFocusGained
@@ -617,7 +582,7 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_producto_nombreFocusLost
 
     private void producto_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_producto_nombreKeyPressed
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
@@ -665,10 +630,11 @@ public class Producto extends javax.swing.JFrame {
 //            Producto_Guardar();
 //        }
     }//GEN-LAST:event_producto_precioKeyReleased
-    
+
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//        Metodos.Producto_Guardar();
+        Metodos.Producto_Guardar(producto_nombre.getText(), producto_codigo.getText(), producto_precio.getText(), jTextField_iva.getText(),
+                producto_stock_bajo.getText(), jDateChooser_vencimiento.getDate(), jTextField_porcentaje.getText());
 //        Producto_Nuevo();
 //        if (formulario_externo == 1) {
 //            formulario_externo = 0;
@@ -716,34 +682,17 @@ public class Producto extends javax.swing.JFrame {
 //        Metodos.id_producto = 0;
     }//GEN-LAST:event_formWindowOpened
 
-    private void jTextField_TipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_TipoKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            //    new Productos_rubro_listado().setVisible(true);
-        }
-        if (evt.getKeyCode() == KeyEvent.VK_F1) {
-            //     new Productos_rubro_listado().setVisible(true);
-        }
-    }//GEN-LAST:event_jTextField_TipoKeyPressed
-
     private void producto_proveedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_producto_proveedorMouseClicked
 //        new Productos_buscar_proveedores().setVisible(true);
         //buscar_proveedor.formulario = 1;
     }//GEN-LAST:event_producto_proveedorMouseClicked
-
-    private void jTextField_TipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_TipoActionPerformed
-
-    private void jTextField_TipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_TipoMouseClicked
-//        new Productos_rubro_listado().setVisible(true);
-    }//GEN-LAST:event_jTextField_TipoMouseClicked
 
     private void jTextField_ivaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_ivaMouseClicked
         //   new Iva().setVisible(true);
     }//GEN-LAST:event_jTextField_ivaMouseClicked
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
-        
+
         if (JOptionPane.showConfirmDialog(
                 rootPane, "¿Desea borrar este producto?", "AVISO",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -770,7 +719,7 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void producto_codigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_producto_codigoFocusLost
-        
+
         if (Producto.producto_codigo.getText().length() > 0) {
             //       Metodos.Producto_Buscar_por_codigo_de_barras();
             producto_nombre.requestFocus();
@@ -812,11 +761,9 @@ public class Producto extends javax.swing.JFrame {
         //   Metodos.Productos_precio_seleccionar();
         //    new Productos_precio_opciones().setVisible(true);
     }//GEN-LAST:event_jTable_preciosMouseClicked
-    
-    
-    
+
     public static void main(String args[]) {
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -827,7 +774,7 @@ public class Producto extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         java.awt.EventQueue.invokeLater(() -> {
             new Producto().setVisible(true);
         });
@@ -855,7 +802,6 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     public static javax.swing.JTable jTable_historial;
     public static javax.swing.JTable jTable_precios;
-    public static javax.swing.JTextField jTextField_Tipo;
     public static javax.swing.JTextField jTextField_iva;
     public static javax.swing.JTextField jTextField_porcentaje;
     public static javax.swing.JTextField jTextField_precio_de_compra;

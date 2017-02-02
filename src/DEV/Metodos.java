@@ -23,12 +23,15 @@ import net.sf.jasperreports.view.JasperViewer;
 public class Metodos {
 
     public static int id_usuario = 0;
+    public static int id_rubro = 0;
     public static int id_producto = 0;
     public static int id_proveedor = 0;
+    public static int id_productos_tipo = 0;
     public static int id_cuenta = 0;
     public static int id_cliente = 0;
     public static int id_unidad_medida = 0;
     public static int id_ubicacion = 0;
+    public static int id_sector = 0;
     public static int privilegio = 0;
     public static String ubicacion_proyecto = "";
     public static String titulo = "";
@@ -44,13 +47,24 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Clientes.jTable_cliente.getModel();
         id_cliente = Integer.parseInt(String.valueOf(tm.getValueAt(Clientes.jTable_cliente.getSelectedRow(), 0)));
     }
+
     public synchronized static void Unidad_medida_selected() {
         DefaultTableModel tm = (DefaultTableModel) Unidad_de_medida.jTable_unidad_medida.getModel();
         id_unidad_medida = Integer.parseInt(String.valueOf(tm.getValueAt(Unidad_de_medida.jTable_unidad_medida.getSelectedRow(), 0)));
     }
+
     public synchronized static void Ubicacion_selected() {
         DefaultTableModel tm = (DefaultTableModel) Ubicacion.jTable_ubicacion.getModel();
         id_ubicacion = Integer.parseInt(String.valueOf(tm.getValueAt(Ubicacion.jTable_ubicacion.getSelectedRow(), 0)));
+    }
+
+    public synchronized static void Sector_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Sector.jTable_ubicacion.getModel();
+        id_sector = Integer.parseInt(String.valueOf(tm.getValueAt(Sector.jTable_ubicacion.getSelectedRow(), 0)));
+    }
+    public synchronized static void Rubro_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Rubro.jTable_ubicacion.getModel();
+        id_productos_tipo = Integer.parseInt(String.valueOf(tm.getValueAt(Rubro.jTable_ubicacion.getSelectedRow(), 0)));
     }
 
     public static void Producto_Nuevo() {
@@ -71,9 +85,9 @@ public class Metodos {
 //        Producto.jTextField_precio_de_compra.setText("0");
 //        jTextField_iva.setText("10");
 //        jButton_borrar.setVisible(false);
-//        producto_codigo.requestFocus();
+        Producto.producto_codigo.requestFocus();
     }
-    
+
     public static void Cliente_clear() {
         Clientes.jTextField_ci.setText("");
         Clientes.jt_direccion.setText("");
@@ -135,6 +149,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
     public static void Ubicacion_traer_datos() {
         try {
             Statement st1 = conexion.createStatement();
@@ -148,6 +163,34 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
+    public static void Sector_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT * FROM sector where id_sector = '" + id_sector + "'");
+            if (result.next()) {
+                if (result.getString("sector") != null) {
+                    Sector.jt_sector.setText(result.getString("sector").trim());
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public static void Rubro_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT * FROM productos_tipo where id_productos_tipo = '" + id_productos_tipo + "'");
+            if (result.next()) {
+                if (result.getString("productos_tipo") != null) {
+                    Rubro.jt_rubro.setText(result.getString("productos_tipo").trim());
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public static void Unidad_medida_traer_datos() {
         try {
             Statement st1 = conexion.createStatement();
@@ -196,6 +239,59 @@ public class Metodos {
                         + " ruc ='" + ruc + "' "
                         + " WHERE id_proveedor = '" + Metodos.id_proveedor + "'");
                 st.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            }
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public synchronized static java.sql.Date util_Date_to_sql_date(Date fecha) {
+        java.sql.Date fecha_sql_date = null;
+        if (fecha != null) {
+            java.util.Date utilDate = fecha;
+            fecha_sql_date = new java.sql.Date(utilDate.getTime());
+        }
+        return fecha_sql_date;
+    }
+    
+    public synchronized static void Producto_Guardar(String nombre, String codigo, String precio, String iva, String stock_bajo,
+            Date vencimiento, String porcentaje  ) {
+        try {
+
+            if (Metodos.id_producto == 0) {
+                Statement st1 = conexion.createStatement();
+                ResultSet result = st1.executeQuery("SELECT MAX(id_producto) FROM productos");
+                if (result.next()) {
+                    id_producto = result.getInt(1) + 1;
+                }
+
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO productos VALUES(?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id_producto);
+                stUpdateProducto.setString(2, nombre);
+                stUpdateProducto.setString(3, codigo);
+                stUpdateProducto.setLong(4, Long.parseLong(precio));
+                stUpdateProducto.setLong(5, Long.parseLong(iva));
+                stUpdateProducto.setLong(6, Long.parseLong(stock_bajo));
+                stUpdateProducto.setDate(7, util_Date_to_sql_date(vencimiento));
+                stUpdateProducto.setInt(8, 0);
+                stUpdateProducto.setString(9, "");
+                stUpdateProducto.setInt(10, id_proveedor);
+                stUpdateProducto.setInt(11, id_productos_tipo);
+                stUpdateProducto.setInt(12, id_unidad_medida);
+                stUpdateProducto.setInt(10, 0);
+                stUpdateProducto.executeUpdate();
+                Proveedor.jButton_borrar.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+//                PreparedStatement st = conexion.prepareStatement(
+//                        " UPDATE productos "
+//                        + " SET nombre ='" + nombre_proveedor + "',"
+//                        + " direccion ='" + direccion + "',"
+//                        + " telefono ='" + telefono + "',"
+//                        + " ruc ='" + ruc + "' "
+//                        + " WHERE id_proveedor = '" + Metodos.id_proveedor + "'");
+//                st.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
             }
         } catch (NumberFormatException | SQLException e) {
@@ -489,6 +585,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
     public synchronized static void Unidad_de_Medida_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Unidad_de_medida.jTable_unidad_medida.getModel();
@@ -515,6 +612,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
     public synchronized static void Ubicacion_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Ubicacion.jTable_ubicacion.getModel();
@@ -534,6 +632,59 @@ public class Metodos {
                 data2.add(rows);
             }
             dtm = (DefaultTableModel) Ubicacion.jTable_ubicacion.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public synchronized static void Sector_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Sector.jTable_ubicacion.getModel();
+            for (int j = 0; j < Sector.jTable_ubicacion.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement("select id_sector, sector from sector order by sector");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Sector.jTable_ubicacion.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public synchronized static void Rubro_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Rubro.jTable_ubicacion.getModel();
+            for (int j = 0; j < Rubro.jTable_ubicacion.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement("select id_productos_tipo, productos_tipo from productos_tipo order by productos_tipo");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Rubro.jTable_ubicacion.getModel();
             for (int i = 0; i < data2.size(); i++) {
                 dtm.addRow(data2.get(i));
             }
@@ -663,7 +814,7 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-    
+
     public static void Unidad_medida_Guardar(String unidad) {
         try {
             if (id_unidad_medida == 0) {
@@ -688,6 +839,7 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+
     public static void Ubicacion_Guardar(String ubicacion) {
         try {
             if (id_ubicacion == 0) {
@@ -705,6 +857,56 @@ public class Metodos {
                 PreparedStatement Update = conexion.prepareStatement("UPDATE ubicacion "
                         + "SET ubicacion = '" + ubicacion + "' "
                         + "WHERE id_ubicacion ='" + id_ubicacion + "'");
+                Update.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public static void Sector_Guardar(String sector) {
+        try {
+            if (id_sector == 0) {
+                PreparedStatement ps = conexion.prepareStatement("select max(id_sector) from sector");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_sector = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO sector VALUES(?,?)");
+                st2.setInt(1, id_sector);
+                st2.setString(2, sector);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+                PreparedStatement Update = conexion.prepareStatement("UPDATE sector "
+                        + "SET sector = '" + sector + "' "
+                        + "WHERE id_sector ='" + id_sector + "'");
+                Update.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    
+    public static void Rubro_Guardar(String productos_tipo) {
+        try {
+            if (id_productos_tipo == 0) {
+                PreparedStatement ps = conexion.prepareStatement("select max(id_productos_tipo) from productos_tipo");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_productos_tipo = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO productos_tipo VALUES(?,?)");
+                st2.setInt(1, id_productos_tipo);
+                st2.setString(2, productos_tipo);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+                PreparedStatement Update = conexion.prepareStatement("UPDATE productos_tipo "
+                        + "SET productos_tipo = '" + productos_tipo + "' "
+                        + "WHERE id_productos_tipo ='" + id_productos_tipo + "'");
                 Update.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Actualizado correctamente");
             }

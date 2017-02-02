@@ -4,19 +4,17 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class Unidad_de_medida extends javax.swing.JFrame {
+public class Rubro extends javax.swing.JFrame {
 
-    public Unidad_de_medida() {
+    public Rubro() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Unidad de Medida");
+        setTitle("Rubro");
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Conexion.Verificar_conexion();
-
-//        Metodos.Cliente_clear();
-        Metodos.id_unidad_medida = 0;
+        Metodos.id_rubro = 0;
         jButton_borrar.setVisible(false);
-        jt_unidad.setText("");
+        jt_rubro.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -26,10 +24,10 @@ public class Unidad_de_medida extends javax.swing.JFrame {
         jDialog_buscar = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_unidad_medida = new javax.swing.JTable();
+        jTable_ubicacion = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jt_unidad = new javax.swing.JTextField();
+        jt_rubro = new javax.swing.JTextField();
         jButton_borrar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -43,12 +41,12 @@ public class Unidad_de_medida extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
 
-        jTable_unidad_medida.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_ubicacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Unidad de Medida"
+                "ID", "Sector"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -59,22 +57,22 @@ public class Unidad_de_medida extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable_unidad_medida.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable_ubicacion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable_unidad_medidaMouseClicked(evt);
+                jTable_ubicacionMouseClicked(evt);
             }
         });
-        jTable_unidad_medida.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTable_ubicacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTable_unidad_medidaKeyPressed(evt);
+                jTable_ubicacionKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable_unidad_medida);
-        if (jTable_unidad_medida.getColumnModel().getColumnCount() > 0) {
-            jTable_unidad_medida.getColumnModel().getColumn(0).setResizable(false);
-            jTable_unidad_medida.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTable_unidad_medida.getColumnModel().getColumn(1).setResizable(false);
-            jTable_unidad_medida.getColumnModel().getColumn(1).setPreferredWidth(470);
+        jScrollPane1.setViewportView(jTable_ubicacion);
+        if (jTable_ubicacion.getColumnModel().getColumnCount() > 0) {
+            jTable_ubicacion.getColumnModel().getColumn(0).setResizable(false);
+            jTable_ubicacion.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_ubicacion.getColumnModel().getColumn(1).setResizable(false);
+            jTable_ubicacion.getColumnModel().getColumn(1).setPreferredWidth(470);
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -118,18 +116,18 @@ public class Unidad_de_medida extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
 
-        jt_unidad.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidad de medida"));
-        jt_unidad.addFocusListener(new java.awt.event.FocusAdapter() {
+        jt_rubro.setBorder(javax.swing.BorderFactory.createTitledBorder("Rubro"));
+        jt_rubro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jt_unidadFocusGained(evt);
+                jt_rubroFocusGained(evt);
             }
         });
-        jt_unidad.addKeyListener(new java.awt.event.KeyAdapter() {
+        jt_rubro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jt_unidadKeyPressed(evt);
+                jt_rubroKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jt_unidadKeyReleased(evt);
+                jt_rubroKeyReleased(evt);
             }
         });
 
@@ -191,7 +189,7 @@ public class Unidad_de_medida extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jt_unidad)
+                    .addComponent(jt_rubro)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 175, Short.MAX_VALUE)
                         .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,7 +209,7 @@ public class Unidad_de_medida extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_unidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jt_rubro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -255,52 +253,35 @@ public class Unidad_de_medida extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Metodos.Unidad_medida_Guardar(jt_unidad.getText());
-        jt_unidad.requestFocus();
+        Metodos.Rubro_Guardar(jt_rubro.getText());
+        jt_rubro.requestFocus();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jt_unidad.setText("");
-        Metodos.id_unidad_medida = 0;
-        jt_unidad.requestFocus();
+        jt_rubro.setText("");
+        Metodos.id_rubro = 0;
+        jt_rubro.requestFocus();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jt_unidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_unidadKeyReleased
+    private void jt_rubroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_rubroKeyReleased
 
-    }//GEN-LAST:event_jt_unidadKeyReleased
+    }//GEN-LAST:event_jt_rubroKeyReleased
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
-        //  Metodos.Cliente_update();
-        jButton_borrar.setVisible(false);
     }//GEN-LAST:event_jButton_borrarActionPerformed
 
-    private void jt_unidadFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_unidadFocusGained
-    }//GEN-LAST:event_jt_unidadFocusGained
+    private void jt_rubroFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_rubroFocusGained
+    }//GEN-LAST:event_jt_rubroFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        //Facturacion.jT_buscador.requestFocus();
-//        if (Metodos.formulario_que_pide == 1) {
-//            Metodos.Facturacion_update_cliente(Metodos.id_cliente);
-//            Metodos.formulario_que_pide = 0;
-//        }
-//        if (Metodos.formulario_que_pide == 4) {
-//            Metodos.formulario_que_pide = 0;
-//         //   Facturacion_Terminar.jTextField_ruc.setText(jt_ruc.getText());
-//         //   Facturacion_Terminar.jTextField_ci.setText(jTextField_ci.getText());
-//            Facturacion_Terminar.jTextField_nombre.setText(jt_nombre.getText());
-//            Facturacion_Terminar.jTextField_nombre.requestFocus();
-//
-//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jt_unidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_unidadKeyPressed
+    private void jt_rubroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_rubroKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
-
-
-    }//GEN-LAST:event_jt_unidadKeyPressed
+    }//GEN-LAST:event_jt_rubroKeyPressed
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         jDialog_buscar();
@@ -309,40 +290,38 @@ public class Unidad_de_medida extends javax.swing.JFrame {
     public void jDialog_buscar() {
 
         jDialog_buscar.setVisible(true);
-        jDialog_buscar.setTitle("Buscar Unidad de Medida");
+        jDialog_buscar.setTitle("Buscar Rubro");
         jDialog_buscar.setSize(500, 500);
         jDialog_buscar.setLocationRelativeTo(null);
         jDialog_buscar.setAlwaysOnTop(true);
         jDialog_buscar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
 
-        Metodos.Unidad_de_Medida_jtable();
+        Metodos.Rubro_jtable();
 
     }
 
-    private void jTable_unidad_medidaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_unidad_medidaKeyPressed
+    private void jTable_ubicacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_ubicacionKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             jDialog_buscar.setVisible(false);
-            jt_unidad.requestFocus();
+            jt_rubro.requestFocus();
         }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jDialog_buscar.setVisible(false);
-            Metodos.Unidad_medida_selected();
-            Metodos.Cliente_traer_datos();
-            Metodos.Unidad_medida_traer_datos();
-            jt_unidad.requestFocus();
+            Metodos.Rubro_selected();
+            Metodos.Rubro_traer_datos();
+            jt_rubro.requestFocus();
             jButton_borrar.setVisible(true);
 
         }
-    }//GEN-LAST:event_jTable_unidad_medidaKeyPressed
+    }//GEN-LAST:event_jTable_ubicacionKeyPressed
 
-    private void jTable_unidad_medidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_unidad_medidaMouseClicked
-        jDialog_buscar.setVisible(false);
-        Metodos.Unidad_medida_selected();
-        Metodos.Cliente_traer_datos();
-        Metodos.Unidad_medida_traer_datos();
-        jt_unidad.requestFocus();
-        jButton_borrar.setVisible(true);
-    }//GEN-LAST:event_jTable_unidad_medidaMouseClicked
+    private void jTable_ubicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ubicacionMouseClicked
+       jDialog_buscar.setVisible(false);
+            Metodos.Rubro_selected();
+            Metodos.Rubro_traer_datos();
+            jt_rubro.requestFocus();
+            jButton_borrar.setVisible(true);
+    }//GEN-LAST:event_jTable_ubicacionMouseClicked
 
     public static void main(String args[]) {
         try {
@@ -357,7 +336,7 @@ public class Unidad_de_medida extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
         java.awt.EventQueue.invokeLater(() -> {
-            new Unidad_de_medida().setVisible(true);
+            new Rubro().setVisible(true);
         });
     }
 
@@ -374,7 +353,7 @@ public class Unidad_de_medida extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    public static javax.swing.JTable jTable_unidad_medida;
-    public static javax.swing.JTextField jt_unidad;
+    public static javax.swing.JTable jTable_ubicacion;
+    public static javax.swing.JTextField jt_rubro;
     // End of variables declaration//GEN-END:variables
 }

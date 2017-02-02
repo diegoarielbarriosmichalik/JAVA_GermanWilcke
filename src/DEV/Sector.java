@@ -14,9 +14,9 @@ public class Sector extends javax.swing.JFrame {
         Conexion.Verificar_conexion();
 
 //        Metodos.Cliente_clear();
-        Metodos.id_ubicacion = 0;
+        Metodos.id_sector = 0;
         jButton_borrar.setVisible(false);
-        jt_ubicacion.setText("");
+        jt_sector.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -29,7 +29,7 @@ public class Sector extends javax.swing.JFrame {
         jTable_ubicacion = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jt_ubicacion = new javax.swing.JTextField();
+        jt_sector = new javax.swing.JTextField();
         jButton_borrar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -48,7 +48,7 @@ public class Sector extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Ubicación"
+                "ID", "Sector"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -118,18 +118,18 @@ public class Sector extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
 
-        jt_ubicacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Ubicación"));
-        jt_ubicacion.addFocusListener(new java.awt.event.FocusAdapter() {
+        jt_sector.setBorder(javax.swing.BorderFactory.createTitledBorder("Sector"));
+        jt_sector.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jt_ubicacionFocusGained(evt);
+                jt_sectorFocusGained(evt);
             }
         });
-        jt_ubicacion.addKeyListener(new java.awt.event.KeyAdapter() {
+        jt_sector.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jt_ubicacionKeyPressed(evt);
+                jt_sectorKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jt_ubicacionKeyReleased(evt);
+                jt_sectorKeyReleased(evt);
             }
         });
 
@@ -191,7 +191,7 @@ public class Sector extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jt_ubicacion)
+                    .addComponent(jt_sector)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 175, Short.MAX_VALUE)
                         .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,7 +211,7 @@ public class Sector extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jt_ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jt_sector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -255,26 +255,27 @@ public class Sector extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Metodos.Ubicacion_Guardar(jt_ubicacion.getText());
-        jt_ubicacion.requestFocus();
+        Metodos.Sector_Guardar(jt_sector.getText());
+        jt_sector.requestFocus();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jt_ubicacion.setText("");
-        Metodos.id_ubicacion = 0;
+        jt_sector.setText("");
+        Metodos.id_sector = 0;
+        jt_sector.requestFocus();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jt_ubicacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_ubicacionKeyReleased
+    private void jt_sectorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_sectorKeyReleased
 
-    }//GEN-LAST:event_jt_ubicacionKeyReleased
+    }//GEN-LAST:event_jt_sectorKeyReleased
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
         //  Metodos.Cliente_update();
 //        jButton_borrar.setVisible(false);
     }//GEN-LAST:event_jButton_borrarActionPerformed
 
-    private void jt_ubicacionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_ubicacionFocusGained
-    }//GEN-LAST:event_jt_ubicacionFocusGained
+    private void jt_sectorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_sectorFocusGained
+    }//GEN-LAST:event_jt_sectorFocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
@@ -293,13 +294,13 @@ public class Sector extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jt_ubicacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_ubicacionKeyPressed
+    private void jt_sectorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_sectorKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
 
 
-    }//GEN-LAST:event_jt_ubicacionKeyPressed
+    }//GEN-LAST:event_jt_sectorKeyPressed
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         jDialog_buscar();
@@ -308,26 +309,26 @@ public class Sector extends javax.swing.JFrame {
     public void jDialog_buscar() {
 
         jDialog_buscar.setVisible(true);
-        jDialog_buscar.setTitle("Buscar Ubicación");
+        jDialog_buscar.setTitle("Buscar Sector");
         jDialog_buscar.setSize(500, 500);
         jDialog_buscar.setLocationRelativeTo(null);
         jDialog_buscar.setAlwaysOnTop(true);
         jDialog_buscar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
 
-        Metodos.Ubicacion_jtable();
+        Metodos.Sector_jtable();
 
     }
 
     private void jTable_ubicacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_ubicacionKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             jDialog_buscar.setVisible(false);
-            jt_ubicacion.requestFocus();
+            jt_sector.requestFocus();
         }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jDialog_buscar.setVisible(false);
-            Metodos.Ubicacion_selected();
-            Metodos.Ubicacion_traer_datos();
-            jt_ubicacion.requestFocus();
+            Metodos.Sector_selected();
+            Metodos.Sector_traer_datos();
+            jt_sector.requestFocus();
             jButton_borrar.setVisible(true);
 
         }
@@ -335,9 +336,9 @@ public class Sector extends javax.swing.JFrame {
 
     private void jTable_ubicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ubicacionMouseClicked
         jDialog_buscar.setVisible(false);
-        Metodos.Ubicacion_selected();
-        Metodos.Ubicacion_traer_datos();
-        jt_ubicacion.requestFocus();
+        Metodos.Sector_selected();
+        Metodos.Sector_traer_datos();
+        jt_sector.requestFocus();
         jButton_borrar.setVisible(true);
     }//GEN-LAST:event_jTable_ubicacionMouseClicked
 
@@ -372,6 +373,6 @@ public class Sector extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTable_ubicacion;
-    public static javax.swing.JTextField jt_ubicacion;
+    public static javax.swing.JTextField jt_sector;
     // End of variables declaration//GEN-END:variables
 }

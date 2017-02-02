@@ -51,11 +51,12 @@ public class Principal extends javax.swing.JFrame {
         jSeparator18 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem28 = new javax.swing.JMenuItem();
         jMenuItem38 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenuItem39 = new javax.swing.JMenuItem();
+        jSeparator9 = new javax.swing.JPopupMenu.Separator();
         jMenu10 = new javax.swing.JMenu();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -168,14 +169,6 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem7);
 
-        jMenuItem15.setText("Rubros");
-        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem15ActionPerformed(evt);
-            }
-        });
-        jMenu6.add(jMenuItem15);
-
         jMenuItem28.setText("Ubicaciones");
         jMenuItem28.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,10 +184,24 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu6.add(jMenuItem38);
+
+        jMenuItem15.setText("Rubro");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem15ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem15);
         jMenu6.add(jSeparator17);
 
         jMenuItem39.setText("Sector");
+        jMenuItem39.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem39ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem39);
+        jMenu6.add(jSeparator9);
 
         jMenuBar1.add(jMenu6);
 
@@ -580,10 +587,6 @@ public class Principal extends javax.swing.JFrame {
 //        new Facturacion().setVisible(true);
     }//GEN-LAST:event_jMenuItem_ventasActionPerformed
 
-    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
-//        new Rubro_ABM().setVisible(true);
-    }//GEN-LAST:event_jMenuItem15ActionPerformed
-
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
 //        new Listado_de_compras().setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
@@ -666,6 +669,14 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem38ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem38ActionPerformed
         new Unidad_de_medida().setVisible(true);
     }//GEN-LAST:event_jMenuItem38ActionPerformed
+
+    private void jMenuItem39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem39ActionPerformed
+        new Sector().setVisible(true);
+    }//GEN-LAST:event_jMenuItem39ActionPerformed
+
+    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+        new Rubro().setVisible(true);
+    }//GEN-LAST:event_jMenuItem15ActionPerformed
     
     public static void main(String args[]) {
         try {
@@ -757,6 +768,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator6;
     private javax.swing.JPopupMenu.Separator jSeparator7;
     private javax.swing.JPopupMenu.Separator jSeparator8;
+    private javax.swing.JPopupMenu.Separator jSeparator9;
     public static javax.swing.JPopupMenu.Separator jSeparator_pedidos;
     // End of variables declaration//GEN-END:variables
 }
