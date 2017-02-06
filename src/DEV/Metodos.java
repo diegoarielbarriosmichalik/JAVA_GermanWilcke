@@ -26,6 +26,10 @@ public class Metodos {
     public static int id_rubro = 0;
     public static int id_producto = 0;
     public static int id_proveedor = 0;
+    public static int id_compra = 0;
+    public static int compras_id_producto = 0;
+    public static int compras_id_proveedor = 0;
+    public static int compras_id_sector = 0;
     public static int producto_id_proveedor = 0;
     public static int producto_id_rubro = 0;
     public static int producto_id_unidad_medida = 0;
@@ -45,12 +49,36 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
         id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
     }
+
+    public synchronized static void Compra_buscar_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Compras.jTable_buscar.getModel();
+        id_compra = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_buscar.getSelectedRow(), 0)));
+    }
     
+    public synchronized static void Compras_producto_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Compras.jTable_productos.getModel();
+        compras_id_producto = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_productos.getSelectedRow(), 0)));
+        Compras.jTextField_producto.setText(String.valueOf(tm.getValueAt(Compras.jTable_productos.getSelectedRow(), 1)));
+    }
+
+    public synchronized static void Compras_proveedor_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Compras.jTable_proveedor.getModel();
+        compras_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_proveedor.getSelectedRow(), 0)));
+        Compras.jt_Proveedor.setText((String.valueOf(tm.getValueAt(Compras.jTable_proveedor.getSelectedRow(), 1)).trim()));
+    }
+
+    public synchronized static void Compras_sector_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Compras.jTable_sector.getModel();
+        compras_id_sector = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_sector.getSelectedRow(), 0)));
+        Compras.jt_sector.setText((String.valueOf(tm.getValueAt(Compras.jTable_sector.getSelectedRow(), 1)).trim()));
+    }
+
     public synchronized static void Productos_proveedor_selected() {
         DefaultTableModel tm = (DefaultTableModel) Producto.jTable_proveedor.getModel();
         producto_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Producto.jTable_proveedor.getSelectedRow(), 0)));
         Producto.producto_proveedor.setText((String.valueOf(tm.getValueAt(Producto.jTable_proveedor.getSelectedRow(), 1))));
     }
+
     public synchronized static void Rubro_proveedor_selected() {
         DefaultTableModel tm = (DefaultTableModel) Producto.jTable_rubro.getModel();
         producto_id_rubro = Integer.parseInt(String.valueOf(tm.getValueAt(Producto.jTable_rubro.getSelectedRow(), 0)));
@@ -76,6 +104,7 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Sector.jTable_ubicacion.getModel();
         id_sector = Integer.parseInt(String.valueOf(tm.getValueAt(Sector.jTable_ubicacion.getSelectedRow(), 0)));
     }
+
     public synchronized static void Rubro_selected() {
         DefaultTableModel tm = (DefaultTableModel) Rubro.jTable_ubicacion.getModel();
         id_productos_tipo = Integer.parseInt(String.valueOf(tm.getValueAt(Rubro.jTable_ubicacion.getSelectedRow(), 0)));
@@ -83,22 +112,22 @@ public class Metodos {
 
     public static void Producto_Nuevo() {
         Metodos.id_producto = 0;
-//        Metodos.id_proveedor = 0;
-//        Metodos.id_ubicacion = 0;
-//        Metodos.id_proveedor = 1;
-//        producto_nombre.setText("");
-//        producto_precio.setText("");
-//        ubicacion.setText("");
-//        producto_proveedor.setText("No especificado");
-//        jTextField_Tipo.setText("No especificado");
-//        producto_stock_bajo.setText("");
-//        producto_nombre.requestFocus();
-//        producto_codigo.setText("");
-//        Producto.producto_nombre.setEditable(true);
-//        Producto.jTextField_porcentaje.setText("0");
-//        Producto.jTextField_precio_de_compra.setText("0");
-//        jTextField_iva.setText("10");
-//        jButton_borrar.setVisible(false);
+        Metodos.id_proveedor = 0;
+        Metodos.id_ubicacion = 0;
+        Metodos.id_proveedor = 1;
+        Producto.producto_nombre.setText("");
+        Producto.producto_precio.setText("");
+        // Producto.ubicacion.setText("");
+        Producto.producto_proveedor.setText("No especificado");
+        Producto.producto_rubro.setText("No especificado");
+        Producto.producto_stock_bajo.setText("");
+        Producto.producto_nombre.requestFocus();
+        Producto.producto_codigo.setText("");
+        Producto.producto_nombre.setEditable(true);
+        Producto.jTextField_porcentaje.setText("0");
+        Producto.jTextField_precio_de_compra.setText("0");
+        Producto.jTextField_iva.setText("10");
+        Producto.jButton_borrar.setVisible(false);
         Producto.producto_codigo.requestFocus();
     }
 
@@ -131,6 +160,33 @@ public class Metodos {
                 }
                 if (result.getString("telefono") != null) {
                     Proveedor.JT_Telefono.setText(result.getString("telefono").trim());
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public static void Comprfas_buscar_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT * FROM compra "
+                    + " inner join proveedor on proveedor.id_proveedor = compra.id_proveedor "
+                    + " inner join sector on sector.id_sector = compra.id_sector "
+                    + "where id_compra = '" + id_compra + "'");
+            if (result.next()) {
+
+                compras_id_proveedor = result.getInt("id_proveedor");
+                compras_id_sector = result.getInt("id_sector");
+
+                if (result.getString("factura") != null) {
+                    Compras.jt_factura.setText(result.getString("factura").trim());
+                }
+                if (result.getString("nombre") != null) {
+                    Compras.jt_Proveedor.setText(result.getString("nombre").trim());
+                }
+                if (result.getString("sector") != null) {
+                    Compras.jt_sector.setText(result.getString("sector").trim());
                 }
             }
         } catch (SQLException ex) {
@@ -191,6 +247,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
     public static void Rubro_traer_datos() {
         try {
             Statement st1 = conexion.createStatement();
@@ -259,7 +316,43 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, e);
         }
     }
-    
+
+    public synchronized static void Compras_guardar(String factura, Date fecha) {
+        try {
+            if (id_compra == 0) {
+                Statement st1 = conexion.createStatement();
+                ResultSet result = st1.executeQuery("SELECT MAX(id_compra) FROM compra");
+                if (result.next()) {
+                    id_compra = result.getInt(1) + 1;
+                }
+
+                    PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO compra VALUES(?,?,?,?,?)");
+                    stUpdateProducto.setInt(1, id_compra);
+                    stUpdateProducto.setInt(2, compras_id_proveedor);
+                    stUpdateProducto.setInt(3, compras_id_sector);
+                    stUpdateProducto.setString(4, factura);
+                    stUpdateProducto.setDate(5, util_Date_to_sql_date(fecha));
+                    stUpdateProducto.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Guardado correctamente");
+                    
+             
+            } else {
+                
+                PreparedStatement st = conexion.prepareStatement(
+                        " UPDATE compra "
+                        + " SET factura ='" + factura + "',"
+                        + " fecha ='" + util_Date_to_sql_date(fecha) + "',"
+                        + " id_proveedor ='" + compras_id_proveedor + "',"
+                        + " id_sector ='" + compras_id_sector + "' "
+                        + " WHERE id_compra = '" + id_compra + "'");
+                st.executeUpdate();
+                
+            }
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     public synchronized static java.sql.Date util_Date_to_sql_date(Date fecha) {
         java.sql.Date fecha_sql_date = null;
         if (fecha != null) {
@@ -268,10 +361,14 @@ public class Metodos {
         }
         return fecha_sql_date;
     }
-    
+
     public synchronized static void Producto_Guardar(String nombre, String codigo, String precio, String iva, String stock_bajo,
-            Date vencimiento, String porcentaje  ) {
+            Date vencimiento, String porcentaje) {
         try {
+
+            if (!isNumeric(stock_bajo)) {
+                stock_bajo = "0";
+            }
 
             if (Metodos.id_producto == 0) {
                 Statement st1 = conexion.createStatement();
@@ -680,6 +777,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
     public synchronized static void Rubro_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Rubro.jTable_ubicacion.getModel();
@@ -706,6 +804,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
     public synchronized static void Proveedor_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
@@ -769,6 +868,7 @@ public class Metodos {
             System.err.println("Error: " + ex);
         }
     }
+
     public synchronized static void Rubro_jtable(String buscar) {
         try {
             PreparedStatement ps = conexion.prepareStatement(""
@@ -805,6 +905,7 @@ public class Metodos {
             System.err.println("Error: " + ex);
         }
     }
+
     public synchronized static void Producto_jtable(String buscar) {
         try {
             PreparedStatement ps = conexion.prepareStatement(""
@@ -834,6 +935,131 @@ public class Metodos {
                 data.add(rows);
             }
             dtm = (DefaultTableModel) Producto.jTable_producto.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Compras_proveedor_jtable(String buscar) {
+        try {
+
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_proveedor, nombre "
+                    + "from proveedor "
+                    + "where nombre ilike '%" + buscar + "%'"
+                    + " ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Compras.jTable_proveedor.getModel();
+            for (int j = 0; j < Compras.jTable_proveedor.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+
+                    rows[i] = rs.getObject(i + 1);
+
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Compras.jTable_proveedor.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Compras_sector_jtable() {
+        try {
+
+            PreparedStatement ps = conexion.prepareStatement("select id_sector, sector from sector ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Compras.jTable_sector.getModel();
+            for (int j = 0; j < Compras.jTable_sector.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+
+                    rows[i] = rs.getObject(i + 1);
+
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Compras.jTable_sector.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Compras_buscar_jtable(String buscar) {
+        try {
+
+            PreparedStatement ps = conexion.prepareStatement("select id_compra, nombre, factura, fecha from compra"
+                    + " inner join proveedor on proveedor.id_proveedor = compra.id_proveedor "
+                    + " where nombre ilike '%" + buscar + "%'");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Compras.jTable_buscar.getModel();
+            for (int j = 0; j < Compras.jTable_buscar.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+
+                    rows[i] = rs.getObject(i + 1);
+
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Compras.jTable_buscar.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+    public synchronized static void Compras_agregar_producto_jtable(String buscar) {
+        try {
+            PreparedStatement ps = conexion.prepareStatement("select id_producto, nombre from productos "
+                    + " where nombre ilike '%" + buscar + "%'");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Compras.jTable_productos.getModel();
+            for (int j = 0; j < Compras.jTable_productos.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+
+                    rows[i] = rs.getObject(i + 1);
+
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Compras.jTable_productos.getModel();
             for (int i = 0; i < data.size(); i++) {
                 dtm.addRow(data.get(i));
             }
@@ -1001,7 +1227,7 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
-    
+
     public static void Rubro_Guardar(String productos_tipo) {
         try {
             if (id_productos_tipo == 0) {
