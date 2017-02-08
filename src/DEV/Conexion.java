@@ -64,6 +64,13 @@ public class Conexion {
                 pass = "postgres";
                 mac_adress = "-1878214831";
             }
+            if (result.equals("1748823206")) { // dell 
+                db = "german_wilcke"; 
+                host = "190.104.167.162"; 
+                user = "postgres";
+                pass = "postgres";
+                mac_adress = "1748823206";
+            }
 
             if ((result.equals(mac_adress)) || (result.equals(mac_adress2))) {
                 Class.forName("org.postgresql.Driver");
