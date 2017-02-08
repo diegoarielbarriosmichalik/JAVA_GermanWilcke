@@ -262,6 +262,7 @@ public class Ubicacion extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         jt_ubicacion.setText("");
         Metodos.id_ubicacion = 0;
+        jt_ubicacion.requestFocus();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jt_ubicacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_ubicacionKeyReleased

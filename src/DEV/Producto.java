@@ -37,6 +37,14 @@ public class Producto extends javax.swing.JFrame {
         jTextField_buscar_producto = new javax.swing.JTextField();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable_producto = new javax.swing.JTable();
+        jDialog_ubicacion = new javax.swing.JDialog();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable_ubicacion = new javax.swing.JTable();
+        jDialog_ubicacion_borrar = new javax.swing.JDialog();
+        jPanel10 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -53,8 +61,9 @@ public class Producto extends javax.swing.JFrame {
         producto_rubro = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_producto_ubicacion = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
+        jTextField_stock = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_precios = new javax.swing.JTable();
@@ -307,6 +316,125 @@ public class Producto extends javax.swing.JFrame {
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jDialog_ubicacion.setUndecorated(true);
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTable_ubicacion.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Ubicación"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_ubicacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_ubicacionMouseClicked(evt);
+            }
+        });
+        jTable_ubicacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_ubicacionKeyPressed(evt);
+            }
+        });
+        jScrollPane7.setViewportView(jTable_ubicacion);
+        if (jTable_ubicacion.getColumnModel().getColumnCount() > 0) {
+            jTable_ubicacion.getColumnModel().getColumn(0).setResizable(false);
+            jTable_ubicacion.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_ubicacion.getColumnModel().getColumn(1).setResizable(false);
+            jTable_ubicacion.getColumnModel().getColumn(1).setPreferredWidth(470);
+        }
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialog_ubicacionLayout = new javax.swing.GroupLayout(jDialog_ubicacion.getContentPane());
+        jDialog_ubicacion.getContentPane().setLayout(jDialog_ubicacionLayout);
+        jDialog_ubicacionLayout.setHorizontalGroup(
+            jDialog_ubicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_ubicacionLayout.setVerticalGroup(
+            jDialog_ubicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jDialog_ubicacion_borrar.setAlwaysOnTop(true);
+        jDialog_ubicacion_borrar.setUndecorated(true);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jButton6.setText("Borrar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Cancelar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog_ubicacion_borrarLayout = new javax.swing.GroupLayout(jDialog_ubicacion_borrar.getContentPane());
+        jDialog_ubicacion_borrar.getContentPane().setLayout(jDialog_ubicacion_borrarLayout);
+        jDialog_ubicacion_borrarLayout.setHorizontalGroup(
+            jDialog_ubicacion_borrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_ubicacion_borrarLayout.setVerticalGroup(
+            jDialog_ubicacion_borrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -328,6 +456,12 @@ public class Producto extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -530,7 +664,7 @@ public class Producto extends javax.swing.JFrame {
                         .addComponent(jTextField_porcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
-                        .addGap(0, 194, Short.MAX_VALUE))))
+                        .addGap(0, 236, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,31 +695,45 @@ public class Producto extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_producto_ubicacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Ubicación"
+                "ID", "Ubicación", "Stock"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(280);
+        jTable_producto_ubicacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_producto_ubicacionMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable_producto_ubicacion);
+        if (jTable_producto_ubicacion.getColumnModel().getColumnCount() > 0) {
+            jTable_producto_ubicacion.getColumnModel().getColumn(0).setResizable(false);
+            jTable_producto_ubicacion.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_producto_ubicacion.getColumnModel().getColumn(1).setResizable(false);
+            jTable_producto_ubicacion.getColumnModel().getColumn(1).setPreferredWidth(250);
+            jTable_producto_ubicacion.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jButton5.setText("Agregar Ubicación");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jTextField_stock.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField_stock.setBorder(javax.swing.BorderFactory.createTitledBorder("Total"));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -593,10 +741,13 @@ public class Producto extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(539, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(569, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -604,8 +755,12 @@ public class Producto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(4, 4, 4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ubicaciones", jPanel1);
@@ -657,7 +812,7 @@ public class Producto extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 921, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -711,7 +866,7 @@ public class Producto extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 921, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -1152,6 +1307,7 @@ public class Producto extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Metodos.Productos_selected();
             Metodos.Productos_traer_datos();
+            Metodos.Producto_ubicacion_jtable();
             jDialog_productos.setVisible(false);
             producto_nombre.requestFocus();
         }
@@ -1160,9 +1316,54 @@ public class Producto extends javax.swing.JFrame {
     private void jTable_productoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_productoMouseClicked
         Metodos.Productos_selected();
         Metodos.Productos_traer_datos();
+        Metodos.Producto_ubicacion_jtable();
         jDialog_productos.setVisible(false);
         producto_nombre.requestFocus();
     }//GEN-LAST:event_jTable_productoMouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        jDialog_ubicacion();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTable_ubicacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_ubicacionKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_ubicacion.setVisible(false);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Metodos.Productos_ubicacion_selected();
+            Metodos.Productos_ubicacion_guardar();
+            Metodos.Producto_ubicacion_jtable();
+            jDialog_ubicacion.setVisible(false);
+        }
+
+
+    }//GEN-LAST:event_jTable_ubicacionKeyPressed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jTable_ubicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ubicacionMouseClicked
+        Metodos.Productos_ubicacion_selected();
+        Metodos.Productos_ubicacion_guardar();
+        jDialog_ubicacion.setVisible(false);
+        Metodos.Producto_ubicacion_jtable();
+    }//GEN-LAST:event_jTable_ubicacionMouseClicked
+
+    private void jTable_producto_ubicacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_producto_ubicacionMouseClicked
+        Metodos.Productos_jTable_producto_ubicacion_selected();
+        jDialog_ubicacion_borrar();
+    }//GEN-LAST:event_jTable_producto_ubicacionMouseClicked
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        jDialog_ubicacion_borrar.setVisible(false);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        Metodos.Productos_ubicacion_delete();
+        Metodos.Producto_ubicacion_jtable();
+        jDialog_ubicacion_borrar.setVisible(false);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     public void jDialog_proveedor() {
         jDialog_proveedor.setVisible(true);
@@ -1173,6 +1374,25 @@ public class Producto extends javax.swing.JFrame {
         jDialog_proveedor.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
 
+    public void jDialog_ubicacion_borrar() {
+        jDialog_ubicacion_borrar.setVisible(true);
+        jDialog_ubicacion_borrar.setTitle("Quitar Ubicación");
+        jDialog_ubicacion_borrar.setSize(214, 74);
+        jDialog_ubicacion_borrar.setLocationRelativeTo(null);
+        jDialog_ubicacion_borrar.setAlwaysOnTop(true);
+        jDialog_ubicacion_borrar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+
+    public void jDialog_ubicacion() {
+        jDialog_ubicacion.setVisible(true);
+        jDialog_ubicacion.setTitle("Buscar Ubicación");
+        jDialog_ubicacion.setSize(500, 500);
+        jDialog_ubicacion.setLocationRelativeTo(null);
+        jDialog_ubicacion.setAlwaysOnTop(true);
+        jDialog_ubicacion.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+        Metodos.Producto_ubicacion_buscar_jtable();
+    }
+
     public void jDialog_productos() {
         jDialog_productos.setVisible(true);
         jDialog_productos.setTitle("Buscar Producto");
@@ -1180,6 +1400,8 @@ public class Producto extends javax.swing.JFrame {
         jDialog_productos.setLocationRelativeTo(null);
         jDialog_productos.setAlwaysOnTop(true);
         jDialog_productos.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+        Metodos.Producto_jtable("");
+        Producto.jTextField_buscar_producto.requestFocus();
     }
 
     public void jDialog_rubro() {
@@ -1214,14 +1436,19 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     public static javax.swing.JButton jButton_borrar;
     public static javax.swing.JButton jButton_buscar;
     public static com.toedter.calendar.JDateChooser jDateChooser_vencimiento;
     private javax.swing.JDialog jDialog_productos;
     private javax.swing.JDialog jDialog_proveedor;
     private javax.swing.JDialog jDialog_rubro;
+    private javax.swing.JDialog jDialog_ubicacion;
+    private javax.swing.JDialog jDialog_ubicacion_borrar;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1229,25 +1456,29 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     public static javax.swing.JTable jTable_historial;
     public static javax.swing.JTable jTable_precios;
     public static javax.swing.JTable jTable_producto;
+    public static javax.swing.JTable jTable_producto_ubicacion;
     public static javax.swing.JTable jTable_proveedor;
     public static javax.swing.JTable jTable_rubro;
+    public static javax.swing.JTable jTable_ubicacion;
     public static javax.swing.JTextField jTextField_buscar;
     public static javax.swing.JTextField jTextField_buscar_producto;
     public static javax.swing.JTextField jTextField_buscar_rubro;
     public static javax.swing.JTextField jTextField_iva;
     public static javax.swing.JTextField jTextField_porcentaje;
     public static javax.swing.JTextField jTextField_precio_de_compra;
+    public static javax.swing.JTextField jTextField_stock;
     public static javax.swing.JTextField producto_codigo;
     public static javax.swing.JTextField producto_nombre;
     public static javax.swing.JTextField producto_precio;
