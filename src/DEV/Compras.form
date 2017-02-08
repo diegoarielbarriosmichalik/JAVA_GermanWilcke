@@ -960,7 +960,6 @@
                     <TitledBorder title="Fecha"/>
                   </Border>
                 </Property>
-                <Property name="dateFormatString" type="java.lang.String" value="dd/MM/yyyy"/>
               </Properties>
               <Events>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jDateChooser3KeyPressed"/>

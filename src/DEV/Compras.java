@@ -702,6 +702,7 @@ public class Compras extends javax.swing.JFrame {
         jt_sector.setText("");
         jt_factura.setText("");
         jDateChooser3.setDate(Metodos.hoy);
+        jt_Proveedor.requestFocus();
     }
 
     private void jt_ProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_ProveedorKeyReleased

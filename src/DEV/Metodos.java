@@ -57,6 +57,12 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
         id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
     }
+
+    public synchronized static void Productos_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Producto.jTable_producto.getModel();
+        id_producto = Integer.parseInt(String.valueOf(tm.getValueAt(Producto.jTable_producto.getSelectedRow(), 0)));
+    }
+
     public synchronized static void Listado_compras_sector_selected() {
         DefaultTableModel tm = (DefaultTableModel) Listado_compras_por_sector.jTable_sector.getModel();
         listado_compras_id_sector = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_compras_por_sector.jTable_sector.getSelectedRow(), 0)));
@@ -174,6 +180,44 @@ public class Metodos {
                 if (result.getString("telefono") != null) {
                     Proveedor.JT_Telefono.setText(result.getString("telefono").trim());
                 }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public static void Productos_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery(""
+                    + "SELECT *, proveedor.nombre as proveedor_nombre FROM productos "
+                    + "inner join proveedor on proveedor.id_proveedor = productos.id_proveedor "
+                    + "inner join productos_tipo on productos_tipo.id_productos_tipo = productos.id_productos_tipo "
+                    + "where id_producto = '" + id_producto + "'");
+            if (result.next()) {
+                if (result.getString("nombre") != null) {
+                    Producto.producto_nombre.setText(result.getString("nombre").trim());
+                }
+                if (result.getString("codigo") != null) {
+                    Producto.producto_codigo.setText(result.getString("codigo").trim());
+                }
+                if (result.getString("precio") != null) {
+                    Producto.producto_precio.setText(result.getString("precio").trim());
+                }
+                if (result.getString("proveedor_nombre") != null) {
+                    Producto.producto_proveedor.setText(result.getString("proveedor_nombre").trim());
+                }
+                producto_id_proveedor = result.getInt("id_proveedor");
+
+                if (result.getString("productos_tipo") != null) {
+                    Producto.producto_rubro.setText(result.getString("productos_tipo").trim());
+                }
+                producto_id_rubro = result.getInt("id_productos_tipo");
+                if (result.getString("stock_bajo") != null) {
+                    Producto.producto_stock_bajo.setText(result.getString("stock_bajo").trim());
+                }
+                Producto.jTextField_iva.setText(result.getString("iva").trim());
+                Producto.jDateChooser_vencimiento.setDate(result.getDate("vencimiento"));
             }
         } catch (SQLException ex) {
             System.err.println(ex);
@@ -563,7 +607,7 @@ public class Metodos {
         }
     }
 
-    public synchronized static void Compras_imprimir(Date desde, Date hasta ) {
+    public synchronized static void Compras_imprimir(Date desde, Date hasta) {
         try {
             Map parametros = new HashMap();
             parametros.put("desde", desde);
@@ -762,6 +806,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
     public synchronized static void Listado_compras_sector_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Listado_compras_por_sector.jTable_sector.getModel();

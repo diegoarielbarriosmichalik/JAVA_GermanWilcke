@@ -257,6 +257,11 @@ public class Producto extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable_producto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_productoMouseClicked(evt);
+            }
+        });
         jTable_producto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTable_productoKeyPressed(evt);
@@ -471,11 +476,6 @@ public class Producto extends javax.swing.JFrame {
 
         producto_rubro.setToolTipText("Click para buscar");
         producto_rubro.setBorder(javax.swing.BorderFactory.createTitledBorder("Rubro (F1 para buscar)"));
-        producto_rubro.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                producto_rubroFocusGained(evt);
-            }
-        });
         producto_rubro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 producto_rubroMouseClicked(evt);
@@ -484,6 +484,11 @@ public class Producto extends javax.swing.JFrame {
         producto_rubro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 producto_rubroActionPerformed(evt);
+            }
+        });
+        producto_rubro.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                producto_rubroFocusGained(evt);
             }
         });
         producto_rubro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1109,6 +1114,9 @@ public class Producto extends javax.swing.JFrame {
 
     private void jTable_rubroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_rubroKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            jDialog_rubro.setVisible(false);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Metodos.Rubro_proveedor_selected();
             jDialog_rubro.setVisible(false);
         }
@@ -1141,7 +1149,20 @@ public class Producto extends javax.swing.JFrame {
             jDialog_productos.setVisible(false);
             producto_codigo.requestFocus();
         }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Metodos.Productos_selected();
+            Metodos.Productos_traer_datos();
+            jDialog_productos.setVisible(false);
+            producto_nombre.requestFocus();
+        }
     }//GEN-LAST:event_jTable_productoKeyPressed
+
+    private void jTable_productoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_productoMouseClicked
+        Metodos.Productos_selected();
+        Metodos.Productos_traer_datos();
+        jDialog_productos.setVisible(false);
+        producto_nombre.requestFocus();
+    }//GEN-LAST:event_jTable_productoMouseClicked
 
     public void jDialog_proveedor() {
         jDialog_proveedor.setVisible(true);
