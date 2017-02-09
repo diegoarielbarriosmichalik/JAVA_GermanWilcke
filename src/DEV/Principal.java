@@ -74,6 +74,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem40 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -251,11 +252,6 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu10);
 
         jMenu_ventas.setText("Compras / Ventas");
-        jMenu_ventas.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jMenu_ventasFocusGained(evt);
-            }
-        });
         jMenu_ventas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu_ventasMouseClicked(evt);
@@ -264,6 +260,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu_ventas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu_ventasActionPerformed(evt);
+            }
+        });
+        jMenu_ventas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jMenu_ventasFocusGained(evt);
             }
         });
         jMenu_ventas.add(jSeparator10);
@@ -297,12 +298,12 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem10.setMnemonic('r');
         jMenuItem10.setText("Facturas de Compra");
         jMenuItem10.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
+            }
             public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
                 jMenuItem10MenuKeyPressed(evt);
             }
             public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
-            }
-            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
             }
         });
         jMenuItem10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -332,6 +333,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu_ventas.add(jMenuItem5);
+
+        jMenuItem12.setText("Listado de compras por proveedor");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu_ventas.add(jMenuItem12);
         jMenu_ventas.add(jSeparator6);
 
         jMenuItem4.setText("Apertura de Caja");
@@ -658,6 +667,10 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         new Listado_compras_por_sector_detallado().setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        new Listado_compras_por_proveedor().setVisible(true);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
     
     public static void main(String args[]) {
         try {
@@ -690,6 +703,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
