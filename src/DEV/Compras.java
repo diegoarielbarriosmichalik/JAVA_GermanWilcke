@@ -841,12 +841,16 @@ public class Compras extends javax.swing.JFrame {
         jt_Proveedor.setText("");
         Metodos.compras_id_proveedor = 0;
         Metodos.compras_id_sector = 0;
+        Metodos.id_compra = 0;
         Metodos.compras_id_productos_ubicacion = 0;
         jt_sector.setText("");
         jt_factura.setText("");
         jDateChooser3.setDate(Metodos.hoy);
         Metodos.Compras_ubicacion_jtable();
+        Metodos.Compras_detalle_jtable();
+        jButton_borrar.setVisible(false);
         jt_Proveedor.requestFocus();
+        
     }
 
     private void jt_ProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_ProveedorKeyReleased

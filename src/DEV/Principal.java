@@ -4,9 +4,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
-
+    
     public Principal() {
-
+        
         initComponents();
         setLocationRelativeTo(null);
         setTitle(Metodos.titulo);
@@ -17,12 +17,12 @@ public class Principal extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-
+                
                 close();
             }
         });
     }
-
+    
     private void close() {
         if (JOptionPane.showConfirmDialog(rootPane, "¿Salir del sistema?",
                 "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -30,9 +30,9 @@ public class Principal extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-
+    
     public static int id_usuario;
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -73,6 +73,7 @@ public class Principal extends javax.swing.JFrame {
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem40 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -323,6 +324,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu_ventas.add(jMenuItem40);
+
+        jMenuItem5.setText("Listado de compras por sector (Detallado)");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu_ventas.add(jMenuItem5);
         jMenu_ventas.add(jSeparator6);
 
         jMenuItem4.setText("Apertura de Caja");
@@ -498,7 +507,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu_ventasMouseClicked
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-
+        
 
     }//GEN-LAST:event_formKeyPressed
 
@@ -593,7 +602,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-
+        
         if (Metodos.privilegio == 1) {
 //            new Usuarios_control().setVisible(true);
         } else {
@@ -646,6 +655,10 @@ public class Principal extends javax.swing.JFrame {
         new Listado_compras_por_sector().setVisible(true);
     }//GEN-LAST:event_jMenuItem40ActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        new Listado_compras_por_sector_detallado().setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -706,6 +719,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem39;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem40;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
