@@ -295,25 +295,24 @@ public class Proveedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_guardarActionPerformed
 
     private void jButton_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_nuevoActionPerformed
+        clear();
+    }//GEN-LAST:event_jButton_nuevoActionPerformed
 
-//        JT_Nombre.setEditable(true);
-//        JT_Descripcion.setText("");
+    public static void clear() {
         JT_Direccion.setText("");
         JT_Nombre.setText("");
-//        JT_Nombre_Vendedor.setText("");
         JT_Ruc.setText("");
         JT_Telefono.setText("");
-//        JT_Telefono_Vendedor.setText("");
         JT_Nombre.requestFocus();
         jButton_borrar.setVisible(false);
-
         Metodos.id_proveedor = 0;
-    }//GEN-LAST:event_jButton_nuevoActionPerformed
+        jButton_borrar.setVisible(false);
+    }
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
         Metodos.Proveedores_delete();
-//        Metodos.Productos_delete();
         jButton_borrar.setVisible(false);
+        clear();
     }//GEN-LAST:event_jButton_borrarActionPerformed
 
     private void JT_RucFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JT_RucFocusLost
@@ -355,6 +354,7 @@ public class Proveedor extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             Metodos.Proveedor_selected();
             Metodos.Proveedor_traer_datos();
+            jButton_borrar.setVisible(true);
             jDialog_buscar.setVisible(false);
             JT_Nombre.requestFocus();
         }
@@ -364,6 +364,7 @@ public class Proveedor extends javax.swing.JFrame {
         Metodos.Proveedor_selected();
         Metodos.Proveedor_traer_datos();
         jDialog_buscar.setVisible(false);
+        jButton_borrar.setVisible(true);
         JT_Nombre.requestFocus();
     }//GEN-LAST:event_jTable_proveedorMouseClicked
 
@@ -376,6 +377,7 @@ public class Proveedor extends javax.swing.JFrame {
         jDialog_buscar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
 
         Metodos.Proveedor_jtable(jTextField_buscar.getText());
+        jTextField_buscar.requestFocus();
     }
 
     public static void getGuardar() {

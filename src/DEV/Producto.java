@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Producto extends javax.swing.JFrame {
-
+    
     public Producto() {
         initComponents();
         setTitle("Productos");
@@ -17,7 +17,7 @@ public class Producto extends javax.swing.JFrame {
         jTextField_porcentaje.setVisible(false);
         jLabel8.setVisible(false);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -45,6 +45,20 @@ public class Producto extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jDialog_mover = new javax.swing.JDialog();
+        jPanel11 = new javax.swing.JPanel();
+        jTextField_ubicacion_de = new javax.swing.JTextField();
+        jTextField_mover_unidades = new javax.swing.JTextField();
+        jTextField_ubicacion_a = new javax.swing.JTextField();
+        jButton_mover_ok = new javax.swing.JButton();
+        jDialog_ubicacion_de = new javax.swing.JDialog();
+        jPanel12 = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTable_ubicacion_de = new javax.swing.JTable();
+        jDialog_ubicacion_a = new javax.swing.JDialog();
+        jPanel13 = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable_ubicacion_a = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
@@ -64,6 +78,9 @@ public class Producto extends javax.swing.JFrame {
         jTable_producto_ubicacion = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jTextField_stock = new javax.swing.JTextField();
+        jButton_mover = new javax.swing.JButton();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTable_ubicacion_mover = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_precios = new javax.swing.JTable();
@@ -270,6 +287,9 @@ public class Producto extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable_productoMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable_productoMouseEntered(evt);
+            }
         });
         jTable_producto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -435,14 +455,224 @@ public class Producto extends javax.swing.JFrame {
             .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jDialog_mover.setUndecorated(true);
+
+        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTextField_ubicacion_de.setBorder(javax.swing.BorderFactory.createTitledBorder("De Ubicacón (F1 para buscar)"));
+        jTextField_ubicacion_de.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_ubicacion_deKeyPressed(evt);
+            }
+        });
+
+        jTextField_mover_unidades.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidades"));
+        jTextField_mover_unidades.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_mover_unidadesKeyReleased(evt);
+            }
+        });
+
+        jTextField_ubicacion_a.setBorder(javax.swing.BorderFactory.createTitledBorder("A Ubicación (F1 para buscar)"));
+        jTextField_ubicacion_a.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_ubicacion_aKeyPressed(evt);
+            }
+        });
+
+        jButton_mover_ok.setText("Aceptar");
+        jButton_mover_ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_mover_okActionPerformed(evt);
+            }
+        });
+        jButton_mover_ok.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton_mover_okKeyPressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField_ubicacion_de)
+                    .addComponent(jTextField_ubicacion_a)
+                    .addComponent(jTextField_mover_unidades)
+                    .addComponent(jButton_mover_ok, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField_ubicacion_de, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField_ubicacion_a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField_mover_unidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_mover_ok, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog_moverLayout = new javax.swing.GroupLayout(jDialog_mover.getContentPane());
+        jDialog_mover.getContentPane().setLayout(jDialog_moverLayout);
+        jDialog_moverLayout.setHorizontalGroup(
+            jDialog_moverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_moverLayout.setVerticalGroup(
+            jDialog_moverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jDialog_ubicacion_de.setUndecorated(true);
+
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTable_ubicacion_de.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Ubicación"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_ubicacion_de.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_ubicacion_deMouseClicked(evt);
+            }
+        });
+        jTable_ubicacion_de.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_ubicacion_deKeyPressed(evt);
+            }
+        });
+        jScrollPane8.setViewportView(jTable_ubicacion_de);
+        if (jTable_ubicacion_de.getColumnModel().getColumnCount() > 0) {
+            jTable_ubicacion_de.getColumnModel().getColumn(0).setResizable(false);
+            jTable_ubicacion_de.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_ubicacion_de.getColumnModel().getColumn(1).setResizable(false);
+            jTable_ubicacion_de.getColumnModel().getColumn(1).setPreferredWidth(470);
+        }
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialog_ubicacion_deLayout = new javax.swing.GroupLayout(jDialog_ubicacion_de.getContentPane());
+        jDialog_ubicacion_de.getContentPane().setLayout(jDialog_ubicacion_deLayout);
+        jDialog_ubicacion_deLayout.setHorizontalGroup(
+            jDialog_ubicacion_deLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_ubicacion_deLayout.setVerticalGroup(
+            jDialog_ubicacion_deLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jDialog_ubicacion_a.setUndecorated(true);
+
+        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTable_ubicacion_a.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Ubicación"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_ubicacion_a.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_ubicacion_aMouseClicked(evt);
+            }
+        });
+        jTable_ubicacion_a.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_ubicacion_aKeyPressed(evt);
+            }
+        });
+        jScrollPane9.setViewportView(jTable_ubicacion_a);
+        if (jTable_ubicacion_a.getColumnModel().getColumnCount() > 0) {
+            jTable_ubicacion_a.getColumnModel().getColumn(0).setResizable(false);
+            jTable_ubicacion_a.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_ubicacion_a.getColumnModel().getColumn(1).setResizable(false);
+            jTable_ubicacion_a.getColumnModel().getColumn(1).setPreferredWidth(470);
+        }
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialog_ubicacion_aLayout = new javax.swing.GroupLayout(jDialog_ubicacion_a.getContentPane());
+        jDialog_ubicacion_a.getContentPane().setLayout(jDialog_ubicacion_aLayout);
+        jDialog_ubicacion_aLayout.setHorizontalGroup(
+            jDialog_ubicacion_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_ubicacion_aLayout.setVerticalGroup(
+            jDialog_ubicacion_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowActivated(java.awt.event.WindowEvent evt) {
-                formWindowActivated(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
             }
         });
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -664,7 +894,7 @@ public class Producto extends javax.swing.JFrame {
                         .addComponent(jTextField_porcentaje, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
-                        .addGap(0, 236, Short.MAX_VALUE))))
+                        .addGap(0, 245, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -688,7 +918,7 @@ public class Producto extends javax.swing.JFrame {
                     .addComponent(jTextField_iva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(producto_rubro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 164, Short.MAX_VALUE))
+                .addGap(0, 174, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Información general", jPanel3);
@@ -735,6 +965,40 @@ public class Producto extends javax.swing.JFrame {
         jTextField_stock.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         jTextField_stock.setBorder(javax.swing.BorderFactory.createTitledBorder("Total"));
 
+        jButton_mover.setText("Mover Stock");
+        jButton_mover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_moverActionPerformed(evt);
+            }
+        });
+
+        jTable_ubicacion_mover.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Ubicación", "Unidades", "Fecha"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane10.setViewportView(jTable_ubicacion_mover);
+        if (jTable_ubicacion_mover.getColumnModel().getColumnCount() > 0) {
+            jTable_ubicacion_mover.getColumnModel().getColumn(0).setResizable(false);
+            jTable_ubicacion_mover.getColumnModel().getColumn(0).setPreferredWidth(10);
+            jTable_ubicacion_mover.getColumnModel().getColumn(1).setResizable(false);
+            jTable_ubicacion_mover.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jTable_ubicacion_mover.getColumnModel().getColumn(2).setResizable(false);
+            jTable_ubicacion_mover.getColumnModel().getColumn(2).setPreferredWidth(30);
+            jTable_ubicacion_mover.getColumnModel().getColumn(3).setResizable(false);
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -743,23 +1007,33 @@ public class Producto extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(569, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton_mover, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(4, 4, 4)))
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(4, 4, 4)))
+                    .addComponent(jButton_mover, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -812,7 +1086,7 @@ public class Producto extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 921, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -824,7 +1098,7 @@ public class Producto extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addGap(0, 28, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Precios de Venta", jPanel4);
@@ -866,7 +1140,7 @@ public class Producto extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 921, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -1019,7 +1293,7 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_producto_nombreFocusLost
 
     private void producto_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_producto_nombreKeyPressed
-
+        
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
@@ -1067,7 +1341,7 @@ public class Producto extends javax.swing.JFrame {
 //            Producto_Guardar();
 //        }
     }//GEN-LAST:event_producto_precioKeyReleased
-
+    
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Metodos.Producto_Guardar(producto_nombre.getText(), producto_codigo.getText(), producto_precio.getText(), jTextField_iva.getText(),
@@ -1129,7 +1403,7 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_ivaMouseClicked
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
-
+        
         if (JOptionPane.showConfirmDialog(
                 rootPane, "¿Desea borrar este producto?", "AVISO",
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -1156,7 +1430,7 @@ public class Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void producto_codigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_producto_codigoFocusLost
-
+        
         if (Producto.producto_codigo.getText().length() > 0) {
             //       Metodos.Producto_Buscar_por_codigo_de_barras();
             producto_nombre.requestFocus();
@@ -1308,6 +1582,7 @@ public class Producto extends javax.swing.JFrame {
             Metodos.Productos_selected();
             Metodos.Productos_traer_datos();
             Metodos.Producto_ubicacion_jtable();
+            Metodos.Producto_ubicacion_mover_jtable();
             jDialog_productos.setVisible(false);
             producto_nombre.requestFocus();
         }
@@ -1317,6 +1592,7 @@ public class Producto extends javax.swing.JFrame {
         Metodos.Productos_selected();
         Metodos.Productos_traer_datos();
         Metodos.Producto_ubicacion_jtable();
+        Metodos.Producto_ubicacion_mover_jtable();
         jDialog_productos.setVisible(false);
         producto_nombre.requestFocus();
     }//GEN-LAST:event_jTable_productoMouseClicked
@@ -1335,7 +1611,7 @@ public class Producto extends javax.swing.JFrame {
             Metodos.Producto_ubicacion_jtable();
             jDialog_ubicacion.setVisible(false);
         }
-
+        
 
     }//GEN-LAST:event_jTable_ubicacionKeyPressed
 
@@ -1365,6 +1641,80 @@ public class Producto extends javax.swing.JFrame {
         jDialog_ubicacion_borrar.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton_moverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_moverActionPerformed
+        jDialog_mover();
+    }//GEN-LAST:event_jButton_moverActionPerformed
+
+    private void jTextField_ubicacion_deKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ubicacion_deKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_mover.setVisible(false);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_F1) {
+            jDialog_ubicacion_de();
+        }
+    }//GEN-LAST:event_jTextField_ubicacion_deKeyPressed
+
+    private void jTextField_ubicacion_aKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_ubicacion_aKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_mover.setVisible(false);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_F1) {
+            jDialog_ubicacion_a();
+        }
+
+    }//GEN-LAST:event_jTextField_ubicacion_aKeyPressed
+
+    private void jTextField_mover_unidadesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_mover_unidadesKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_mover.setVisible(false);
+        }
+    }//GEN-LAST:event_jTextField_mover_unidadesKeyReleased
+
+    private void jButton_mover_okKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_mover_okKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_mover.setVisible(false);
+        }
+    }//GEN-LAST:event_jButton_mover_okKeyPressed
+
+    private void jTable_ubicacion_deMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ubicacion_deMouseClicked
+        Metodos.Producto_ubicacion_de_selected();
+        jDialog_ubicacion_de.setVisible(false);
+        jTextField_ubicacion_de.requestFocus();
+    }//GEN-LAST:event_jTable_ubicacion_deMouseClicked
+
+    private void jTable_ubicacion_deKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_ubicacion_deKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Metodos.Producto_ubicacion_de_selected();
+            jDialog_ubicacion_de.setVisible(false);
+            jTextField_ubicacion_de.requestFocus();
+        }
+    }//GEN-LAST:event_jTable_ubicacion_deKeyPressed
+
+    private void jButton_mover_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_mover_okActionPerformed
+        Metodos.Producto_mover(jTextField_mover_unidades.getText());
+        jDialog_mover.setVisible(false);
+        Metodos.Producto_ubicacion_jtable();
+        Metodos.Producto_ubicacion_mover_jtable();
+    }//GEN-LAST:event_jButton_mover_okActionPerformed
+
+    private void jTable_ubicacion_aMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_ubicacion_aMouseClicked
+        Metodos.Producto_ubicacion_a_selected();
+        jDialog_ubicacion_a.setVisible(false);
+        jTextField_ubicacion_a.requestFocus();
+    }//GEN-LAST:event_jTable_ubicacion_aMouseClicked
+
+    private void jTable_ubicacion_aKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_ubicacion_aKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Metodos.Producto_ubicacion_a_selected();
+            jDialog_ubicacion_a.setVisible(false);
+            jTextField_ubicacion_a.requestFocus();
+        }
+    }//GEN-LAST:event_jTable_ubicacion_aKeyPressed
+
+    private void jTable_productoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_productoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable_productoMouseEntered
+    
     public void jDialog_proveedor() {
         jDialog_proveedor.setVisible(true);
         jDialog_proveedor.setTitle("Buscar Proveedor");
@@ -1373,7 +1723,27 @@ public class Producto extends javax.swing.JFrame {
         jDialog_proveedor.setAlwaysOnTop(true);
         jDialog_proveedor.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-
+    
+    public void jDialog_ubicacion_de() {
+        jDialog_ubicacion_de.setVisible(true);
+        jDialog_ubicacion_de.setTitle("Buscar Ubicacion");
+        jDialog_ubicacion_de.setSize(500, 500);
+        jDialog_ubicacion_de.setLocationRelativeTo(null);
+        jDialog_ubicacion_de.setAlwaysOnTop(true);
+        jDialog_ubicacion_de.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+        Metodos.Producto_ubicacion_de_jtable();
+    }
+    
+    public void jDialog_ubicacion_a() {
+        jDialog_ubicacion_a.setVisible(true);
+        jDialog_ubicacion_a.setTitle("Buscar Ubicacion");
+        jDialog_ubicacion_a.setSize(500, 500);
+        jDialog_ubicacion_a.setLocationRelativeTo(null);
+        jDialog_ubicacion_a.setAlwaysOnTop(true);
+        jDialog_ubicacion_a.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+        Metodos.Producto_ubicacion_a_jtable();
+    }
+    
     public void jDialog_ubicacion_borrar() {
         jDialog_ubicacion_borrar.setVisible(true);
         jDialog_ubicacion_borrar.setTitle("Quitar Ubicación");
@@ -1382,7 +1752,7 @@ public class Producto extends javax.swing.JFrame {
         jDialog_ubicacion_borrar.setAlwaysOnTop(true);
         jDialog_ubicacion_borrar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-
+    
     public void jDialog_ubicacion() {
         jDialog_ubicacion.setVisible(true);
         jDialog_ubicacion.setTitle("Buscar Ubicación");
@@ -1392,7 +1762,7 @@ public class Producto extends javax.swing.JFrame {
         jDialog_ubicacion.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Producto_ubicacion_buscar_jtable();
     }
-
+    
     public void jDialog_productos() {
         jDialog_productos.setVisible(true);
         jDialog_productos.setTitle("Buscar Producto");
@@ -1403,7 +1773,7 @@ public class Producto extends javax.swing.JFrame {
         Metodos.Producto_jtable("");
         Producto.jTextField_buscar_producto.requestFocus();
     }
-
+    
     public void jDialog_rubro() {
         jDialog_rubro.setVisible(true);
         jDialog_rubro.setTitle("Buscar Rubro");
@@ -1412,7 +1782,24 @@ public class Producto extends javax.swing.JFrame {
         jDialog_rubro.setAlwaysOnTop(true);
         jDialog_rubro.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-
+    
+    public void jDialog_mover() {
+        jDialog_mover.setVisible(true);
+        jDialog_mover.setTitle("Mover de Ubicación");
+        jDialog_mover.setSize(190, 213);
+        jDialog_mover.setLocationRelativeTo(null);
+        jDialog_mover.setAlwaysOnTop(true);
+        jDialog_mover.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+        
+        jTextField_ubicacion_a.setText("");
+        jTextField_ubicacion_de.setText("");
+        jTextField_mover_unidades.setText("");
+        
+        Metodos.producto_id_ubicacion_a = 0;
+        Metodos.producto_id_ubicacion_de = 0;
+        
+    }
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -1424,7 +1811,7 @@ public class Producto extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
+        
         java.awt.EventQueue.invokeLater(() -> {
             new Producto().setVisible(true);
         });
@@ -1440,15 +1827,23 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     public static javax.swing.JButton jButton_borrar;
     public static javax.swing.JButton jButton_buscar;
+    private javax.swing.JButton jButton_mover;
+    private javax.swing.JButton jButton_mover_ok;
     public static com.toedter.calendar.JDateChooser jDateChooser_vencimiento;
+    private javax.swing.JDialog jDialog_mover;
     private javax.swing.JDialog jDialog_productos;
     private javax.swing.JDialog jDialog_proveedor;
     private javax.swing.JDialog jDialog_rubro;
     private javax.swing.JDialog jDialog_ubicacion;
+    private javax.swing.JDialog jDialog_ubicacion_a;
     private javax.swing.JDialog jDialog_ubicacion_borrar;
+    private javax.swing.JDialog jDialog_ubicacion_de;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1458,12 +1853,15 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     public static javax.swing.JTable jTable_historial;
     public static javax.swing.JTable jTable_precios;
@@ -1472,13 +1870,19 @@ public class Producto extends javax.swing.JFrame {
     public static javax.swing.JTable jTable_proveedor;
     public static javax.swing.JTable jTable_rubro;
     public static javax.swing.JTable jTable_ubicacion;
+    public static javax.swing.JTable jTable_ubicacion_a;
+    public static javax.swing.JTable jTable_ubicacion_de;
+    public static javax.swing.JTable jTable_ubicacion_mover;
     public static javax.swing.JTextField jTextField_buscar;
     public static javax.swing.JTextField jTextField_buscar_producto;
     public static javax.swing.JTextField jTextField_buscar_rubro;
     public static javax.swing.JTextField jTextField_iva;
+    public static javax.swing.JTextField jTextField_mover_unidades;
     public static javax.swing.JTextField jTextField_porcentaje;
     public static javax.swing.JTextField jTextField_precio_de_compra;
     public static javax.swing.JTextField jTextField_stock;
+    public static javax.swing.JTextField jTextField_ubicacion_a;
+    public static javax.swing.JTextField jTextField_ubicacion_de;
     public static javax.swing.JTextField producto_codigo;
     public static javax.swing.JTextField producto_nombre;
     public static javax.swing.JTextField producto_precio;

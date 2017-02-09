@@ -1145,6 +1145,9 @@ public class Compras extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
             jDialog_ubicacion();
         }
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_agregar_detalle.setVisible(false);
+        }
     }//GEN-LAST:event_jTextField_ubicacionKeyPressed
 
     private void jTable_ubicacionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_ubicacionKeyPressed
