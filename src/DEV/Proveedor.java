@@ -1,7 +1,7 @@
 package DEV;
 
-import DEV.Conexion;
-import DEV.Metodos;
+import java.awt.AWTException;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
@@ -55,6 +55,9 @@ public class Proveedor extends javax.swing.JFrame {
         jTextField_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField_buscarKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_buscarKeyReleased(evt);
             }
         });
 
@@ -368,6 +371,21 @@ public class Proveedor extends javax.swing.JFrame {
         JT_Nombre.requestFocus();
     }//GEN-LAST:event_jTable_proveedorMouseClicked
 
+    private void jTextField_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscarKeyReleased
+
+        if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+            try {
+                jTable_proveedor.requestFocus();
+                Robot r = new Robot();
+                r.keyPress(KeyEvent.VK_DOWN);
+            } catch (AWTException ex) {
+                System.err.println(ex);
+            }
+        } else {
+            Metodos.Proveedor_jtable(jTextField_buscar.getText());
+        }
+    }//GEN-LAST:event_jTextField_buscarKeyReleased
+
     public void jDialog_buscar() {
         jDialog_buscar.setVisible(true);
         jDialog_buscar.setTitle("Buscar");
@@ -377,7 +395,7 @@ public class Proveedor extends javax.swing.JFrame {
         jDialog_buscar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
 
         Metodos.Proveedor_jtable(jTextField_buscar.getText());
-        jTextField_buscar.requestFocus();
+
     }
 
     public static void getGuardar() {

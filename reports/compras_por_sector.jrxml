@@ -11,8 +11,8 @@
 inner join proveedor on
 proveedor.id_proveedor = compra.id_proveedor
 inner join sector on sector.id_sector = compra.id_sector
-and compra.id_sector = $P{id_sector}
-]]>
+inner join compra_detalle on compra_detalle.id_sector = compra.id_sector
+and compra.id_sector = $P{id_sector}]]>
 	</queryString>
 	<field name="id_compra" class="java.lang.Integer"/>
 	<field name="id_proveedor" class="java.lang.Integer"/>
