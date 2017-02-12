@@ -55,6 +55,10 @@ public class Principal extends javax.swing.JFrame {
         jSeparator17 = new javax.swing.JPopupMenu.Separator();
         jMenuItem39 = new javax.swing.JMenuItem();
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem34 = new javax.swing.JMenuItem();
+        jMenuItem23 = new javax.swing.JMenuItem();
+        jMenuItem37 = new javax.swing.JMenuItem();
+        jSeparator11 = new javax.swing.JPopupMenu.Separator();
         jMenu10 = new javax.swing.JMenu();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -81,9 +85,8 @@ public class Principal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu5 = new javax.swing.JMenu();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem34 = new javax.swing.JMenuItem();
+        jMenuItem14 = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem37 = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         jMenu4 = new javax.swing.JMenu();
         jSeparator23 = new javax.swing.JPopupMenu.Separator();
@@ -200,6 +203,31 @@ public class Principal extends javax.swing.JFrame {
         jMenu6.add(jMenuItem39);
         jMenu6.add(jSeparator9);
 
+        jMenuItem34.setText("Plan de Cuentas");
+        jMenuItem34.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem34ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem34);
+
+        jMenuItem23.setText("Cuentas Vinculadas");
+        jMenuItem23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem23ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem23);
+
+        jMenuItem37.setText("Imprimir plan de cuentas");
+        jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem37ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem37);
+        jMenu6.add(jSeparator11);
+
         jMenuBar1.add(jMenu6);
 
         jMenu10.setText("Productos");
@@ -298,12 +326,12 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem10.setMnemonic('r');
         jMenuItem10.setText("Facturas de Compra");
         jMenuItem10.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
-            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
-            }
             public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
                 jMenuItem10MenuKeyPressed(evt);
             }
             public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
             }
         });
         jMenuItem10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -370,22 +398,14 @@ public class Principal extends javax.swing.JFrame {
         jMenu5.setText("Contabilidad");
         jMenu5.add(jSeparator4);
 
-        jMenuItem34.setText("Plan de Cuentas");
-        jMenuItem34.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem14.setText("Asiento Contable");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem34ActionPerformed(evt);
+                jMenuItem14ActionPerformed(evt);
             }
         });
-        jMenu5.add(jMenuItem34);
+        jMenu5.add(jMenuItem14);
         jMenu5.add(jSeparator7);
-
-        jMenuItem37.setText("Imprimir plan de cuentas");
-        jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem37ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem37);
         jMenu5.add(jSeparator8);
 
         jMenuBar1.add(jMenu5);
@@ -671,6 +691,14 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
         new Listado_compras_por_proveedor().setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        new Movimientos_contables().setVisible(true);
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
+        new Cuentas_vinculadas().setVisible(true);
+    }//GEN-LAST:event_jMenuItem23ActionPerformed
     
     public static void main(String args[]) {
         try {
@@ -705,6 +733,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
+    private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem17;
@@ -714,6 +743,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem21;
     private javax.swing.JMenuItem jMenuItem22;
+    private javax.swing.JMenuItem jMenuItem23;
     private javax.swing.JMenuItem jMenuItem24;
     private javax.swing.JMenuItem jMenuItem25;
     private javax.swing.JMenuItem jMenuItem26;
@@ -745,6 +775,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
+    private javax.swing.JPopupMenu.Separator jSeparator11;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator17;

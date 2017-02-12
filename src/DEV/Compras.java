@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Compras extends javax.swing.JFrame {
-
+    
     public Compras() {
         initComponents();
         setLocationRelativeTo(null);
@@ -20,7 +20,7 @@ public class Compras extends javax.swing.JFrame {
         jButton_borrar.setVisible(false);
         Compras_clear();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -333,6 +333,9 @@ public class Compras extends javax.swing.JFrame {
 
         jTextField_precio.setBorder(javax.swing.BorderFactory.createTitledBorder("Precio Unitario"));
         jTextField_precio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_precioKeyReleased(evt);
+            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField_precioKeyPressed(evt);
             }
@@ -848,7 +851,7 @@ public class Compras extends javax.swing.JFrame {
             jTable_detalle.getColumnModel().getColumn(5).setResizable(false);
             jTable_detalle.getColumnModel().getColumn(6).setResizable(false);
             jTable_detalle.getColumnModel().getColumn(7).setResizable(false);
-            jTable_detalle.getColumnModel().getColumn(7).setPreferredWidth(50);
+            jTable_detalle.getColumnModel().getColumn(7).setPreferredWidth(70);
         }
 
         jButton_agregar_detalle.setMnemonic('a');
@@ -985,7 +988,7 @@ public class Compras extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 21, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1014,7 +1017,7 @@ public class Compras extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Compras_clear();
     }//GEN-LAST:event_jButton3ActionPerformed
-
+    
     public static void Compras_clear() {
         jt_Proveedor.setText("");
         jLabel1.setText("");
@@ -1032,7 +1035,7 @@ public class Compras extends javax.swing.JFrame {
         Metodos.Compras_detalle_jtable();
         jButton_borrar.setVisible(false);
         jt_Proveedor.requestFocus();
-
+        
     }
 
     private void jt_ProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_ProveedorKeyReleased
@@ -1040,13 +1043,13 @@ public class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_ProveedorKeyReleased
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
-
+        
         if (JOptionPane.showConfirmDialog(rootPane, "¿Desea borrar esta compra? Este proceso no se puede revertir.",
                 "ALERTA", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             Metodos.Compras_borrar();
             Compras_clear();
             jButton_borrar.setVisible(false);
-
+            
         }
 
     }//GEN-LAST:event_jButton_borrarActionPerformed
@@ -1062,7 +1065,7 @@ public class Compras extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
-
+        
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
             jDialog_proveedor();
         }
@@ -1071,7 +1074,7 @@ public class Compras extends javax.swing.JFrame {
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         jDialog_compras();
     }//GEN-LAST:event_jButton_buscarActionPerformed
-
+    
     public void jDialog_compras() {
         jDialog_compras.setVisible(true);
         jDialog_compras.setTitle("Buscar Compras");
@@ -1081,9 +1084,9 @@ public class Compras extends javax.swing.JFrame {
         jDialog_compras.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         jTextField_buscar.setText("");
         jTextField_buscar.requestFocus();
-
+        
     }
-
+    
     public void jDialog_detalle_borrar() {
         jDialog_detalle_borrar.setVisible(true);
         jDialog_detalle_borrar.setTitle("Quitar detalle");
@@ -1092,7 +1095,7 @@ public class Compras extends javax.swing.JFrame {
         jDialog_detalle_borrar.setAlwaysOnTop(true);
         jDialog_detalle_borrar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-
+    
     public void jDialog_proveedor() {
         jTextField_proveedor_buscar.setText("");
         jDialog_proveedor.setVisible(true);
@@ -1103,9 +1106,9 @@ public class Compras extends javax.swing.JFrame {
         jDialog_proveedor.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_proveedor_jtable(jTextField_proveedor_buscar.getText());
         jTextField_proveedor_buscar.requestFocus();
-
+        
     }
-
+    
     public void jDialog_sector() {
         jDialog_sector.setVisible(true);
         jDialog_sector.setTitle("Sector");
@@ -1115,7 +1118,7 @@ public class Compras extends javax.swing.JFrame {
         jDialog_sector.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_sector_jtable();
     }
-
+    
     public void jDialog_agregar_detalle() {
         jTextField_precio.setText("");
         jTextField_unidades.setText("");
@@ -1128,9 +1131,9 @@ public class Compras extends javax.swing.JFrame {
         jDialog_agregar_detalle.setAlwaysOnTop(true);
         jDialog_agregar_detalle.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         jTextField_producto.requestFocus();
-
+        
     }
-
+    
     public void jDialog_detalle_producto() {
         jTextField_buscar_producto.setText("");
         jDialog_detalle_producto.setVisible(true);
@@ -1140,7 +1143,7 @@ public class Compras extends javax.swing.JFrame {
         jDialog_detalle_producto.setAlwaysOnTop(true);
         jDialog_detalle_producto.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-
+    
     public void jDialog_ubicacion() {
         jDialog_ubicacion.setVisible(true);
         jDialog_ubicacion.setTitle("Ubicación");
@@ -1149,9 +1152,9 @@ public class Compras extends javax.swing.JFrame {
         jDialog_ubicacion.setAlwaysOnTop(true);
         jDialog_ubicacion.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_ubicacion_jtable();
-
+        
     }
-
+    
     public void jDialog_tipo_pago() {
         jDialog_tipo_pago.setVisible(true);
         jDialog_tipo_pago.setTitle("Tipo");
@@ -1160,9 +1163,9 @@ public class Compras extends javax.swing.JFrame {
         jDialog_tipo_pago.setAlwaysOnTop(true);
         jDialog_tipo_pago.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_tipo_pago_jtable();
-
+        
     }
-
+    
     public void jDialog_forma_pago() {
         jDialog_forma_pago.setVisible(true);
         jDialog_forma_pago.setTitle("Forma de Pago");
@@ -1172,7 +1175,7 @@ public class Compras extends javax.swing.JFrame {
         jDialog_forma_pago.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_tipo_pago_jtable();
         Metodos.Compras_forma_pago_jtable();
-
+        
     }
 
     private void jTable_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_buscarKeyPressed
@@ -1278,7 +1281,7 @@ public class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_precioKeyPressed
 
     private void jTextField_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscarKeyReleased
-
+        
         if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
             try {
                 jTable_buscar.requestFocus();
@@ -1306,7 +1309,7 @@ public class Compras extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             jDialog_detalle_producto.setVisible(false);
         }
-
+        
 
     }//GEN-LAST:event_jTextField_buscar_productoKeyPressed
 
@@ -1328,7 +1331,7 @@ public class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_agregar_detalleKeyPressed
 
     private void jTextField_buscar_productoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscar_productoKeyReleased
-
+        
         if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
             try {
                 jTable_productos.requestFocus();
@@ -1377,7 +1380,7 @@ public class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable_productosMouseClicked
 
     private void jTable_detalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_detalleMouseClicked
-
+        
         jDialog_detalle_borrar();
 //        
 
@@ -1442,13 +1445,17 @@ public class Compras extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField_forma_pagoKeyPressed
 
+    private void jTextField_precioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_precioKeyReleased
+        jTextField_precio.setText(Metodos.Separar_Miles(jTextField_precio.getText()));
+    }//GEN-LAST:event_jTextField_precioKeyReleased
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-
+                    
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {

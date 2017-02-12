@@ -5,7 +5,7 @@ import java.io.File;
 import javax.swing.ImageIcon;
 
 public class Cuentas_ABM extends javax.swing.JFrame {
-    
+
     public Cuentas_ABM() {
         initComponents();
         setLocationRelativeTo(null);
@@ -14,7 +14,7 @@ public class Cuentas_ABM extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         jTextField_nv1.requestFocus();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -164,6 +164,11 @@ public class Cuentas_ABM extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
+        jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton4KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -266,9 +271,15 @@ public class Cuentas_ABM extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         new Cuentas().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
-    
+
+    private void jButton4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_jButton4KeyPressed
+
     public static void main(String args[]) {
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

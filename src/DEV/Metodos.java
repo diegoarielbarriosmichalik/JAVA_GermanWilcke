@@ -54,9 +54,12 @@ public class Metodos {
     public static int id_ubicacion_mover = 0;
     public static int compras_id_tipo = 0;
     public static int producto_id_ubicacion_a = 0;
+    public static int movimientos_contables_cuentas_vicnuladas_id_cuenta = 0;
     public static int compras_detalle_productos_id_ubicacion = 0;
     public static int privilegio = 0;
     public static int Compras_id_compras_detalle = 0;
+    public static int cuentas_vicnuladas_id_cuenta = 0;
+    public static int id_cuenta_vinculada = 0;
     public static String ubicacion_proyecto = "";
     public static String usuario = "";
     public static String path = "";
@@ -66,9 +69,32 @@ public class Metodos {
 
     public static DecimalFormat num = new DecimalFormat("###,###,###");
 
+    public static String Separar_Miles(String cadena) {
+        long precio = Long.parseLong(cadena.replace(".", ""));
+        String valor = String.valueOf(Metodos.num.format(precio));
+        return valor;
+    }
+
     public synchronized static void Proveedor_selected() {
         DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
         id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
+    }
+
+    public synchronized static void Cuenta_vinculada_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Cuentas_vinculadas.jTable_cuentas_vinculadas.getModel();
+        id_cuenta_vinculada = Integer.parseInt(String.valueOf(tm.getValueAt(Cuentas_vinculadas.jTable_cuentas_vinculadas.getSelectedRow(), 0)));
+    }
+
+    public synchronized static void Cuentas_vicnuladas_cuenta_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Cuentas_vinculadas.jTable_cuenta_buscar.getModel();
+        cuentas_vicnuladas_id_cuenta = Integer.parseInt(String.valueOf(tm.getValueAt(Cuentas_vinculadas.jTable_cuenta_buscar.getSelectedRow(), 0)));
+        Cuentas_vinculadas.jTextField_cuenta.setText(String.valueOf(tm.getValueAt(Cuentas_vinculadas.jTable_cuenta_buscar.getSelectedRow(), 1)));
+    }
+
+    public synchronized static void Movimientos_contables_cuenta_vinculada_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_cuentas_vinculadas.getModel();
+        movimientos_contables_cuentas_vicnuladas_id_cuenta = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_cuentas_vinculadas.getSelectedRow(), 0)));
+        Movimientos_contables.jTextField_cuenta.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_cuentas_vinculadas.getSelectedRow(), 1)));
     }
 
     public synchronized static void Compras_forma_pago_selected() {
@@ -329,7 +355,7 @@ public class Metodos {
     public static void Compras_buscar_traer_datos() {
         try {
             Statement st1 = conexion.createStatement();
-            ResultSet result = st1.executeQuery("SELECT *, usuario.nombre as usuario_nombre FROM compra "
+            ResultSet result = st1.executeQuery("SELECT *, proveedor.nombre as proveedor_nombre, usuario.nombre as usuario_nombre FROM compra "
                     + " inner join proveedor on proveedor.id_proveedor = compra.id_proveedor "
                     + " inner join compra_tipo on compra_tipo.id_compra_tipo = compra.id_compra_tipo "
                     + " inner join usuario on usuario.id_usuario = compra.id_usuario "
@@ -348,8 +374,8 @@ public class Metodos {
                 if (result.getString("fecha") != null) {
                     Compras.jDateChooser3.setDate(result.getDate("fecha"));
                 }
-                if (result.getString("nombre") != null) {
-                    Compras.jt_Proveedor.setText(result.getString("nombre").trim());
+                if (result.getString("proveedor_nombre") != null) {
+                    Compras.jt_Proveedor.setText(result.getString("proveedor_nombre").trim());
                 }
                 if (result.getString("compra_tipo") != null) {
                     Compras.jTextField_compra_tipo.setText(result.getString("compra_tipo").trim());
@@ -360,7 +386,7 @@ public class Metodos {
                 Compras.jLabel1.setText(result.getString("usuario_nombre").trim());
 
                 if (result.getString("modificado_por") != null) {
-                    Compras.jLabel1.setText("Creado por: "+result.getString("usuario_nombre").trim() + " - Modificado por: " + result.getString("modificado_por").trim() + " (" + result.getString("modificado_fecha") + ")");
+                    Compras.jLabel1.setText("Creado por: " + result.getString("usuario_nombre").trim() + " - Modificado por: " + result.getString("modificado_por").trim() + " (" + result.getString("modificado_fecha") + ")");
                 }
             }
         } catch (SQLException ex) {
@@ -491,6 +517,36 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Cuentas_vinculadas_guardar(String descripcion) {
+        try {
+            if (Metodos.id_cuenta_vinculada == 0) {
+
+                Statement st1 = conexion.createStatement();
+                ResultSet result = st1.executeQuery("SELECT MAX(id_cuenta_vinculada) FROM cuenta_vinculada");
+                if (result.next()) {
+                    id_cuenta_vinculada = result.getInt(1) + 1;
+                }
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO cuenta_vinculada VALUES(?,?,?,?)");
+                stUpdateProducto.setInt(1, id_cuenta_vinculada);
+                stUpdateProducto.setString(2, descripcion);
+                stUpdateProducto.setInt(3, cuentas_vicnuladas_id_cuenta);
+                stUpdateProducto.setInt(4, 2017);
+                stUpdateProducto.executeUpdate();
+//                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+                PreparedStatement st = conexion.prepareStatement(
+                        " UPDATE cuenta_vinculada "
+                        + " SET descripcion ='" + descripcion + "', "
+                        + " id_cuenta_vinculada ='" + cuentas_vicnuladas_id_cuenta + "' "
+                        + " WHERE id_cuenta_vinculada = '" + id_cuenta_vinculada + "'");
+                st.executeUpdate();
+//                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     public synchronized static void Productos_ubicacion_guardar() {
         try {
 
@@ -514,6 +570,8 @@ public class Metodos {
 
     public synchronized static void Compras_agregar_detalle_guardar(String unidades, String precio) {
         try {
+
+            precio = precio.replace(".", "");
 
             Statement st1 = conexion.createStatement();
             ResultSet result = st1.executeQuery("SELECT MAX(id_compra_detalle) FROM compra_detalle");
@@ -902,6 +960,18 @@ public class Metodos {
 
     }
 
+    public synchronized static void Cuentas_vinculadas_borrar() {
+        try {
+            PreparedStatement Update2 = conexion.prepareStatement(""
+                    + "DELETE from cuenta_vinculada "
+                    + "where id_cuenta_vinculada ='" + id_cuenta_vinculada + "'");
+            Update2.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+
+    }
+
     public synchronized static void Compras_borrar() {
         try {
             PreparedStatement Update2 = conexion.prepareStatement(""
@@ -1181,6 +1251,37 @@ public class Metodos {
                 data2.add(rows);
             }
             dtm = (DefaultTableModel) Cuentas.jTable1.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public synchronized static void Cuentas_vinculdas_cargar_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Cuentas_vinculadas.jTable_cuentas_vinculadas.getModel();
+            for (int j = 0; j < Cuentas_vinculadas.jTable_cuentas_vinculadas.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_cuenta_vinculada,  (nv1 || '.' || nv2 || '.' || nv3 || '.' || nv4 || '.' || nv5 || ' ' || cuenta ) AS cuenta, cuenta_vinculada.descripcion  "
+                    + "from cuenta_vinculada "
+                    + "inner join cuenta on cuenta.id_cuenta = cuenta_vinculada.id_cuenta "
+                    + "order by descripcion ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Cuentas_vinculadas.jTable_cuentas_vinculadas.getModel();
             for (int i = 0; i < data2.size(); i++) {
                 dtm.addRow(data2.get(i));
             }
@@ -1970,6 +2071,68 @@ public class Metodos {
                 data.add(rows);
             }
             dtm = (DefaultTableModel) Producto.jTable_ubicacion_a.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Cuentas_vinculadas_cuenta_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Cuentas_vinculadas.jTable_cuenta_buscar.getModel();
+            for (int j = 0; j < Cuentas_vinculadas.jTable_cuenta_buscar.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_cuenta, (nv1 || '.' || nv2 || '.' || nv3 || '.' || nv4 || '.' || nv5 || ' ' || cuenta ) as cuenta "
+                    + "from cuenta "
+                    + "order by nv1, nv2, nv3,nv4,nv5,cuenta ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1);
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Cuentas_vinculadas.jTable_cuenta_buscar.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Movimientos_contables_cuentas_vinculadas_jtable(String buscar) {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Movimientos_contables.jTable_cuentas_vinculadas.getModel();
+            for (int j = 0; j < Movimientos_contables.jTable_cuentas_vinculadas.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_cuenta_vinculada, descripcion, (nv1 || '.' || nv2 || '.' || nv3 || '.' || nv4 || '.' || nv5 || ' ' || cuenta ) as cuenta "
+                    + "from cuenta_vinculada "
+                    + "inner join cuenta on cuenta.id_cuenta = cuenta_vinculada.id_cuenta "
+                    + "where descripcion ilike '%" + buscar + "%'"
+                    + "order by descripcion ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1);
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Movimientos_contables.jTable_cuentas_vinculadas.getModel();
             for (int i = 0; i < data.size(); i++) {
                 dtm.addRow(data.get(i));
             }
