@@ -44,6 +44,9 @@ public class Metodos {
     public static int id_productos_tipo = 0;
     public static int id_cuenta = 0;
     public static int id_cliente = 0;
+    public static int cuentas_acumuladoras_id_cuenta = 0;
+    public static int id_cuenta_acumuladora = 0;
+    public static int cuentas_acumuladoras_id_cuenta_acumuladora = 0;
     public static int listado_compras_id_sector = 0;
     public static int listado_compras_id_proveedor = 0;
     public static int producto_id_ubicacion_selected = 0;
@@ -81,10 +84,11 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
         id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
     }
+
     public synchronized static void Movimientos_contables_detalle_selected() {
         DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_movimeintos_contables_factura.getModel();
         movimientos_contables_selected_id_factura = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_movimeintos_contables_factura.getSelectedRow(), 0)));
-     //   System.err.println(movimientos_contables_selected_id_factura);
+        //   System.err.println(movimientos_contables_selected_id_factura);
     }
 
     public synchronized static void Cuenta_vinculada_selected() {
@@ -210,6 +214,18 @@ public class Metodos {
     public synchronized static void Cliente_selected() {
         DefaultTableModel tm = (DefaultTableModel) Clientes.jTable_cliente.getModel();
         id_cliente = Integer.parseInt(String.valueOf(tm.getValueAt(Clientes.jTable_cliente.getSelectedRow(), 0)));
+    }
+
+    public synchronized static void Cuentas_acumuladoras_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Cuentas_acumuladoras.jTable_cuenta.getModel();
+        cuentas_acumuladoras_id_cuenta = Integer.parseInt(String.valueOf(tm.getValueAt(Cuentas_acumuladoras.jTable_cuenta.getSelectedRow(), 0)));
+        Cuentas_acumuladoras.jTextField_cuenta.setText((String.valueOf(tm.getValueAt(Cuentas_acumuladoras.jTable_cuenta.getSelectedRow(), 1))));
+    }
+
+    public synchronized static void Cuentas_acumuladoras_cuenta_acumuladora_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Cuentas_acumuladoras.jTable_cuenta_acumuladora.getModel();
+        cuentas_acumuladoras_id_cuenta_acumuladora = Integer.parseInt(String.valueOf(tm.getValueAt(Cuentas_acumuladoras.jTable_cuenta_acumuladora.getSelectedRow(), 0)));
+        Cuentas_acumuladoras.jTextField_cuenta_acumuladora.setText((String.valueOf(tm.getValueAt(Cuentas_acumuladoras.jTable_cuenta_acumuladora.getSelectedRow(), 1))));
     }
 
     public synchronized static void Unidad_medida_selected() {
@@ -519,6 +535,28 @@ public class Metodos {
                 st.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
             }
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public synchronized static void Cuentas_acumuladoras_guardar() {
+        try {
+
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT MAX(id_cuenta_acumuladora) FROM cuenta_acumuladora");
+            if (result.next()) {
+                id_cuenta_acumuladora = result.getInt(1) + 1;
+            }
+
+            PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO cuenta_acumuladora VALUES(?,?,?)");
+            stUpdateProducto.setInt(1, id_cuenta_acumuladora);
+            stUpdateProducto.setInt(2, cuentas_acumuladoras_id_cuenta);
+            stUpdateProducto.setInt(3, cuentas_acumuladoras_id_cuenta_acumuladora);
+            stUpdateProducto.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Guardado correctamente");
+
         } catch (NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -993,6 +1031,7 @@ public class Metodos {
         }
 
     }
+
     public synchronized static void Movimientos_contables_factura_borrar() {
         try {
             PreparedStatement Update2 = conexion.prepareStatement(""
@@ -1144,6 +1183,96 @@ public class Metodos {
             jv.setVisible(true);
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public synchronized static void Estado_de_situacion_patrimonial(Date desde, Date hasta) {
+        try {
+            Map parametros = new HashMap();
+            parametros.put("desde", desde);
+            parametros.put("hasta", hasta);
+
+            Statement stAuxiliar = conexion.createStatement();
+            stAuxiliar.executeUpdate("truncate table imprimir_estado_patrimonial");
+
+            boolean existe = false;
+            int id = 0;
+            int nv1 = 0;
+            int nv2 = 0;
+            int nv3 = 0;
+            int nv4 = 0;
+            int nv5 = 0;
+
+            boolean guardar_nv1 = false;
+            boolean cuenta_titulo = false;
+            String cuenta = "";
+            long importe = 0;
+
+            guardar_nv1 = false;
+
+            Statement st12 = conexion.createStatement();
+            ResultSet result2 = st12.executeQuery(""
+                    + "SELECT * FROM asiento_contable_factura "
+                    + "inner join cuenta_vinculada on asiento_contable_factura.id_cuenta_vinculada = cuenta_vinculada.id_cuenta_vinculada "
+                    + "");
+            while (result2.next()) {
+                existe = true;
+                cuenta = result2.getString("nv1") + "."
+                        + result2.getString("nv2") + "."
+                        + result2.getString("nv3") + "."
+                        + result2.getString("nv4") + "."
+                        + result2.getString("nv5") + " "
+                        + result2.getString("cuenta");
+                importe = importe + result2.getLong("importe");
+
+                Statement st1 = conexion.createStatement();
+                ResultSet result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
+                if (result.next()) {
+                    id = result.getInt(1) + 1;
+                }
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id);
+                stUpdateProducto.setInt(2, nv1);
+                stUpdateProducto.setInt(3, nv2);
+                stUpdateProducto.setInt(4, nv3);
+                stUpdateProducto.setInt(5, nv4);
+                stUpdateProducto.setInt(6, nv5);
+                stUpdateProducto.setString(7, cuenta);
+                stUpdateProducto.setLong(8, importe);
+                stUpdateProducto.executeUpdate();
+
+                Statement st1235 = conexion.createStatement();
+                ResultSet result235 = st1235.executeQuery(""
+                        + "SELECT id_cuenta_madre FROM cuenta_acumuladora  "
+                        + "where id_cuenta = '" + id_cuenta + "' ");
+                while (result235.next()) {
+                    int id_cuenta_madre = result235.getInt(1);
+                    Statement st12355 = conexion.createStatement();
+                    ResultSet result2355 = st12355.executeQuery(""
+                            + "SELECT * FROM cuenta  "
+                            + "where id_cuenta = '" + id_cuenta_madre + "' ");
+                    if (result2355.next()) {
+                        cuenta = result2355.getString("nv1") + "."
+                                + result2355.getString("nv2") + "."
+                                + result2355.getString("nv3") + "."
+                                + result2355.getString("nv4") + "."
+                                + result2355.getString("nv5") + " "
+                                + result2355.getString("cuenta");
+                    }
+
+                }
+
+            }
+         
+
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + "estado_situacion_patrimonial.jasper");
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -2210,6 +2339,66 @@ public class Metodos {
                 data.add(rows);
             }
             dtm = (DefaultTableModel) Movimientos_contables.jTable_cuentas_vinculadas.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Cuentas_acumuladoras_cuenta_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Cuentas_acumuladoras.jTable_cuenta.getModel();
+            for (int j = 0; j < Cuentas_acumuladoras.jTable_cuenta.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_cuenta, (nv1 || '.' || nv2 || '.' || nv3 || '.' || nv4 || '.' || nv5 || ' ' || cuenta ) as cuenta "
+                    + "from cuenta "
+                    + "order by nv1,nv2,nv3,nv4,nv5 ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1);
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Cuentas_acumuladoras.jTable_cuenta.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Cuentas_acumuladoras_cuenta_acumuladora_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Cuentas_acumuladoras.jTable_cuenta_acumuladora.getModel();
+            for (int j = 0; j < Cuentas_acumuladoras.jTable_cuenta_acumuladora.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_cuenta, (nv1 || '.' || nv2 || '.' || nv3 || '.' || nv4 || '.' || nv5 || ' ' || cuenta ) as cuenta "
+                    + "from cuenta "
+                    + "order by nv1,nv2,nv3,nv4,nv5 ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1);
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Cuentas_acumuladoras.jTable_cuenta_acumuladora.getModel();
             for (int i = 0; i < data.size(); i++) {
                 dtm.addRow(data.get(i));
             }

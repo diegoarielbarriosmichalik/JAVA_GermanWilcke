@@ -57,6 +57,7 @@ public class Principal extends javax.swing.JFrame {
         jSeparator9 = new javax.swing.JPopupMenu.Separator();
         jMenuItem34 = new javax.swing.JMenuItem();
         jMenuItem23 = new javax.swing.JMenuItem();
+        jMenuItem42 = new javax.swing.JMenuItem();
         jMenuItem37 = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
         jMenu10 = new javax.swing.JMenu();
@@ -219,6 +220,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu6.add(jMenuItem23);
+
+        jMenuItem42.setText("Cuentas Acumuladoras");
+        jMenuItem42.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem42ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem42);
 
         jMenuItem37.setText("Imprimir plan de cuentas");
         jMenuItem37.addActionListener(new java.awt.event.ActionListener() {
@@ -712,6 +721,10 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem41ActionPerformed
         new Estado_situacion_patrimonial().setVisible(true);
     }//GEN-LAST:event_jMenuItem41ActionPerformed
+
+    private void jMenuItem42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem42ActionPerformed
+        new Cuentas_acumuladoras().setVisible(true);
+    }//GEN-LAST:event_jMenuItem42ActionPerformed
     
     public static void main(String args[]) {
         try {
@@ -777,6 +790,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem40;
     private javax.swing.JMenuItem jMenuItem41;
+    private javax.swing.JMenuItem jMenuItem42;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

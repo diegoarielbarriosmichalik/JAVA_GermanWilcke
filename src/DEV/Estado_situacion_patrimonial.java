@@ -233,7 +233,7 @@ public class Estado_situacion_patrimonial extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Metodos.Compras_imprimir_proveedor(jDateChooser_desde.getDate(), jDateChooser_hasta.getDate());
+        Metodos.Estado_de_situacion_patrimonial(jDateChooser_desde.getDate(), jDateChooser_hasta.getDate());
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
