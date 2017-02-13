@@ -6,9 +6,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-public class Listado_compras_por_proveedor extends javax.swing.JFrame {
+public class Estado_situacion_patrimonial extends javax.swing.JFrame {
 
-    public Listado_compras_por_proveedor() {
+    public Estado_situacion_patrimonial() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Compras");
@@ -28,7 +28,6 @@ public class Listado_compras_por_proveedor extends javax.swing.JFrame {
         jTextField_buscar = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jtexfield_proveedor = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
@@ -130,18 +129,6 @@ public class Listado_compras_por_proveedor extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
 
-        jtexfield_proveedor.setBorder(javax.swing.BorderFactory.createTitledBorder("Proveedor (F1 buscar)"));
-        jtexfield_proveedor.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtexfield_proveedorFocusLost(evt);
-            }
-        });
-        jtexfield_proveedor.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtexfield_proveedorKeyPressed(evt);
-            }
-        });
-
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impresora_mini.png"))); // NOI18N
         jButton4.setToolTipText("");
@@ -186,7 +173,6 @@ public class Listado_compras_por_proveedor extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jtexfield_proveedor)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,8 +189,6 @@ public class Listado_compras_por_proveedor extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jtexfield_proveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jDateChooser_desde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,19 +296,6 @@ public class Listado_compras_por_proveedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField_buscarKeyPressed
 
-    private void jtexfield_proveedorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtexfield_proveedorKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            this.setVisible(false);
-        }
-        if (evt.getKeyCode() == KeyEvent.VK_F1) {
-            jDialog_proveedor();
-        }
-    }//GEN-LAST:event_jtexfield_proveedorKeyPressed
-
-    private void jtexfield_proveedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtexfield_proveedorFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtexfield_proveedorFocusLost
-
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -356,6 +327,5 @@ public class Listado_compras_por_proveedor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTable_proveedor;
     private javax.swing.JTextField jTextField_buscar;
-    public static javax.swing.JTextField jtexfield_proveedor;
     // End of variables declaration//GEN-END:variables
 }

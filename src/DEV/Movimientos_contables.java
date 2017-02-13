@@ -16,12 +16,13 @@ public class Movimientos_contables extends javax.swing.JFrame {
         Conexion.Verificar_conexion();
 
         Movimientos_contables_clear();
+        Metodos.Movimientos_contables_factura_jtable();
 
     }
 
     public static void Movimientos_contables_clear() {
         jButton_factura.requestFocus();
-
+        jDateChooser_factura_fecha.setDate(Metodos.hoy);
     }
 
     @SuppressWarnings("unchecked")
@@ -32,12 +33,12 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jTextField_cuenta = new javax.swing.JTextField();
         jTextField_descripcion = new javax.swing.JTextField();
-        jTextField_cantidad = new javax.swing.JTextField();
-        jTextField_precio = new javax.swing.JTextField();
-        jDateChooser_fecha = new com.toedter.calendar.JDateChooser();
+        jTextField_importe = new javax.swing.JTextField();
+        jDateChooser_factura_fecha = new com.toedter.calendar.JDateChooser();
         jButton_guardar_factura = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        jTextField_comprobante = new javax.swing.JTextField();
         jDialog_pago = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
         jTextField_tipo = new javax.swing.JTextField();
@@ -54,6 +55,10 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable_cuentas_vinculadas = new javax.swing.JTable();
         jTextField_cuenta_buscar = new javax.swing.JTextField();
+        jDialog_detalle_borrar = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton_borrar = new javax.swing.JButton();
@@ -63,7 +68,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jButton_buscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_movimeintos_contables_factura = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton_pagos = new javax.swing.JButton();
@@ -98,45 +103,56 @@ public class Movimientos_contables extends javax.swing.JFrame {
             }
         });
 
-        jTextField_cantidad.setBorder(javax.swing.BorderFactory.createTitledBorder("Cantidad"));
-        jTextField_cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_cantidadKeyReleased(evt);
-            }
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_cantidadKeyPressed(evt);
-            }
-        });
-
-        jTextField_precio.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField_precio.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe"));
-        jTextField_precio.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_importe.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField_importe.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe"));
+        jTextField_importe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_precioActionPerformed(evt);
+                jTextField_importeActionPerformed(evt);
             }
         });
-        jTextField_precio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_precioKeyReleased(evt);
-            }
+        jTextField_importe.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_precioKeyPressed(evt);
+                jTextField_importeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_importeKeyReleased(evt);
             }
         });
 
-        jDateChooser_fecha.setBackground(new java.awt.Color(255, 255, 255));
-        jDateChooser_fecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
-        jDateChooser_fecha.addKeyListener(new java.awt.event.KeyAdapter() {
+        jDateChooser_factura_fecha.setBackground(new java.awt.Color(255, 255, 255));
+        jDateChooser_factura_fecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
+        jDateChooser_factura_fecha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jDateChooser_fechaKeyPressed(evt);
+                jDateChooser_factura_fechaKeyPressed(evt);
             }
         });
 
         jButton_guardar_factura.setMnemonic('g');
         jButton_guardar_factura.setText("Guardar");
+        jButton_guardar_factura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_guardar_facturaActionPerformed(evt);
+            }
+        });
         jButton_guardar_factura.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jButton_guardar_facturaKeyPressed(evt);
+            }
+        });
+
+        jTextField_comprobante.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField_comprobante.setBorder(javax.swing.BorderFactory.createTitledBorder("Comprobante"));
+        jTextField_comprobante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_comprobanteActionPerformed(evt);
+            }
+        });
+        jTextField_comprobante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_comprobanteKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_comprobanteKeyReleased(evt);
             }
         });
 
@@ -150,17 +166,17 @@ public class Movimientos_contables extends javax.swing.JFrame {
                     .addComponent(jTextField_cuenta)
                     .addComponent(jTextField_descripcion)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 371, Short.MAX_VALUE)
                         .addComponent(jButton_guardar_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1)
+                    .addComponent(jSeparator3)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(jTextField_importe, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 180, Short.MAX_VALUE))
-                    .addComponent(jSeparator3))
+                        .addComponent(jDateChooser_factura_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -175,9 +191,9 @@ public class Movimientos_contables extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField_importe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser_factura_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -368,6 +384,57 @@ public class Movimientos_contables extends javax.swing.JFrame {
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jDialog_detalle_borrar.setUndecorated(true);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jButton5.setText("Borrar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Cancelar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton6)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialog_detalle_borrarLayout = new javax.swing.GroupLayout(jDialog_detalle_borrar.getContentPane());
+        jDialog_detalle_borrar.getContentPane().setLayout(jDialog_detalle_borrarLayout);
+        jDialog_detalle_borrarLayout.setHorizontalGroup(
+            jDialog_detalle_borrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_detalle_borrarLayout.setVerticalGroup(
+            jDialog_detalle_borrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -430,32 +497,38 @@ public class Movimientos_contables extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_movimeintos_contables_factura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Fecha", "Cuenta", "Descripción", "Total"
+                "ID", "Fecha", "Cuenta", "Descripción", "Comprobante", "Importe"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(250);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(250);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
+        jTable_movimeintos_contables_factura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_movimeintos_contables_facturaMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable_movimeintos_contables_factura);
+        if (jTable_movimeintos_contables_factura.getColumnModel().getColumnCount() > 0) {
+            jTable_movimeintos_contables_factura.getColumnModel().getColumn(0).setResizable(false);
+            jTable_movimeintos_contables_factura.getColumnModel().getColumn(0).setPreferredWidth(10);
+            jTable_movimeintos_contables_factura.getColumnModel().getColumn(1).setResizable(false);
+            jTable_movimeintos_contables_factura.getColumnModel().getColumn(2).setResizable(false);
+            jTable_movimeintos_contables_factura.getColumnModel().getColumn(2).setPreferredWidth(250);
+            jTable_movimeintos_contables_factura.getColumnModel().getColumn(3).setResizable(false);
+            jTable_movimeintos_contables_factura.getColumnModel().getColumn(3).setPreferredWidth(250);
+            jTable_movimeintos_contables_factura.getColumnModel().getColumn(4).setResizable(false);
+            jTable_movimeintos_contables_factura.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -678,6 +751,14 @@ public class Movimientos_contables extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_facturaActionPerformed
 
     public void jDialog_factura() {
+        
+        Metodos.movimientos_contables_cuentas_vicnuladas_id_cuenta = 0;
+        jTextField_cuenta.setText("");
+        jTextField_descripcion.setText("");
+        jTextField_comprobante.setText("");
+        jTextField_importe.setText("");
+        jDateChooser_factura_fecha.setDate(null);
+
         jDialog_factura.setVisible(true);
         jDialog_factura.setTitle("Agregar Factura");
         jDialog_factura.setSize(501, 238);
@@ -699,6 +780,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jTextField_cuenta_buscar.requestFocus();
 
     }
+
     public void jDialog_pago() {
         jDialog_pago.setVisible(true);
         jDialog_pago.setTitle("Forma de Pago");
@@ -709,9 +791,8 @@ public class Movimientos_contables extends javax.swing.JFrame {
 //        Metodos.Movimientos_contables_cuentas_vinculadas_jtable(jTextField_cuenta_buscar.getText());
         jTextField_tipo.setText("");
         jTextField_tipo.requestFocus();
-        
-//        jTextField_cuenta_buscar.requestFocus();
 
+//        jTextField_cuenta_buscar.requestFocus();
     }
     private void jTextField_descripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_descripcionKeyReleased
         // TODO add your handling code here:
@@ -724,31 +805,20 @@ public class Movimientos_contables extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField_descripcionKeyPressed
 
-    private void jTextField_cantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_cantidadKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_cantidadKeyReleased
+    private void jTextField_importeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_importeKeyReleased
+        jTextField_importe.setText(Metodos.Separar_Miles(jTextField_importe.getText()));
+    }//GEN-LAST:event_jTextField_importeKeyReleased
 
-    private void jTextField_cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_cantidadKeyPressed
+    private void jTextField_importeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_importeKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             jDialog_factura.setVisible(false);
             jButton_factura.requestFocus();
         }
-    }//GEN-LAST:event_jTextField_cantidadKeyPressed
+    }//GEN-LAST:event_jTextField_importeKeyPressed
 
-    private void jTextField_precioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_precioKeyReleased
-        jTextField_precio.setText(Metodos.Separar_Miles(jTextField_precio.getText()));
-    }//GEN-LAST:event_jTextField_precioKeyReleased
+    private void jDateChooser_factura_fechaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDateChooser_factura_fechaKeyPressed
 
-    private void jTextField_precioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_precioKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            jDialog_factura.setVisible(false);
-            jButton_factura.requestFocus();
-        }
-    }//GEN-LAST:event_jTextField_precioKeyPressed
-
-    private void jDateChooser_fechaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDateChooser_fechaKeyPressed
-
-    }//GEN-LAST:event_jDateChooser_fechaKeyPressed
+    }//GEN-LAST:event_jDateChooser_factura_fechaKeyPressed
 
     private void jButton_guardar_facturaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_guardar_facturaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -801,9 +871,9 @@ public class Movimientos_contables extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextField_cuenta_buscarKeyReleased
 
-    private void jTextField_precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_precioActionPerformed
+    private void jTextField_importeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_importeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_precioActionPerformed
+    }//GEN-LAST:event_jTextField_importeActionPerformed
 
     private void jDateChooser3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDateChooser3KeyPressed
 
@@ -816,6 +886,56 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private void jButton_pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_pagosActionPerformed
         jDialog_pago();
     }//GEN-LAST:event_jButton_pagosActionPerformed
+
+    private void jButton_guardar_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardar_facturaActionPerformed
+        Metodos.Movimientos_contables_factura_guardar(
+                jTextField_descripcion.getText(),
+                jTextField_comprobante.getText(),
+                jTextField_importe.getText(),
+                jDateChooser_factura_fecha.getDate());
+
+        Metodos.Movimientos_contables_factura_jtable();
+
+        jDialog_factura.setVisible(false);
+        jButton_factura.requestFocus();
+
+    }//GEN-LAST:event_jButton_guardar_facturaActionPerformed
+
+    private void jTextField_comprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_comprobanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_comprobanteActionPerformed
+
+    private void jTextField_comprobanteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_comprobanteKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_comprobanteKeyPressed
+
+    private void jTextField_comprobanteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_comprobanteKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_comprobanteKeyReleased
+
+    private void jTable_movimeintos_contables_facturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_movimeintos_contables_facturaMouseClicked
+        Metodos.Movimientos_contables_detalle_selected();
+        jDialog_detalle_borrar();
+    }//GEN-LAST:event_jTable_movimeintos_contables_facturaMouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Metodos.Movimientos_contables_factura_borrar();
+        jDialog_detalle_borrar.setVisible(false);
+        Metodos.Movimientos_contables_factura_jtable();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        jDialog_detalle_borrar.setVisible(false);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    public void jDialog_detalle_borrar() {
+        jDialog_detalle_borrar.setVisible(true);
+        jDialog_detalle_borrar.setTitle("Borrar detalle");
+        jDialog_detalle_borrar.setSize(220, 76);
+        jDialog_detalle_borrar.setLocationRelativeTo(null);
+        jDialog_detalle_borrar.setAlwaysOnTop(true);
+        jDialog_detalle_borrar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
 
     public static void main(String args[]) {
         try {
@@ -839,15 +959,18 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     public static javax.swing.JButton jButton_borrar;
     private javax.swing.JButton jButton_buscar;
     public static javax.swing.JButton jButton_factura;
     private javax.swing.JButton jButton_guardar_factura;
     public static javax.swing.JButton jButton_pagos;
     public static com.toedter.calendar.JDateChooser jDateChooser3;
-    public static com.toedter.calendar.JDateChooser jDateChooser_fecha;
+    public static com.toedter.calendar.JDateChooser jDateChooser_factura_fecha;
     public static com.toedter.calendar.JDateChooser jDateChooser_pago_fecha;
     private javax.swing.JDialog jDialog_cuentas_vinculadas;
+    private javax.swing.JDialog jDialog_detalle_borrar;
     private javax.swing.JDialog jDialog_factura;
     private javax.swing.JDialog jDialog_pago;
     private javax.swing.JPanel jPanel1;
@@ -855,6 +978,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
@@ -863,21 +987,21 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     public static javax.swing.JTable jTable_cuentas_vinculadas;
+    public static javax.swing.JTable jTable_movimeintos_contables_factura;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField_banco;
-    private javax.swing.JTextField jTextField_cantidad;
+    private javax.swing.JTextField jTextField_comprobante;
     private javax.swing.JTextField jTextField_cta_cte;
     public static javax.swing.JTextField jTextField_cuenta;
     private javax.swing.JTextField jTextField_cuenta_buscar;
     private javax.swing.JTextField jTextField_descripcion;
+    private javax.swing.JTextField jTextField_importe;
     private javax.swing.JTextField jTextField_numero;
     private javax.swing.JTextField jTextField_pago_importe;
-    private javax.swing.JTextField jTextField_precio;
     private javax.swing.JTextField jTextField_tipo;
     // End of variables declaration//GEN-END:variables
 }
