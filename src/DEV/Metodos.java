@@ -1220,7 +1220,6 @@ public class Metodos {
                 importe = 0;
                 id_cuenta = result2.getInt("id_cuenta");
 
-                existe = true;
                 cuenta = result2.getString("nv1") + "."
                         + result2.getString("nv2") + "."
                         + result2.getString("nv3") + "."
@@ -1228,36 +1227,54 @@ public class Metodos {
                         + result2.getString("nv5") + "  "
                         + result2.getString("cuenta");
                 importe = importe + result2.getLong("importe");
-
-//                Statement st19 = conexion.createStatement();
-//                ResultSet result9 = st19.executeQuery("SELECT *  FROM imprimir_estado_patrimonial where id ");
-//                if (result9.next()) {
-//                    id = result9.getInt(1) + 1;
-//                }
-                
-                Statement st1 = conexion.createStatement();
-                ResultSet result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
-                if (result.next()) {
-                    id = result.getInt(1) + 1;
+                long importe_existe = 0;
+                existe = false;
+                Statement st19 = conexion.createStatement();
+                ResultSet result9 = st19.executeQuery("SELECT * FROM imprimir_estado_patrimonial where id_cuenta = '" + id_cuenta + "' ");
+                if (result9.next()) {
+                    existe = true;
+                    importe_existe = result9.getLong("importe");
+                    System.err.println("existe" + id_cuenta);
                 }
-                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
-                stUpdateProducto.setInt(1, id);
-                stUpdateProducto.setInt(2, nv1);
-                stUpdateProducto.setInt(3, nv2);
-                stUpdateProducto.setInt(4, nv3);
-                stUpdateProducto.setInt(5, nv4);
-                stUpdateProducto.setInt(6, nv5);
-                stUpdateProducto.setString(7, cuenta);
-                stUpdateProducto.setLong(8, importe);
-                stUpdateProducto.setInt(9, id_cuenta);
-                stUpdateProducto.executeUpdate();
+
+                Statement st1 = null;
+                ResultSet result = null;
+                PreparedStatement stUpdateProducto = null;
+
+                if (existe == true) {
+                    PreparedStatement Update2 = conexion.prepareStatement(""
+                            + "UPDATE imprimir_estado_patrimonial "
+                            + "SET importe = '" + (importe + importe_existe) + "' "
+                            + "WHERE id_cuenta ='" + id_cuenta + "'");
+                    Update2.executeUpdate();
+                } else {
+
+//                if (existe == false) {
+                    st1 = conexion.createStatement();
+                    result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
+                    if (result.next()) {
+                        id = result.getInt(1) + 1;
+                    }
+                    stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
+                    stUpdateProducto.setInt(1, id);
+                    stUpdateProducto.setInt(2, nv1);
+                    stUpdateProducto.setInt(3, nv2);
+                    stUpdateProducto.setInt(4, nv3);
+                    stUpdateProducto.setInt(5, nv4);
+                    stUpdateProducto.setInt(6, nv5);
+                    stUpdateProducto.setString(7, cuenta);
+                    stUpdateProducto.setLong(8, importe);
+                    stUpdateProducto.setInt(9, id_cuenta);
+                    stUpdateProducto.executeUpdate();
+                }
+                existe = false;
 
                 Statement st1235 = conexion.createStatement();
                 ResultSet result235 = st1235.executeQuery(""
                         + "SELECT * FROM cuenta_acumuladora  "
                         + "where id_cuenta = '" + id_cuenta + "' ");
                 while (result235.next()) {
-                    
+
                     int id_cuenta_madre = result235.getInt("id_cuenta_madre");
                     Statement st12355 = conexion.createStatement();
                     ResultSet result2355 = st12355.executeQuery(""
@@ -1272,43 +1289,22 @@ public class Metodos {
                                 + result2355.getString("nv5") + "  "
                                 + result2355.getString("cuenta");
                         st1 = conexion.createStatement();
-                        result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
-                        if (result.next()) {
-                            id = result.getInt(1) + 1;
+                        existe = false;
+                        Statement st199 = conexion.createStatement();
+                        ResultSet result99 = st199.executeQuery("SELECT * FROM imprimir_estado_patrimonial where id_cuenta = '" + id_cuenta_madre + "' ");
+                        if (result99.next()) {
+                            existe = true;
+                            importe_existe = result99.getLong("importe");
                         }
-                        stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
-                        stUpdateProducto.setInt(1, id);
-                        stUpdateProducto.setInt(2, nv1);
-                        stUpdateProducto.setInt(3, nv2);
-                        stUpdateProducto.setInt(4, nv3);
-                        stUpdateProducto.setInt(5, nv4);
-                        stUpdateProducto.setInt(6, nv5);
-                        stUpdateProducto.setString(7, cuenta);
-                        stUpdateProducto.setLong(8, importe);
-                        stUpdateProducto.setLong(9, id_cuenta_madre);
-                        stUpdateProducto.executeUpdate();
-                        id_cuenta = id_cuenta_madre;
-                    }
-                    st1235 = conexion.createStatement();
-                    result235 = st1235.executeQuery(""
-                            + "SELECT id_cuenta_madre FROM cuenta_acumuladora  "
-                            + "where id_cuenta = '" + id_cuenta + "' ");
-                    while (result235.next()) {
-                        
-                        id_cuenta_madre = result235.getInt(1);
-                        st12355 = conexion.createStatement();
-                        result2355 = st12355.executeQuery(""
-                                + "SELECT * FROM cuenta  "
-                                + "where id_cuenta = '" + id_cuenta_madre + "' ");
-                        if (result2355.next()) {
+                        if (existe == true) {
+                            PreparedStatement Update2 = conexion.prepareStatement(""
+                                    + "UPDATE imprimir_estado_patrimonial "
+                                    + "SET importe = '" + (importe + importe_existe) + "' "
+                                    + "WHERE id_cuenta ='" + id_cuenta_madre + "'");
+                            Update2.executeUpdate();
+                            id_cuenta = id_cuenta_madre;
+                        } else {
 
-                            cuenta = result2355.getString("nv1") + "."
-                                    + result2355.getString("nv2") + "."
-                                    + result2355.getString("nv3") + "."
-                                    + result2355.getString("nv4") + "."
-                                    + result2355.getString("nv5") + "  "
-                                    + result2355.getString("cuenta");
-                            st1 = conexion.createStatement();
                             result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
                             if (result.next()) {
                                 id = result.getInt(1) + 1;
@@ -1332,7 +1328,7 @@ public class Metodos {
                             + "SELECT id_cuenta_madre FROM cuenta_acumuladora  "
                             + "where id_cuenta = '" + id_cuenta + "' ");
                     while (result235.next()) {
-                       
+
                         id_cuenta_madre = result235.getInt(1);
                         st12355 = conexion.createStatement();
                         result2355 = st12355.executeQuery(""
@@ -1346,29 +1342,103 @@ public class Metodos {
                                     + result2355.getString("nv4") + "."
                                     + result2355.getString("nv5") + "  "
                                     + result2355.getString("cuenta");
-                            st1 = conexion.createStatement();
-                            result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
-                            if (result.next()) {
-                                id = result.getInt(1) + 1;
+
+                            existe = false;
+                            Statement st199 = conexion.createStatement();
+                            ResultSet result99 = st199.executeQuery("SELECT * FROM imprimir_estado_patrimonial where id_cuenta = '" + id_cuenta_madre + "' ");
+                            if (result99.next()) {
+                                existe = true;
+                                importe_existe = result99.getLong("importe");
                             }
-                            stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
-                            stUpdateProducto.setInt(1, id);
-                            stUpdateProducto.setInt(2, nv1);
-                            stUpdateProducto.setInt(3, nv2);
-                            stUpdateProducto.setInt(4, nv3);
-                            stUpdateProducto.setInt(5, nv4);
-                            stUpdateProducto.setInt(6, nv5);
-                            stUpdateProducto.setString(7, cuenta);
-                            stUpdateProducto.setLong(8, importe);
-                            stUpdateProducto.setLong(9, id_cuenta_madre);
-                            stUpdateProducto.executeUpdate();
-                            id_cuenta = id_cuenta_madre;
+
+                            if (existe == true) {
+                                PreparedStatement Update2 = conexion.prepareStatement(""
+                                        + "UPDATE imprimir_estado_patrimonial "
+                                        + "SET importe = '" + (importe + importe_existe) + "' "
+                                        + "WHERE id_cuenta ='" + id_cuenta_madre + "'");
+                                Update2.executeUpdate();
+                                 id_cuenta = id_cuenta_madre;
+                            } else {
+                                st1 = conexion.createStatement();
+                                result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
+                                if (result.next()) {
+                                    id = result.getInt(1) + 1;
+                                }
+                                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
+                                stUpdateProducto.setInt(1, id);
+                                stUpdateProducto.setInt(2, nv1);
+                                stUpdateProducto.setInt(3, nv2);
+                                stUpdateProducto.setInt(4, nv3);
+                                stUpdateProducto.setInt(5, nv4);
+                                stUpdateProducto.setInt(6, nv5);
+                                stUpdateProducto.setString(7, cuenta);
+                                stUpdateProducto.setLong(8, importe);
+                                stUpdateProducto.setLong(9, id_cuenta_madre);
+                                stUpdateProducto.executeUpdate();
+                                id_cuenta = id_cuenta_madre;
+                            }
+                        }
+                    }
+                    st1235 = conexion.createStatement();
+                    result235 = st1235.executeQuery(""
+                            + "SELECT id_cuenta_madre FROM cuenta_acumuladora  "
+                            + "where id_cuenta = '" + id_cuenta + "' ");
+                    while (result235.next()) {
+
+                        id_cuenta_madre = result235.getInt(1);
+                        st12355 = conexion.createStatement();
+                        result2355 = st12355.executeQuery(""
+                                + "SELECT * FROM cuenta  "
+                                + "where id_cuenta = '" + id_cuenta_madre + "' ");
+                        if (result2355.next()) {
+
+                            cuenta = result2355.getString("nv1") + "."
+                                    + result2355.getString("nv2") + "."
+                                    + result2355.getString("nv3") + "."
+                                    + result2355.getString("nv4") + "."
+                                    + result2355.getString("nv5") + "  "
+                                    + result2355.getString("cuenta");
+
+                            existe = false;
+                            Statement st199 = conexion.createStatement();
+                            ResultSet result99 = st199.executeQuery("SELECT * FROM imprimir_estado_patrimonial where id_cuenta = '" + id_cuenta_madre + "' ");
+                            if (result99.next()) {
+                                existe = true;
+                                importe_existe = result99.getLong("importe");
+                            }
+
+                            if (existe == true) {
+                                PreparedStatement Update2 = conexion.prepareStatement(""
+                                        + "UPDATE imprimir_estado_patrimonial "
+                                        + "SET importe = '" + (importe + importe_existe) + "' "
+                                        + "WHERE id_cuenta ='" + id_cuenta_madre + "'");
+                                Update2.executeUpdate();
+                                 id_cuenta = id_cuenta_madre;
+                            } else {
+                                st1 = conexion.createStatement();
+                                result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
+                                if (result.next()) {
+                                    id = result.getInt(1) + 1;
+                                }
+                                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
+                                stUpdateProducto.setInt(1, id);
+                                stUpdateProducto.setInt(2, nv1);
+                                stUpdateProducto.setInt(3, nv2);
+                                stUpdateProducto.setInt(4, nv3);
+                                stUpdateProducto.setInt(5, nv4);
+                                stUpdateProducto.setInt(6, nv5);
+                                stUpdateProducto.setString(7, cuenta);
+                                stUpdateProducto.setLong(8, importe);
+                                stUpdateProducto.setLong(9, id_cuenta_madre);
+                                stUpdateProducto.executeUpdate();
+                                id_cuenta = id_cuenta_madre;
+                            }
                         }
                     }
                 }
 
             }
-            
+
             JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + "estado_situacion_patrimonial.jasper");
             JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
             JasperViewer jv = new JasperViewer(jp, false);
