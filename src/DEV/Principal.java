@@ -60,6 +60,9 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem42 = new javax.swing.JMenuItem();
         jMenuItem37 = new javax.swing.JMenuItem();
         jSeparator11 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem45 = new javax.swing.JMenuItem();
+        jMenuItem43 = new javax.swing.JMenuItem();
+        jMenuItem44 = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -237,6 +240,30 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem37);
         jMenu6.add(jSeparator11);
+
+        jMenuItem45.setText("Tipos de pagos");
+        jMenuItem45.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem45ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem45);
+
+        jMenuItem43.setText("Bancos");
+        jMenuItem43.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem43ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem43);
+
+        jMenuItem44.setText("Cuentas Corrientes");
+        jMenuItem44.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem44ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem44);
 
         jMenuBar1.add(jMenu6);
 
@@ -725,6 +752,18 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem42ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem42ActionPerformed
         new Cuentas_acumuladoras().setVisible(true);
     }//GEN-LAST:event_jMenuItem42ActionPerformed
+
+    private void jMenuItem43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem43ActionPerformed
+        new Banco().setVisible(true);
+    }//GEN-LAST:event_jMenuItem43ActionPerformed
+
+    private void jMenuItem44ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem44ActionPerformed
+        new Cuenta_bancaria().setVisible(true);
+    }//GEN-LAST:event_jMenuItem44ActionPerformed
+
+    private void jMenuItem45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem45ActionPerformed
+        new Tipo_pago().setVisible(true);
+    }//GEN-LAST:event_jMenuItem45ActionPerformed
     
     public static void main(String args[]) {
         try {
@@ -791,6 +830,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem40;
     private javax.swing.JMenuItem jMenuItem41;
     private javax.swing.JMenuItem jMenuItem42;
+    private javax.swing.JMenuItem jMenuItem43;
+    private javax.swing.JMenuItem jMenuItem44;
+    private javax.swing.JMenuItem jMenuItem45;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

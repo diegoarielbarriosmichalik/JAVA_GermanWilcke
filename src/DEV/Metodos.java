@@ -26,6 +26,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class Metodos {
 
     public static int id_usuario = 0;
+    public static int id_tipo_pago = 0;
     public static int id_rubro = 0;
     public static int id_producto = 0;
     public static int producto_id_ubicacion = 0;
@@ -37,6 +38,8 @@ public class Metodos {
     public static int id_compra = 0;
     public static int compras_id_producto = 0;
     public static int compras_id_productos_ubicacion = 0;
+    public static int movimiento_contable_id_tipo_pago = 0;
+    public static int movimiento_contable_id_cuenta_bancaria = 0;
     public static int compras_id_proveedor = 0;
     public static int compras_id_forma_pago = 0;
     public static int compras_id_sector = 0;
@@ -46,6 +49,8 @@ public class Metodos {
     public static int id_productos_tipo = 0;
     public static int id_cuenta = 0;
     public static int id_cliente = 0;
+    public static int cuenta_bancaria_id_banco = 0;
+    public static int id_cuenta_bancaria = 0;
     public static int cuentas_acumuladoras_id_cuenta = 0;
     public static int id_cuenta_acumuladora = 0;
     public static int cuentas_acumuladoras_id_cuenta_acumuladora = 0;
@@ -54,6 +59,7 @@ public class Metodos {
     public static int producto_id_ubicacion_selected = 0;
     public static int producto_id_ubicacion_selected_borrar = 0;
     public static int id_unidad_medida = 0;
+    public static int id_banco = 0;
     public static int id_ubicacion = 0;
     public static int id_sector = 0;
     public static int producto_id_ubicacion_de = 0;
@@ -158,6 +164,16 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Producto.jTable_ubicacion.getModel();
         producto_id_ubicacion_selected = Integer.parseInt(String.valueOf(tm.getValueAt(Producto.jTable_ubicacion.getSelectedRow(), 0)));
     }
+    public synchronized static void Movimientos_contables_tipo_pago_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_tipo_pago.getModel();
+        movimiento_contable_id_tipo_pago = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_tipo_pago.getSelectedRow(), 0)));
+        Movimientos_contables.jTextField_tipo.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_tipo_pago.getSelectedRow(), 1)));
+    }
+    public synchronized static void Movimientos_contables_cuenta_bancaria_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_cuenta_bancaria.getModel();
+        movimiento_contable_id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_cuenta_bancaria.getSelectedRow(), 0)));
+        Movimientos_contables.jTextField_cta_cte.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_cuenta_bancaria.getSelectedRow(), 1)));
+    }
 
     public synchronized static void Productos_jTable_producto_ubicacion_selected() {
         DefaultTableModel tm = (DefaultTableModel) Producto.jTable_producto_ubicacion.getModel();
@@ -225,6 +241,11 @@ public class Metodos {
     public synchronized static void Cliente_selected() {
         DefaultTableModel tm = (DefaultTableModel) Clientes.jTable_cliente.getModel();
         id_cliente = Integer.parseInt(String.valueOf(tm.getValueAt(Clientes.jTable_cliente.getSelectedRow(), 0)));
+    }
+    public synchronized static void Cuenta_bancaria_banco_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Cuenta_bancaria.jTable_banco.getModel();
+        cuenta_bancaria_id_banco = Integer.parseInt(String.valueOf(tm.getValueAt(Cuenta_bancaria.jTable_banco.getSelectedRow(), 0)));
+        Cuenta_bancaria.jt_banco.setText(String.valueOf(tm.getValueAt(Cuenta_bancaria.jTable_banco.getSelectedRow(), 1)));
     }
 
     public synchronized static void Cuentas_acumuladoras_selected() {
@@ -324,8 +345,9 @@ public class Metodos {
                     + "where id_asiento_contable = '" + id_asiento_contable + "'");
             if (result.next()) {
                 if (result.getString("id_asiento_contable") != null) {
-                    Movimientos_contables.jTextField_total_factura.setText(result.getString("id_asiento_contable"));
+                    Movimientos_contables.jTextField_asiento_nro.setText(result.getString("id_asiento_contable"));
                 }
+                    Movimientos_contables.jDateChooser_asiento_fecha.setDate(result.getDate("fecha"));
             }
         } catch (SQLException ex) {
             System.err.println(ex);
@@ -1680,6 +1702,64 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+    public synchronized static void Movimientos_contables_pago_tipo_pago_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Movimientos_contables.jTable_tipo_pago.getModel();
+            for (int j = 0; j < Movimientos_contables.jTable_tipo_pago.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_tipo_pago,  tipo_pago  "
+                    + "from tipo_pago");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Movimientos_contables.jTable_tipo_pago.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public synchronized static void Movimientos_contables_cuenta_bancaria_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Movimientos_contables.jTable_cuenta_bancaria.getModel();
+            for (int j = 0; j < Movimientos_contables.jTable_cuenta_bancaria.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_cuenta_bancaria,  nombre, numero, banco  "
+                    + "from cuenta_bancaria "
+                    + "inner join banco on banco.id_banco = cuenta_bancaria.id_banco "
+                    + "order by banco " );
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Movimientos_contables.jTable_cuenta_bancaria.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
 
     public synchronized static void Cuentas_vinculdas_cargar_jtable() {
         try {
@@ -1731,6 +1811,33 @@ public class Metodos {
                 data2.add(rows);
             }
             dtm = (DefaultTableModel) Clientes.jTable_cliente.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public synchronized static void Cuenta_bancaria_banco_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Cuenta_bancaria.jTable_banco.getModel();
+            for (int j = 0; j < Cuenta_bancaria.jTable_banco.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select * from banco ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Cuenta_bancaria.jTable_banco.getModel();
             for (int i = 0; i < data2.size(); i++) {
                 dtm.addRow(data2.get(i));
             }
@@ -2765,6 +2872,84 @@ public class Metodos {
                 JOptionPane.showMessageDialog(null, "Actualizado correctamente");
             }
 
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public static void Banco_Guardar(String nombre) {
+        try {
+            if (id_banco == 0) {
+                PreparedStatement ps = conexion.prepareStatement("select max(id_banco) from banco");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_banco = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO banco VALUES(?,?,?)");
+                st2.setInt(1, id_banco);
+                st2.setString(2, nombre);
+                st2.setInt(3, 0);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+                PreparedStatement Update = conexion.prepareStatement("UPDATE banco "
+                        + "SET nombre = '" + nombre + "' "
+                        + "WHERE id_banco ='" + id_banco + "'");
+                Update.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public static void Cuenta_bancaria_Guardar(String nombre, String numero) {
+        try {
+            if (id_cuenta_bancaria == 0) {
+                PreparedStatement ps = conexion.prepareStatement("select max(id_cuenta_bancaria) from cuenta_bancaria");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_cuenta_bancaria = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO cuenta_bancaria VALUES(?,?,?,?,?)");
+                st2.setInt(1, id_cuenta_bancaria);
+                st2.setString(2, nombre);
+                st2.setString(3, numero);
+                st2.setInt(4, cuenta_bancaria_id_banco);
+                st2.setInt(5, 0);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+                PreparedStatement Update = conexion.prepareStatement("UPDATE cuenta_bancaria "
+                        + "SET nombre = '" + nombre + "', "
+                        + "numero = '" + numero + "', "
+                        + "id_banco = '" + cuenta_bancaria_id_banco + "' "
+                        + "WHERE id_cuenta_bancaria ='" + id_cuenta_bancaria + "'");
+                Update.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public static void Tipo_pago_Guardar(String tipo) {
+        try {
+            if (id_tipo_pago == 0) {
+                PreparedStatement ps = conexion.prepareStatement("select max(id_tipo_pago) from tipo_pago");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_tipo_pago = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO tipo_pago VALUES(?,?)");
+                st2.setInt(1, id_tipo_pago);
+                st2.setString(2, tipo);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            } else {
+                PreparedStatement Update = conexion.prepareStatement("UPDATE tipo_pago "
+                        + "SET tipo_pago = '" + tipo + "' "
+                        + "WHERE id_tipo_pago ='" + id_tipo_pago + "'");
+                Update.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }

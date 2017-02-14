@@ -46,7 +46,6 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jDialog_pago = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
         jTextField_tipo = new javax.swing.JTextField();
-        jTextField_banco = new javax.swing.JTextField();
         jTextField_cta_cte = new javax.swing.JTextField();
         jTextField_numero = new javax.swing.JTextField();
         jTextField_pago_importe = new javax.swing.JTextField();
@@ -67,6 +66,14 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_buscar = new javax.swing.JTable();
+        jDialog_tipo_pago = new javax.swing.JDialog();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable_tipo_pago = new javax.swing.JTable();
+        jDialog_cuenta_bancaria = new javax.swing.JDialog();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable_cuenta_bancaria = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton_borrar = new javax.swing.JButton();
@@ -227,18 +234,35 @@ public class Movimientos_contables extends javax.swing.JFrame {
 
         jTextField_tipo.setToolTipText("");
         jTextField_tipo.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo (F1 buscar)"));
-
-        jTextField_banco.setToolTipText("");
-        jTextField_banco.setBorder(javax.swing.BorderFactory.createTitledBorder("Banco (F1 buscar)"));
+        jTextField_tipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_tipoKeyPressed(evt);
+            }
+        });
 
         jTextField_cta_cte.setToolTipText("");
-        jTextField_cta_cte.setBorder(javax.swing.BorderFactory.createTitledBorder("Cta Cte (F1 buscar)"));
+        jTextField_cta_cte.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuenta Bancaria (F1 buscar)"));
+        jTextField_cta_cte.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_cta_cteKeyPressed(evt);
+            }
+        });
 
         jTextField_numero.setToolTipText("");
         jTextField_numero.setBorder(javax.swing.BorderFactory.createTitledBorder("Número"));
+        jTextField_numero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_numeroKeyPressed(evt);
+            }
+        });
 
         jTextField_pago_importe.setToolTipText("");
         jTextField_pago_importe.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe"));
+        jTextField_pago_importe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_pago_importeKeyPressed(evt);
+            }
+        });
 
         jDateChooser_pago_fecha.setBackground(new java.awt.Color(255, 255, 255));
         jDateChooser_pago_fecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
@@ -249,6 +273,11 @@ public class Movimientos_contables extends javax.swing.JFrame {
         });
 
         jButton2.setText("Guardar");
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton2KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -261,8 +290,6 @@ public class Movimientos_contables extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField_tipo)
-                    .addComponent(jTextField_banco, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jTextField_cta_cte, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator4)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -271,7 +298,8 @@ public class Movimientos_contables extends javax.swing.JFrame {
                         .addComponent(jTextField_pago_importe, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateChooser_pago_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 100, Short.MAX_VALUE)))
+                        .addGap(0, 100, Short.MAX_VALUE))
+                    .addComponent(jTextField_tipo))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -281,8 +309,6 @@ public class Movimientos_contables extends javax.swing.JFrame {
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_banco, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField_cta_cte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -508,6 +534,134 @@ public class Movimientos_contables extends javax.swing.JFrame {
             .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jDialog_tipo_pago.setUndecorated(true);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTable_tipo_pago.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Tipo de Pago"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_tipo_pago.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_tipo_pagoKeyPressed(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jTable_tipo_pago);
+        if (jTable_tipo_pago.getColumnModel().getColumnCount() > 0) {
+            jTable_tipo_pago.getColumnModel().getColumn(0).setResizable(false);
+            jTable_tipo_pago.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_tipo_pago.getColumnModel().getColumn(1).setResizable(false);
+            jTable_tipo_pago.getColumnModel().getColumn(1).setPreferredWidth(230);
+        }
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialog_tipo_pagoLayout = new javax.swing.GroupLayout(jDialog_tipo_pago.getContentPane());
+        jDialog_tipo_pago.getContentPane().setLayout(jDialog_tipo_pagoLayout);
+        jDialog_tipo_pagoLayout.setHorizontalGroup(
+            jDialog_tipo_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_tipo_pagoLayout.setVerticalGroup(
+            jDialog_tipo_pagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jDialog_cuenta_bancaria.setUndecorated(true);
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTable_cuenta_bancaria.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID ", "Cuenta Bancaria", "Número", "Banco"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_cuenta_bancaria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_cuenta_bancariaKeyPressed(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTable_cuenta_bancaria);
+        if (jTable_cuenta_bancaria.getColumnModel().getColumnCount() > 0) {
+            jTable_cuenta_bancaria.getColumnModel().getColumn(0).setResizable(false);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(1).setResizable(false);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(2).setResizable(false);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(2).setPreferredWidth(90);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(3).setResizable(false);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(3).setPreferredWidth(200);
+        }
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialog_cuenta_bancariaLayout = new javax.swing.GroupLayout(jDialog_cuenta_bancaria.getContentPane());
+        jDialog_cuenta_bancaria.getContentPane().setLayout(jDialog_cuenta_bancariaLayout);
+        jDialog_cuenta_bancariaLayout.setHorizontalGroup(
+            jDialog_cuenta_bancariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_cuenta_bancariaLayout.setVerticalGroup(
+            jDialog_cuenta_bancariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -639,6 +793,11 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jButton_pagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_pagosActionPerformed(evt);
+            }
+        });
+        jButton_pagos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton_pagosKeyPressed(evt);
             }
         });
 
@@ -856,7 +1015,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
     public void jDialog_pago() {
         jDialog_pago.setVisible(true);
         jDialog_pago.setTitle("Forma de Pago");
-        jDialog_pago.setSize(501, 290);
+        jDialog_pago.setSize(509, 245);
         jDialog_pago.setLocationRelativeTo(null);
         jDialog_pago.setAlwaysOnTop(true);
         jDialog_pago.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
@@ -1023,6 +1182,76 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jDialog_buscar.setVisible(false);
     }//GEN-LAST:event_jTable_buscarMouseClicked
 
+    private void jTextField_tipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_tipoKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_pago.setVisible(false);
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_F1)) {
+            jDialog_tipo_pago();
+            Metodos.Movimientos_contables_pago_tipo_pago_jtable();
+        }
+
+    }//GEN-LAST:event_jTextField_tipoKeyPressed
+
+    private void jTextField_cta_cteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_cta_cteKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_pago.setVisible(false);
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_F1)) {
+            jDialog_cuenta_bancaria();
+            Metodos.Movimientos_contables_cuenta_bancaria_jtable();
+        }
+    }//GEN-LAST:event_jTextField_cta_cteKeyPressed
+
+    private void jTextField_numeroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_numeroKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_pago.setVisible(false);
+        }
+    }//GEN-LAST:event_jTextField_numeroKeyPressed
+
+    private void jTextField_pago_importeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_pago_importeKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_pago.setVisible(false);
+        }
+    }//GEN-LAST:event_jTextField_pago_importeKeyPressed
+
+    private void jButton2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton2KeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_pago.setVisible(false);
+        }
+    }//GEN-LAST:event_jButton2KeyPressed
+
+    private void jButton_pagosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_pagosKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_jButton_pagosKeyPressed
+
+    private void jTable_tipo_pagoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_tipo_pagoKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_tipo_pago.setVisible(false);
+            jTextField_tipo.requestFocus();
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            Metodos.Movimientos_contables_tipo_pago_selected();
+            jDialog_tipo_pago.setVisible(false);
+            jTextField_tipo.requestFocus();
+        }
+    }//GEN-LAST:event_jTable_tipo_pagoKeyPressed
+
+    private void jTable_cuenta_bancariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_cuenta_bancariaKeyPressed
+      if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_cuenta_bancaria.setVisible(false);
+            jTextField_cta_cte.requestFocus();
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            Metodos.Movimientos_contables_tipo_pago_selected();
+            Metodos.Movimientos_contables_cuenta_bancaria_selected();
+            jDialog_cuenta_bancaria.setVisible(false);
+            jTextField_cta_cte.requestFocus();
+        }
+    }//GEN-LAST:event_jTable_cuenta_bancariaKeyPressed
+
     public void jDialog_detalle_borrar() {
         jDialog_detalle_borrar.setVisible(true);
         jDialog_detalle_borrar.setTitle("Borrar detalle");
@@ -1030,6 +1259,23 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jDialog_detalle_borrar.setLocationRelativeTo(null);
         jDialog_detalle_borrar.setAlwaysOnTop(true);
         jDialog_detalle_borrar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+
+    public void jDialog_tipo_pago() {
+        jDialog_tipo_pago.setVisible(true);
+        jDialog_tipo_pago.setTitle("Tipo de pago");
+        jDialog_tipo_pago.setSize(500, 500);
+        jDialog_tipo_pago.setLocationRelativeTo(null);
+        jDialog_tipo_pago.setAlwaysOnTop(true);
+        jDialog_tipo_pago.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+    public void jDialog_cuenta_bancaria() {
+        jDialog_cuenta_bancaria.setVisible(true);
+        jDialog_cuenta_bancaria.setTitle("Cuenta Bancaria");
+        jDialog_cuenta_bancaria.setSize(500, 500);
+        jDialog_cuenta_bancaria.setLocationRelativeTo(null);
+        jDialog_cuenta_bancaria.setAlwaysOnTop(true);
+        jDialog_cuenta_bancaria.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
 
     public static void main(String args[]) {
@@ -1065,10 +1311,12 @@ public class Movimientos_contables extends javax.swing.JFrame {
     public static com.toedter.calendar.JDateChooser jDateChooser_factura_fecha;
     public static com.toedter.calendar.JDateChooser jDateChooser_pago_fecha;
     private javax.swing.JDialog jDialog_buscar;
+    private javax.swing.JDialog jDialog_cuenta_bancaria;
     private javax.swing.JDialog jDialog_cuentas_vinculadas;
     private javax.swing.JDialog jDialog_detalle_borrar;
     private javax.swing.JDialog jDialog_factura;
     private javax.swing.JDialog jDialog_pago;
+    private javax.swing.JDialog jDialog_tipo_pago;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1076,10 +1324,14 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -1087,20 +1339,21 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTable jTable2;
     public static javax.swing.JTable jTable_buscar;
+    public static javax.swing.JTable jTable_cuenta_bancaria;
     public static javax.swing.JTable jTable_cuentas_vinculadas;
     public static javax.swing.JTable jTable_movimeintos_contables_factura;
+    public static javax.swing.JTable jTable_tipo_pago;
     private javax.swing.JTextField jTextField2;
     public static javax.swing.JTextField jTextField_asiento_nro;
-    private javax.swing.JTextField jTextField_banco;
     private javax.swing.JTextField jTextField_comprobante;
-    private javax.swing.JTextField jTextField_cta_cte;
+    public static javax.swing.JTextField jTextField_cta_cte;
     public static javax.swing.JTextField jTextField_cuenta;
     private javax.swing.JTextField jTextField_cuenta_buscar;
     private javax.swing.JTextField jTextField_descripcion;
     private javax.swing.JTextField jTextField_importe;
     private javax.swing.JTextField jTextField_numero;
     private javax.swing.JTextField jTextField_pago_importe;
-    private javax.swing.JTextField jTextField_tipo;
+    public static javax.swing.JTextField jTextField_tipo;
     public static javax.swing.JTextField jTextField_total_factura;
     // End of variables declaration//GEN-END:variables
 }
