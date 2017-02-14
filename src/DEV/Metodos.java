@@ -30,6 +30,8 @@ public class Metodos {
     public static int id_producto = 0;
     public static int producto_id_ubicacion = 0;
     public static int id_proveedor = 0;
+    public static int id_asiento_contable = 0;
+    public static int asiento_contable_max = 0;
     public static int movimientos_contables_selected_id_factura = 0;
     public static int id_compra_detalle = 0;
     public static int id_compra = 0;
@@ -75,14 +77,23 @@ public class Metodos {
     public static DecimalFormat num = new DecimalFormat("###,###,###");
 
     public static String Separar_Miles(String cadena) {
-        long precio = Long.parseLong(cadena.replace(".", ""));
-        String valor = String.valueOf(Metodos.num.format(precio));
+        long precio = 0;
+        String valor = "";
+        if (cadena != null) {
+            precio = Long.parseLong(cadena.replace(".", ""));
+            valor = String.valueOf(Metodos.num.format(precio));
+        }
         return valor;
     }
 
     public synchronized static void Proveedor_selected() {
         DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
         id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
+    }
+
+    public synchronized static void Movimientos_contables_buscar_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_buscar.getModel();
+        id_asiento_contable = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_buscar.getSelectedRow(), 0)));
     }
 
     public synchronized static void Movimientos_contables_detalle_selected() {
@@ -305,6 +316,36 @@ public class Metodos {
         }
     }
 
+    public static void Movimientos_contables_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery(""
+                    + "SELECT * FROM asiento_contable "
+                    + "where id_asiento_contable = '" + id_asiento_contable + "'");
+            if (result.next()) {
+                if (result.getString("id_asiento_contable") != null) {
+                    Movimientos_contables.jTextField_total_factura.setText(result.getString("id_asiento_contable"));
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public static void Movimientos_contables_totales() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery(""
+                    + "SELECT sum(importe) FROM asiento_contable_factura "
+                    + "where id_asiento_contable = '" + id_asiento_contable + "'");
+            if (result.next()) {
+                Movimientos_contables.jTextField_total_factura.setText(Separar_Miles(result.getString(1)));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public static void Compras_obtener_datos() {
         try {
             Statement st1 = conexion.createStatement();
@@ -500,6 +541,19 @@ public class Metodos {
         }
     }
 
+    public static void Movimientos_contables_max() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT MAX(id_asiento_contable) FROM asiento_contable ");
+            if (result.next()) {
+                id_asiento_contable = result.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public synchronized static void Proveedor_guardar(String nombre_proveedor, String ruc, String telefono, String direccion) {
         try {
 
@@ -540,6 +594,26 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Asiento_contable_guardar() {
+        try {
+
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT MAX(id_asiento_contable) FROM asiento_contable ");
+            if (result.next()) {
+                id_asiento_contable = result.getInt(1) + 1;
+            }
+
+            PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO asiento_contable VALUES(?,?)");
+            stUpdateProducto.setInt(1, id_asiento_contable);
+            stUpdateProducto.setDate(2, util_Date_to_sql_date(hoy));
+            stUpdateProducto.executeUpdate();
+//            JOptionPane.showMessageDialog(null, "Guardado correctamente");
+
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
     public synchronized static void Cuentas_acumuladoras_guardar() {
         try {
 
@@ -575,7 +649,7 @@ public class Metodos {
             PreparedStatement stUpdateProducto = conexion.prepareStatement(""
                     + "INSERT INTO asiento_contable_factura VALUES(?,?,?,?,?,?,?)");
             stUpdateProducto.setInt(1, id_asiento_contable_factura);
-            stUpdateProducto.setInt(2, 1); // id asiento contable
+            stUpdateProducto.setInt(2, id_asiento_contable); // id asiento contable
             stUpdateProducto.setInt(3, movimientos_contables_cuentas_vicnuladas_id_cuenta);
             stUpdateProducto.setString(4, descripcion);
             stUpdateProducto.setString(5, comprobante);
@@ -1357,7 +1431,7 @@ public class Metodos {
                                         + "SET importe = '" + (importe + importe_existe) + "' "
                                         + "WHERE id_cuenta ='" + id_cuenta_madre + "'");
                                 Update2.executeUpdate();
-                                 id_cuenta = id_cuenta_madre;
+                                id_cuenta = id_cuenta_madre;
                             } else {
                                 st1 = conexion.createStatement();
                                 result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
@@ -1413,7 +1487,7 @@ public class Metodos {
                                         + "SET importe = '" + (importe + importe_existe) + "' "
                                         + "WHERE id_cuenta ='" + id_cuenta_madre + "'");
                                 Update2.executeUpdate();
-                                 id_cuenta = id_cuenta_madre;
+                                id_cuenta = id_cuenta_madre;
                             } else {
                                 st1 = conexion.createStatement();
                                 result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
@@ -1677,7 +1751,7 @@ public class Metodos {
                     + "asiento_contable_factura.descripcion as asiento_descripcion, comprobante, importe "
                     + "from asiento_contable_factura "
                     + "inner join cuenta_vinculada on cuenta_vinculada.id_cuenta_vinculada = asiento_contable_factura.id_cuenta_vinculada "
-                    + "where id_asiento_contable = '1' ");
+                    + "where id_asiento_contable = '" + id_asiento_contable + "' ");
             ResultSet rs2 = ps2.executeQuery();
             ResultSetMetaData rsm = rs2.getMetaData();
             ArrayList<Object[]> data2 = new ArrayList<>();
@@ -2573,6 +2647,36 @@ public class Metodos {
                 data.add(rows);
             }
             dtm = (DefaultTableModel) Cuentas_acumuladoras.jTable_cuenta_acumuladora.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Movimientos_contables_buscar_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Movimientos_contables.jTable_buscar.getModel();
+            for (int j = 0; j < Movimientos_contables.jTable_buscar.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_asiento_contable, fecha "
+                    + "from asiento_contable "
+                    + "order by id_asiento_contable ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1);
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Movimientos_contables.jTable_buscar.getModel();
             for (int i = 0; i < data.size(); i++) {
                 dtm.addRow(data.get(i));
             }

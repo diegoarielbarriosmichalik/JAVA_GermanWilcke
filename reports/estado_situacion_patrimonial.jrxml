@@ -5,9 +5,6 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="desde" class="java.util.Date"/>
 	<parameter name="hasta" class="java.util.Date"/>
-	<parameter name="id_proveedor" class="java.lang.Integer">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<queryString>
 		<![CDATA[select * from imprimir_estado_patrimonial
 order by nv1, nv2, nv3, nv4, nv5, cuenta]]>
@@ -24,48 +21,30 @@ order by nv1, nv2, nv3, nv4, nv5, cuenta]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="73" splitType="Stretch">
-			<staticText>
-				<reportElement x="6" y="42" width="40" height="11" uuid="abba040a-a705-46c5-9543-6f152cc000dd"/>
-				<textElement>
-					<font size="8" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Desde:]]></text>
-			</staticText>
+		<band height="75" splitType="Stretch">
+			<rectangle>
+				<reportElement x="16" y="7" width="525" height="27" uuid="46c71dae-fc0e-44ef-ad68-e7ab529ecf13"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="16" y="41" width="525" height="23" uuid="70c08cd5-d7a8-483d-802d-0a8dfbb12b85"/>
+			</rectangle>
 			<line>
-				<reportElement x="0" y="69" width="555" height="1" uuid="001f5872-ea83-4703-869f-d9205e975b1a"/>
+				<reportElement x="16" y="72" width="526" height="1" uuid="001f5872-ea83-4703-869f-d9205e975b1a"/>
 			</line>
 			<staticText>
-				<reportElement x="3" y="16" width="341" height="19" uuid="cc16e197-5b25-498d-92f2-e690bf67eda9"/>
-				<textElement>
-					<font size="14" isBold="true"/>
+				<reportElement mode="Opaque" x="16" y="41" width="525" height="23" backcolor="#CCCCCC" uuid="cc16e197-5b25-498d-92f2-e690bf67eda9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="16" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Estado de Situación Patrimonial]]></text>
+				<text><![CDATA[ ESTADO DE SITUACIÓN PATRIMONIAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="6" y="54" width="40" height="11" uuid="ebc9fc2a-983d-4e60-a6c6-2ad05765cb2d"/>
-				<textElement>
-					<font size="8" isBold="true"/>
+				<reportElement mode="Opaque" x="17" y="7" width="524" height="27" backcolor="#CCCCCC" uuid="b0b68a7e-4605-42f8-9298-8dc1c88a01c9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Calibri" size="18" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Hasta:]]></text>
+				<text><![CDATA[FUNDACIÓN GERMÁN Y ELSA WILCKE]]></text>
 			</staticText>
-			<line>
-				<reportElement x="4" y="35" width="549" height="1" uuid="d0496ac5-6ca1-4119-b4b1-b054a648f431"/>
-			</line>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="39" y="42" width="166" height="11" uuid="17da8472-2163-4177-832a-b7e9d97d214d"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
-			</textField>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="39" y="54" width="166" height="11" uuid="4182d042-0442-4c8c-a92e-6b6c80d3535c"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{hasta}]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -75,21 +54,27 @@ order by nv1, nv2, nv3, nv4, nv5, cuenta]]>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="12" splitType="Stretch">
+		<band height="14" splitType="Stretch">
 			<textField>
-				<reportElement x="6" y="1" width="447" height="11" uuid="ab5fcc03-950a-4145-89a3-d495fcf5bff1"/>
+				<reportElement x="16" y="0" width="447" height="11" uuid="ab5fcc03-950a-4145-89a3-d495fcf5bff1"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cuenta}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0;-#,##0">
-				<reportElement x="453" y="1" width="61" height="11" uuid="5c49754a-cf95-4678-b4c3-b2dfc907e73e"/>
+				<reportElement x="480" y="0" width="61" height="11" uuid="5c49754a-cf95-4678-b4c3-b2dfc907e73e"/>
 				<textElement textAlignment="Right">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="16" y="11" width="525" height="1" uuid="7ee9b23c-5548-485f-84e4-bbc67bb1a0c3"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>
