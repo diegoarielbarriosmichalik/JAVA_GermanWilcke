@@ -66,11 +66,11 @@ public class Conexion {
             }
             if (result.equals("1748823206")) { // dell 
                 db = "german_wilcke"; 
-//                host = "190.104.167.162"; 
-                host = "10.10.10.100"; 
+                host = "localhost"; 
+//                host = "10.10.10.100"; 
                 user = "postgres";
                 pass = "postgres";
-                pass = "POSTGRES4K";
+//                pass = "POSTGRES4K";
                 mac_adress = "1748823206";
             }
             if (result.equals("1859179857")) { // Servidor GW 

@@ -1214,23 +1214,33 @@ public class Metodos {
             ResultSet result2 = st12.executeQuery(""
                     + "SELECT * FROM asiento_contable_factura "
                     + "inner join cuenta_vinculada on asiento_contable_factura.id_cuenta_vinculada = cuenta_vinculada.id_cuenta_vinculada "
-                    + "");
+                    + "inner join cuenta on cuenta.id_cuenta = cuenta_vinculada.id_cuenta "
+                    + "order by nv1, nv2, nv3, nv4, nv5, cuenta ");
             while (result2.next()) {
+                importe = 0;
+                id_cuenta = result2.getInt("id_cuenta");
+
                 existe = true;
                 cuenta = result2.getString("nv1") + "."
                         + result2.getString("nv2") + "."
                         + result2.getString("nv3") + "."
                         + result2.getString("nv4") + "."
-                        + result2.getString("nv5") + " "
+                        + result2.getString("nv5") + "  "
                         + result2.getString("cuenta");
                 importe = importe + result2.getLong("importe");
 
+//                Statement st19 = conexion.createStatement();
+//                ResultSet result9 = st19.executeQuery("SELECT *  FROM imprimir_estado_patrimonial where id ");
+//                if (result9.next()) {
+//                    id = result9.getInt(1) + 1;
+//                }
+                
                 Statement st1 = conexion.createStatement();
                 ResultSet result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
                 if (result.next()) {
                     id = result.getInt(1) + 1;
                 }
-                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?)");
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
                 stUpdateProducto.setInt(1, id);
                 stUpdateProducto.setInt(2, nv1);
                 stUpdateProducto.setInt(3, nv2);
@@ -1239,32 +1249,126 @@ public class Metodos {
                 stUpdateProducto.setInt(6, nv5);
                 stUpdateProducto.setString(7, cuenta);
                 stUpdateProducto.setLong(8, importe);
+                stUpdateProducto.setInt(9, id_cuenta);
                 stUpdateProducto.executeUpdate();
 
                 Statement st1235 = conexion.createStatement();
                 ResultSet result235 = st1235.executeQuery(""
-                        + "SELECT id_cuenta_madre FROM cuenta_acumuladora  "
+                        + "SELECT * FROM cuenta_acumuladora  "
                         + "where id_cuenta = '" + id_cuenta + "' ");
                 while (result235.next()) {
-                    int id_cuenta_madre = result235.getInt(1);
+                    
+                    int id_cuenta_madre = result235.getInt("id_cuenta_madre");
                     Statement st12355 = conexion.createStatement();
                     ResultSet result2355 = st12355.executeQuery(""
                             + "SELECT * FROM cuenta  "
                             + "where id_cuenta = '" + id_cuenta_madre + "' ");
                     if (result2355.next()) {
+
                         cuenta = result2355.getString("nv1") + "."
                                 + result2355.getString("nv2") + "."
                                 + result2355.getString("nv3") + "."
                                 + result2355.getString("nv4") + "."
-                                + result2355.getString("nv5") + " "
+                                + result2355.getString("nv5") + "  "
                                 + result2355.getString("cuenta");
+                        st1 = conexion.createStatement();
+                        result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
+                        if (result.next()) {
+                            id = result.getInt(1) + 1;
+                        }
+                        stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
+                        stUpdateProducto.setInt(1, id);
+                        stUpdateProducto.setInt(2, nv1);
+                        stUpdateProducto.setInt(3, nv2);
+                        stUpdateProducto.setInt(4, nv3);
+                        stUpdateProducto.setInt(5, nv4);
+                        stUpdateProducto.setInt(6, nv5);
+                        stUpdateProducto.setString(7, cuenta);
+                        stUpdateProducto.setLong(8, importe);
+                        stUpdateProducto.setLong(9, id_cuenta_madre);
+                        stUpdateProducto.executeUpdate();
+                        id_cuenta = id_cuenta_madre;
                     }
+                    st1235 = conexion.createStatement();
+                    result235 = st1235.executeQuery(""
+                            + "SELECT id_cuenta_madre FROM cuenta_acumuladora  "
+                            + "where id_cuenta = '" + id_cuenta + "' ");
+                    while (result235.next()) {
+                        
+                        id_cuenta_madre = result235.getInt(1);
+                        st12355 = conexion.createStatement();
+                        result2355 = st12355.executeQuery(""
+                                + "SELECT * FROM cuenta  "
+                                + "where id_cuenta = '" + id_cuenta_madre + "' ");
+                        if (result2355.next()) {
 
+                            cuenta = result2355.getString("nv1") + "."
+                                    + result2355.getString("nv2") + "."
+                                    + result2355.getString("nv3") + "."
+                                    + result2355.getString("nv4") + "."
+                                    + result2355.getString("nv5") + "  "
+                                    + result2355.getString("cuenta");
+                            st1 = conexion.createStatement();
+                            result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
+                            if (result.next()) {
+                                id = result.getInt(1) + 1;
+                            }
+                            stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
+                            stUpdateProducto.setInt(1, id);
+                            stUpdateProducto.setInt(2, nv1);
+                            stUpdateProducto.setInt(3, nv2);
+                            stUpdateProducto.setInt(4, nv3);
+                            stUpdateProducto.setInt(5, nv4);
+                            stUpdateProducto.setInt(6, nv5);
+                            stUpdateProducto.setString(7, cuenta);
+                            stUpdateProducto.setLong(8, importe);
+                            stUpdateProducto.setLong(9, id_cuenta_madre);
+                            stUpdateProducto.executeUpdate();
+                            id_cuenta = id_cuenta_madre;
+                        }
+                    }
+                    st1235 = conexion.createStatement();
+                    result235 = st1235.executeQuery(""
+                            + "SELECT id_cuenta_madre FROM cuenta_acumuladora  "
+                            + "where id_cuenta = '" + id_cuenta + "' ");
+                    while (result235.next()) {
+                       
+                        id_cuenta_madre = result235.getInt(1);
+                        st12355 = conexion.createStatement();
+                        result2355 = st12355.executeQuery(""
+                                + "SELECT * FROM cuenta  "
+                                + "where id_cuenta = '" + id_cuenta_madre + "' ");
+                        if (result2355.next()) {
+
+                            cuenta = result2355.getString("nv1") + "."
+                                    + result2355.getString("nv2") + "."
+                                    + result2355.getString("nv3") + "."
+                                    + result2355.getString("nv4") + "."
+                                    + result2355.getString("nv5") + "  "
+                                    + result2355.getString("cuenta");
+                            st1 = conexion.createStatement();
+                            result = st1.executeQuery("SELECT MAX(id) FROM imprimir_estado_patrimonial");
+                            if (result.next()) {
+                                id = result.getInt(1) + 1;
+                            }
+                            stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_estado_patrimonial VALUES(?,?,?,?,?,?,?,?,?)");
+                            stUpdateProducto.setInt(1, id);
+                            stUpdateProducto.setInt(2, nv1);
+                            stUpdateProducto.setInt(3, nv2);
+                            stUpdateProducto.setInt(4, nv3);
+                            stUpdateProducto.setInt(5, nv4);
+                            stUpdateProducto.setInt(6, nv5);
+                            stUpdateProducto.setString(7, cuenta);
+                            stUpdateProducto.setLong(8, importe);
+                            stUpdateProducto.setLong(9, id_cuenta_madre);
+                            stUpdateProducto.executeUpdate();
+                            id_cuenta = id_cuenta_madre;
+                        }
+                    }
                 }
 
             }
-         
-
+            
             JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + "estado_situacion_patrimonial.jasper");
             JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
             JasperViewer jv = new JasperViewer(jp, false);

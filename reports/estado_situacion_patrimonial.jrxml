@@ -9,9 +9,15 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select * from imprimir_estado_patrimonial]]>
+		<![CDATA[select * from imprimir_estado_patrimonial
+order by nv1, nv2, nv3, nv4, nv5, cuenta]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
+	<field name="nv1" class="java.lang.Integer"/>
+	<field name="nv2" class="java.lang.Integer"/>
+	<field name="nv3" class="java.lang.Integer"/>
+	<field name="nv4" class="java.lang.Integer"/>
+	<field name="nv5" class="java.lang.Integer"/>
 	<field name="cuenta" class="java.lang.String"/>
 	<field name="importe" class="java.math.BigDecimal"/>
 	<background>
