@@ -166,7 +166,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu6.add(jMenuItem8);
 
         jMenuItem7.setMnemonic('e');
-        jMenuItem7.setText("Proveedores");
+        jMenuItem7.setText("Personas");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);

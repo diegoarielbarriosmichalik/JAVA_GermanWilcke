@@ -58,7 +58,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
               <Properties>
                 <Property name="mnemonic" type="int" value="101"/>
-                <Property name="text" type="java.lang.String" value="Proveedores"/>
+                <Property name="text" type="java.lang.String" value="Personas"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem7ActionPerformed"/>

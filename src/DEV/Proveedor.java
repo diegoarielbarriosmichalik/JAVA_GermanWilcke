@@ -10,7 +10,7 @@ public class Proveedor extends javax.swing.JFrame {
     public Proveedor() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Proveedores");
+        setTitle("Personas");
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Conexion.Verificar_conexion();
         jButton_borrar.setVisible(false);
@@ -133,7 +133,7 @@ public class Proveedor extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
 
-        JT_Nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Proveedor "));
+        JT_Nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre o Razón Social"));
         JT_Nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JT_NombreActionPerformed(evt);
