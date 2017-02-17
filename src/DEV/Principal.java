@@ -4,9 +4,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
-    
+
     public Principal() {
-        
+
         initComponents();
         setLocationRelativeTo(null);
         setTitle(Metodos.titulo);
@@ -17,12 +17,12 @@ public class Principal extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                
+
                 close();
             }
         });
     }
-    
+
     private void close() {
         if (JOptionPane.showConfirmDialog(rootPane, "¿Salir del sistema?",
                 "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -30,9 +30,9 @@ public class Principal extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-    
+
     public static int id_usuario;
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -93,6 +93,8 @@ public class Principal extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jMenuItem41 = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem46 = new javax.swing.JMenuItem();
+        jSeparator12 = new javax.swing.JPopupMenu.Separator();
         jMenu4 = new javax.swing.JMenu();
         jSeparator23 = new javax.swing.JPopupMenu.Separator();
         jMenuItem20 = new javax.swing.JMenuItem();
@@ -453,6 +455,15 @@ public class Principal extends javax.swing.JFrame {
         jMenu5.add(jMenuItem41);
         jMenu5.add(jSeparator8);
 
+        jMenuItem46.setText("Listado de pagos");
+        jMenuItem46.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem46ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem46);
+        jMenu5.add(jSeparator12);
+
         jMenuBar1.add(jMenu5);
 
         jMenu4.setText("Administración");
@@ -581,7 +592,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu_ventasMouseClicked
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        
+
 
     }//GEN-LAST:event_formKeyPressed
 
@@ -676,7 +687,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        
+
         if (Metodos.privilegio == 1) {
 //            new Usuarios_control().setVisible(true);
         } else {
@@ -764,7 +775,11 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem45ActionPerformed
         new Tipo_pago().setVisible(true);
     }//GEN-LAST:event_jMenuItem45ActionPerformed
-    
+
+    private void jMenuItem46ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem46ActionPerformed
+        new Listado_de_pagos().setVisible(true);
+    }//GEN-LAST:event_jMenuItem46ActionPerformed
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -833,6 +848,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem43;
     private javax.swing.JMenuItem jMenuItem44;
     private javax.swing.JMenuItem jMenuItem45;
+    private javax.swing.JMenuItem jMenuItem46;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
@@ -846,6 +862,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator10;
     private javax.swing.JPopupMenu.Separator jSeparator11;
+    private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
     private javax.swing.JPopupMenu.Separator jSeparator17;

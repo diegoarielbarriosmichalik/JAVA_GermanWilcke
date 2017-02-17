@@ -27,6 +27,7 @@ public class Metodos {
 
     public static int id_usuario = 0;
     public static int id_tipo_pago = 0;
+    public static int listado_pagos_tipo_pago = 0;
     public static int id_rubro = 0;
     public static int id_producto = 0;
     public static int producto_id_ubicacion = 0;
@@ -57,6 +58,7 @@ public class Metodos {
     public static int id_cuenta_acumuladora = 0;
     public static int cuentas_acumuladoras_id_cuenta_acumuladora = 0;
     public static int listado_compras_id_sector = 0;
+    public static int listado_de_pagos_id_tipo_pago = 0;
     public static int listado_compras_id_proveedor = 0;
     public static int producto_id_ubicacion_selected = 0;
     public static int producto_id_ubicacion_selected_borrar = 0;
@@ -79,6 +81,7 @@ public class Metodos {
     public static int id_cuenta_vinculada = 0;
     public static String ubicacion_proyecto = "";
     public static String usuario = "";
+    public static String titulo_de_pagos = "";
     public static String path = "";
     public static String titulo = "";
     public static boolean entro = false;
@@ -133,7 +136,7 @@ public class Metodos {
         movimientos_contables_factura_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_factura_proveedor.getSelectedRow(), 0)));
         Movimientos_contables.jTextField_factura_proveedor.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_factura_proveedor.getSelectedRow(), 1)));
     }
-    
+
     public synchronized static void Movimeintos_bancarios_pago_proveedor_selected() {
         DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_pago_proveedor.getModel();
         movimientos_contables_pago_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_pago_proveedor.getSelectedRow(), 0)));
@@ -212,6 +215,11 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Listado_compras_por_sector.jTable_sector.getModel();
         listado_compras_id_sector = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_compras_por_sector.jTable_sector.getSelectedRow(), 0)));
         Listado_compras_por_sector.jtexfield_sector.setText(String.valueOf(tm.getValueAt(Listado_compras_por_sector.jTable_sector.getSelectedRow(), 1)));
+    }
+    public synchronized static void Listado_de_pagos_tipo_pago_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Listado_de_pagos.jTable_tipo_pago.getModel();
+        listado_de_pagos_id_tipo_pago = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_de_pagos.jTable_tipo_pago.getSelectedRow(), 0)));
+        Listado_de_pagos.jtexfield_tipo_pago.setText(String.valueOf(tm.getValueAt(Listado_de_pagos.jTable_tipo_pago.getSelectedRow(), 1)));
     }
 
     public synchronized static void Listado_compras_sector_detallado_selected() {
@@ -1342,6 +1350,38 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Cheques_imprimir(Date desde, Date hasta) {
+        try {
+            String reporte = "cheques_emitidos.jasper";
+
+            Map parametros = new HashMap();
+            parametros.put("desde", desde);
+            parametros.put("hasta", hasta);
+            parametros.put("titulo", titulo_de_pagos);
+
+            if (listado_de_pagos_id_tipo_pago == 0) {
+                reporte = "listado_de_pagos_todos.jasper";
+            }
+            if (listado_de_pagos_id_tipo_pago == 1) {
+                parametros.put("titulo", "Listado de cheques");
+                parametros.put("id_tipo_pago", 1);
+                reporte = "listado_de_pagos_cheques_transferencia.jasper";
+            }
+            if (listado_de_pagos_id_tipo_pago == 2) {
+                parametros.put("titulo", "Listado de transferencias");
+                parametros.put("id_tipo_pago", 2);
+                reporte = "listado_de_pagos_cheques_transferencia.jasper";
+            }
+
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + reporte);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
     public synchronized static void Compras_imprimir_detallado(Date desde, Date hasta) {
         try {
             Map parametros = new HashMap();
@@ -1940,6 +1980,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
     public synchronized static void Movimientos_contables_pago_proveedor_jtable(String buscar) {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Movimientos_contables.jTable_pago_proveedor.getModel();
@@ -2115,6 +2156,32 @@ public class Metodos {
                 data2.add(rows);
             }
             dtm = (DefaultTableModel) Listado_compras_por_sector.jTable_sector.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public synchronized static void Listado_tipo_pago_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Listado_de_pagos.jTable_tipo_pago.getModel();
+            for (int j = 0; j < Listado_de_pagos.jTable_tipo_pago.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement("select id_tipo_pago, tipo_pago from tipo_pago order by id_tipo_pago");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1);
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Listado_de_pagos.jTable_tipo_pago.getModel();
             for (int i = 0; i < data2.size(); i++) {
                 dtm.addRow(data2.get(i));
             }
