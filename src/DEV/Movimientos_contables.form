@@ -673,12 +673,12 @@
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="false">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="250" resizable="false">
                           <Title/>
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="470" resizable="false">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="250" resizable="false">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -1311,6 +1311,18 @@
                           <Component id="jScrollPane2" max="32767" attributes="0"/>
                           <Component id="jSeparator2" alignment="1" max="32767" attributes="0"/>
                           <Component id="jScrollPane3" alignment="1" pref="974" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jTextField_asiento_nro" min="-2" pref="143" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jDateChooser_asiento_fecha" min="-2" pref="121" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jButton_pagos" min="-2" pref="173" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jTextField_total_pago" min="-2" pref="151" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="jButton_borrar" min="-2" pref="35" max="-2" attributes="0"/>
@@ -1323,22 +1335,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jButton1" min="-2" pref="33" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jButton_factura" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="jButton_factura" min="-2" pref="171" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jTextField_total_factura" min="-2" pref="153" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton_pagos" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="jTextField_asiento_nro" min="-2" pref="143" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jDateChooser_asiento_fecha" min="-2" pref="121" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jTextField_total_pago" min="-2" pref="151" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1468,6 +1468,7 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_buscarActionPerformed"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jButton_buscarKeyPressed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -1623,7 +1624,7 @@
             <Component class="javax.swing.JButton" name="jButton_pagos">
               <Properties>
                 <Property name="mnemonic" type="int" value="112"/>
-                <Property name="text" type="java.lang.String" value="Agregar Pago"/>
+                <Property name="text" type="java.lang.String" value="Agregar forma de pago"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
@@ -1650,7 +1651,7 @@
             <Component class="javax.swing.JButton" name="jButton_factura">
               <Properties>
                 <Property name="mnemonic" type="int" value="102"/>
-                <Property name="text" type="java.lang.String" value="Agregar Facturas"/>
+                <Property name="text" type="java.lang.String" value="Agregar detalles"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_facturaActionPerformed"/>

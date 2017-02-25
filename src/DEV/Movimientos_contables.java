@@ -21,7 +21,8 @@ public class Movimientos_contables extends javax.swing.JFrame {
         Metodos.Movimientos_contables_factura_jtable();
         Metodos.Movimientos_contables_pago_jtable();
         Metodos.Movimientos_contables_totales();
-
+        
+        jButton_borrar.setVisible(false);
     }
 
     public static void Movimientos_contables_clear() {
@@ -552,9 +553,9 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable_buscar);
         if (jTable_buscar.getColumnModel().getColumnCount() > 0) {
             jTable_buscar.getColumnModel().getColumn(0).setResizable(false);
-            jTable_buscar.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_buscar.getColumnModel().getColumn(0).setPreferredWidth(250);
             jTable_buscar.getColumnModel().getColumn(1).setResizable(false);
-            jTable_buscar.getColumnModel().getColumn(1).setPreferredWidth(470);
+            jTable_buscar.getColumnModel().getColumn(1).setPreferredWidth(250);
         }
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -981,6 +982,11 @@ public class Movimientos_contables extends javax.swing.JFrame {
                 jButton_buscarActionPerformed(evt);
             }
         });
+        jButton_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton_buscarKeyPressed(evt);
+            }
+        });
 
         jTable_movimeintos_contables_factura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1060,7 +1066,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
         }
 
         jButton_pagos.setMnemonic('p');
-        jButton_pagos.setText("Agregar Pago");
+        jButton_pagos.setText("Agregar forma de pago");
         jButton_pagos.setToolTipText("");
         jButton_pagos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1077,7 +1083,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jTextField_total_factura.setBorder(javax.swing.BorderFactory.createTitledBorder("Total"));
 
         jButton_factura.setMnemonic('f');
-        jButton_factura.setText("Agregar Facturas");
+        jButton_factura.setText("Agregar detalles");
         jButton_factura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_facturaActionPerformed(evt);
@@ -1113,6 +1119,15 @@ public class Movimientos_contables extends javax.swing.JFrame {
                     .addComponent(jScrollPane2)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTextField_asiento_nro, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDateChooser_asiento_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton_pagos, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField_total_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1124,19 +1139,10 @@ public class Movimientos_contables extends javax.swing.JFrame {
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jButton_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_total_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton_pagos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField_asiento_nro, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser_asiento_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField_total_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextField_total_factura, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1442,6 +1448,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private void jTable_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_buscarKeyPressed
         if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
             jDialog_buscar.setVisible(false);
+            jButton_factura.requestFocus();
         }
         if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
             Metodos.Movimientos_contables_buscar_selected();
@@ -1524,7 +1531,6 @@ public class Movimientos_contables extends javax.swing.JFrame {
             jTextField_pago_cta_cte.requestFocus();
         }
         if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
-            Metodos.Movimientos_contables_tipo_pago_selected();
             Metodos.Movimientos_contables_cuenta_bancaria_selected();
             jDialog_cuenta_bancaria.setVisible(false);
             jTextField_pago_cta_cte.requestFocus();
@@ -1645,6 +1651,10 @@ public class Movimientos_contables extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jTextField_pago_proveedor_buscarKeyPressed
+
+    private void jButton_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_buscarKeyPressed
+    
+    }//GEN-LAST:event_jButton_buscarKeyPressed
 
     public void jDialog_detalle_borrar() {
         jDialog_detalle_borrar.setVisible(true);

@@ -59,6 +59,9 @@ public class Metodos {
     public static int cuentas_acumuladoras_id_cuenta_acumuladora = 0;
     public static int listado_compras_id_sector = 0;
     public static int listado_de_pagos_id_tipo_pago = 0;
+    public static int listado_de_pagos_id_cuenta = 0;
+    public static int listado_de_pagos_por_cuenta_id_cuenta_vinculada = 0;
+    public static int listado_de_cheques_id_cuenta_bancaria = 0;
     public static int listado_compras_id_proveedor = 0;
     public static int producto_id_ubicacion_selected = 0;
     public static int producto_id_ubicacion_selected_borrar = 0;
@@ -193,6 +196,7 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_tipo_pago.getModel();
         movimiento_contable_id_tipo_pago = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_tipo_pago.getSelectedRow(), 0)));
         Movimientos_contables.jTextField_pago_tipo.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_tipo_pago.getSelectedRow(), 1)));
+        System.err.println(movimiento_contable_id_tipo_pago);
     }
 
     public synchronized static void Movimientos_contables_cuenta_bancaria_selected() {
@@ -220,6 +224,11 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Listado_de_pagos.jTable_tipo_pago.getModel();
         listado_de_pagos_id_tipo_pago = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_de_pagos.jTable_tipo_pago.getSelectedRow(), 0)));
         Listado_de_pagos.jtexfield_tipo_pago.setText(String.valueOf(tm.getValueAt(Listado_de_pagos.jTable_tipo_pago.getSelectedRow(), 1)));
+    }
+    public synchronized static void Listado_de_pagos_cuenta_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Listado_de_pagos_por_cuentas.jTable_cuentas.getModel();
+        listado_de_pagos_por_cuenta_id_cuenta_vinculada = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_de_pagos_por_cuentas.jTable_cuentas.getSelectedRow(), 0)));
+        Listado_de_pagos_por_cuentas.jtexfield_tipo_pago.setText(String.valueOf(tm.getValueAt(Listado_de_pagos_por_cuentas.jTable_cuentas.getSelectedRow(), 1)));
     }
 
     public synchronized static void Listado_compras_sector_detallado_selected() {
@@ -1381,6 +1390,51 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+    public synchronized static void Lsitado_de_pagos_por_cuenta_imprimir(Date desde, Date hasta) {
+        try {
+            String reporte = "listado_de_pagos_por_cuenta.jasper";
+
+            Map parametros = new HashMap();
+            parametros.put("desde", desde);
+            parametros.put("hasta", hasta);
+            parametros.put("id_cuenta", listado_de_pagos_por_cuenta_id_cuenta_vinculada);
+
+            if (listado_de_pagos_por_cuenta_id_cuenta_vinculada == 0) {
+                reporte = "listado_de_pagos_por_cuenta_todos.jasper";
+            }
+          
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + reporte);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+            
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    public synchronized static void Lsitado_de_cheques_imprimir(Date desde, Date hasta) {
+        try {
+            String reporte = "listado_de_cheques.jasper";
+
+            Map parametros = new HashMap();
+            parametros.put("desde", desde);
+            parametros.put("hasta", hasta);
+            parametros.put("id_tipo_pago", 1); //cheque
+            parametros.put("id_cuenta_bancaria", listado_de_cheques_id_cuenta_bancaria);
+
+            if (listado_de_cheques_id_cuenta_bancaria == 0) {
+                reporte = "listado_de_cheques.jasper";
+            }
+          
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + reporte);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+            
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
 
     public synchronized static void Compras_imprimir_detallado(Date desde, Date hasta) {
         try {
@@ -1856,6 +1910,36 @@ public class Metodos {
                 data2.add(rows);
             }
             dtm = (DefaultTableModel) Movimientos_contables.jTable_tipo_pago.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+    public synchronized static void Listado_de_pagos_por_cuentas_jtable(String buscar) {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Listado_de_pagos_por_cuentas.jTable_cuentas.getModel();
+            for (int j = 0; j < Listado_de_pagos_por_cuentas.jTable_cuentas.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_cuenta_vinculada,  descripcion, cuenta  "
+                    + "from cuenta_vinculada "
+                    + "inner join cuenta on cuenta.id_cuenta = cuenta_vinculada.id_cuenta "
+                    + "where descripcion ilike '%"+buscar+"%'");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Listado_de_pagos_por_cuentas.jTable_cuentas.getModel();
             for (int i = 0; i < data2.size(); i++) {
                 dtm.addRow(data2.get(i));
             }
