@@ -42,6 +42,7 @@ public class Metodos {
     public static int compras_id_producto = 0;
     public static int compras_id_productos_ubicacion = 0;
     public static int movimiento_contable_id_tipo_pago = 0;
+    public static int movimiento_contable_id_deposito_bancario = 0;
     public static int movimiento_contable_id_cuenta_bancaria = 0;
     public static int compras_id_proveedor = 0;
     public static int compras_id_forma_pago = 0;
@@ -82,11 +83,14 @@ public class Metodos {
     public static int Compras_id_compras_detalle = 0;
     public static int cuentas_vicnuladas_id_cuenta = 0;
     public static int id_cuenta_vinculada = 0;
+    public static int movimiento_contable_deposito_id_cuenta_bancaria = 0;
+    public static int movimiento_contable_deposito_id_cuenta_vinculada = 0;
     public static String ubicacion_proyecto = "";
     public static String usuario = "";
     public static String titulo_de_pagos = "";
     public static String path = "";
     public static String titulo = "";
+    public static String membrete = "";
     public static boolean entro = false;
     public static Date hoy = new Date();
 
@@ -105,6 +109,18 @@ public class Metodos {
     public synchronized static void Proveedor_selected() {
         DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
         id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
+    }
+
+    public synchronized static void Movimientos_contables_deposito_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_deposito_cuenta_bancaria.getModel();
+        movimiento_contable_deposito_id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuenta_bancaria.getSelectedRow(), 0)));
+        Movimientos_contables.jTextField_deposito_cuenta_bancaria.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuenta_bancaria.getSelectedRow(), 1)));
+    }
+
+    public synchronized static void Movimientos_contables_deposito_cuenta_vinculada_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_deposito_cuentas_vinculadas.getModel();
+        movimiento_contable_deposito_id_cuenta_vinculada = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuentas_vinculadas.getSelectedRow(), 0)));
+        Movimientos_contables.jTextField_deposito_cuenta_vinculada.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuentas_vinculadas.getSelectedRow(), 1)));
     }
 
     public synchronized static void Movimientos_contables_pago_selected() {
@@ -220,11 +236,13 @@ public class Metodos {
         listado_compras_id_sector = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_compras_por_sector.jTable_sector.getSelectedRow(), 0)));
         Listado_compras_por_sector.jtexfield_sector.setText(String.valueOf(tm.getValueAt(Listado_compras_por_sector.jTable_sector.getSelectedRow(), 1)));
     }
+
     public synchronized static void Listado_de_pagos_tipo_pago_selected() {
         DefaultTableModel tm = (DefaultTableModel) Listado_de_pagos.jTable_tipo_pago.getModel();
         listado_de_pagos_id_tipo_pago = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_de_pagos.jTable_tipo_pago.getSelectedRow(), 0)));
         Listado_de_pagos.jtexfield_tipo_pago.setText(String.valueOf(tm.getValueAt(Listado_de_pagos.jTable_tipo_pago.getSelectedRow(), 1)));
     }
+
     public synchronized static void Listado_de_pagos_cuenta_selected() {
         DefaultTableModel tm = (DefaultTableModel) Listado_de_pagos_por_cuentas.jTable_cuentas.getModel();
         listado_de_pagos_por_cuenta_id_cuenta_vinculada = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_de_pagos_por_cuentas.jTable_cuentas.getSelectedRow(), 0)));
@@ -659,6 +677,50 @@ public class Metodos {
                 st.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
             }
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public synchronized static void Movimientos_contables_deposito_guardar(Date fecha, String comprobante, String importe, String descripcion) {
+        try {
+
+            importe = importe.replace(".", "");
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery("SELECT MAX(id_deposito_bancario) FROM deposito_bancario");
+            if (result.next()) {
+                movimiento_contable_id_deposito_bancario = result.getInt(1) + 1;
+            }
+
+            PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO deposito_bancario VALUES(?,?,?,?,?,?,?,?)");
+            stUpdateProducto.setInt(1, movimiento_contable_id_deposito_bancario);
+            stUpdateProducto.setLong(2, Long.parseLong(comprobante));
+            stUpdateProducto.setDate(3, util_Date_to_sql_date(fecha));
+            stUpdateProducto.setLong(4, Long.parseLong(importe));
+            stUpdateProducto.setInt(5, movimiento_contable_deposito_id_cuenta_bancaria);
+            stUpdateProducto.setInt(6, id_asiento_contable);
+            stUpdateProducto.setInt(7, 1);
+            stUpdateProducto.setInt(8, 0);
+            stUpdateProducto.executeUpdate();
+
+            st1 = conexion.createStatement();
+            result = st1.executeQuery("SELECT MAX(id_asiento_contable_factura) FROM asiento_contable_factura");
+            if (result.next()) {
+                id_asiento_contable_factura = result.getInt(1) + 1;
+            }
+
+            stUpdateProducto = conexion.prepareStatement(""
+                    + "INSERT INTO asiento_contable_factura VALUES(?,?,?,?,?,?,?,?)");
+            stUpdateProducto.setInt(1, id_asiento_contable_factura);
+            stUpdateProducto.setInt(2, id_asiento_contable); // id asiento contable
+            stUpdateProducto.setInt(3, movimiento_contable_deposito_id_cuenta_vinculada);
+            stUpdateProducto.setString(4, descripcion);
+            stUpdateProducto.setString(5, comprobante);
+            stUpdateProducto.setLong(6, Long.parseLong(importe));
+            stUpdateProducto.setDate(7, util_Date_to_sql_date(fecha));
+            stUpdateProducto.setInt(8, 0); // proveedor
+            stUpdateProducto.executeUpdate();
+
         } catch (NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -1317,11 +1379,15 @@ public class Metodos {
                 PreparedStatement ps2 = conexion.prepareStatement("select * from configuracion");
                 ResultSet rs2 = ps2.executeQuery();
                 if (rs2.next()) {
+                    membrete = rs2.getString("empresa").trim() + " RUC: " + rs2.getString("ruc").trim();
                     titulo = rs2.getString("empresa").trim() + " - Usuario: " + nombre;
                 }
                 new Principal().setVisible(true);
                 entro = true;
+                
             }
+            
+            System.err.println(membrete);
 
             if (entro == false) {
                 JOptionPane.showMessageDialog(null, "Error de usuario y/o contraseña.");
@@ -1390,6 +1456,7 @@ public class Metodos {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+
     public synchronized static void Lsitado_de_pagos_por_cuenta_imprimir(Date desde, Date hasta) {
         try {
             String reporte = "listado_de_pagos_por_cuenta.jasper";
@@ -1402,16 +1469,17 @@ public class Metodos {
             if (listado_de_pagos_por_cuenta_id_cuenta_vinculada == 0) {
                 reporte = "listado_de_pagos_por_cuenta_todos.jasper";
             }
-          
+
             JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + reporte);
             JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            
+
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+
     public synchronized static void Lsitado_de_cheques_imprimir(Date desde, Date hasta) {
         try {
             String reporte = "listado_de_cheques.jasper";
@@ -1425,14 +1493,91 @@ public class Metodos {
             if (listado_de_cheques_id_cuenta_bancaria == 0) {
                 reporte = "listado_de_cheques.jasper";
             }
-          
+
             JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + reporte);
             JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-            
+
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public synchronized static void Libro_mayor(Date desde, Date hasta) {
+        try {
+            int id = 0;
+
+            long saldos = 0;
+
+            PreparedStatement stUpdateProducto = null;
+
+            Statement stAuxiliar = conexion.createStatement();
+            stAuxiliar.executeUpdate("truncate table imprimir_libro_mayor");
+
+            Statement st12 = conexion.createStatement();
+            ResultSet result2 = st12.executeQuery(""
+                    + "SELECT SUM(importe) FROM asiento_contable "
+                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
+                    + "where asiento_contable.fecha < '" + desde + "' "
+                    + "and asiento_contable_factura.id_proveedor = '0' ");
+            if (result2.next()) {
+                saldos = result2.getLong(1);
+            }
+
+            st12 = conexion.createStatement();
+            result2 = st12.executeQuery(""
+                    + "SELECT SUM(importe) FROM asiento_contable "
+                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
+                    + "where asiento_contable.fecha < '" + desde + "' "
+                    + "and asiento_contable_factura.id_proveedor != '0' ");
+            if (result2.next()) {
+                saldos = saldos - result2.getLong(1);
+            }
+
+            st12 = conexion.createStatement();
+            result2 = st12.executeQuery(""
+                    + "SELECT * FROM asiento_contable "
+                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
+                    + "where asiento_contable.fecha >= '" + desde + "'"
+                    + "and asiento_contable.fecha <= '" + hasta + "' ");
+            while (result2.next()) {
+                id = id + 1;
+                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_mayor VALUES(?,?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id);
+                stUpdateProducto.setInt(2, result2.getInt("id_asiento_contable"));
+                stUpdateProducto.setDate(3, result2.getDate("fecha"));
+                stUpdateProducto.setString(4, result2.getString("descripcion") + " s/ Comp.: " + result2.getString("comprobante"));
+                if (result2.getInt("id_proveedor") == 0) {
+                    stUpdateProducto.setInt(5, 0);
+                    stUpdateProducto.setLong(6, result2.getLong("importe"));
+                    saldos = saldos - result2.getLong("importe");
+                } else {
+                    stUpdateProducto.setLong(5, result2.getLong("importe"));
+                    stUpdateProducto.setInt(6, 0);
+                    saldos = saldos + result2.getLong("importe");
+                }
+                stUpdateProducto.setLong(7, saldos);
+                stUpdateProducto.executeUpdate();
+
+            }
+
+            String reporte = "libro_mayor.jasper";
+
+            Map parametros = new HashMap();
+            parametros.put("titulo", membrete);
+            parametros.put("desde", desde);
+            parametros.put("hasta", hasta);
+
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + reporte);
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -1889,6 +2034,38 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Movimientos_contables_deposito_cuentas_vinculadas_jtable(String buscar) {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Movimientos_contables.jTable_deposito_cuentas_vinculadas.getModel();
+            for (int j = 0; j < Movimientos_contables.jTable_deposito_cuentas_vinculadas.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_cuenta_vinculada,  descripcion, cuenta  "
+                    + "from cuenta_vinculada "
+                    + "inner join cuenta on cuenta.id_cuenta = cuenta_vinculada.id_cuenta "
+                    + "where descripcion ilike '%" + buscar + "%'");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Movimientos_contables.jTable_deposito_cuentas_vinculadas.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public synchronized static void Movimientos_contables_pago_tipo_pago_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Movimientos_contables.jTable_tipo_pago.getModel();
@@ -1917,6 +2094,37 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
+    public synchronized static void Movimientos_contables_deposito_cuenta_bancaria_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Movimientos_contables.jTable_deposito_cuenta_bancaria.getModel();
+            for (int j = 0; j < Movimientos_contables.jTable_deposito_cuenta_bancaria.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_cuenta_bancaria, nombre, numero, banco  "
+                    + "from cuenta_bancaria "
+                    + "inner join banco on banco.id_banco = cuenta_bancaria.id_banco ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Movimientos_contables.jTable_deposito_cuenta_bancaria.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public synchronized static void Listado_de_pagos_por_cuentas_jtable(String buscar) {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Listado_de_pagos_por_cuentas.jTable_cuentas.getModel();
@@ -1928,7 +2136,7 @@ public class Metodos {
                     + "select id_cuenta_vinculada,  descripcion, cuenta  "
                     + "from cuenta_vinculada "
                     + "inner join cuenta on cuenta.id_cuenta = cuenta_vinculada.id_cuenta "
-                    + "where descripcion ilike '%"+buscar+"%'");
+                    + "where descripcion ilike '%" + buscar + "%'");
             ResultSet rs2 = ps2.executeQuery();
             ResultSetMetaData rsm = rs2.getMetaData();
             ArrayList<Object[]> data2 = new ArrayList<>();
@@ -2247,6 +2455,7 @@ public class Metodos {
             System.err.println(ex);
         }
     }
+
     public synchronized static void Listado_tipo_pago_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Listado_de_pagos.jTable_tipo_pago.getModel();

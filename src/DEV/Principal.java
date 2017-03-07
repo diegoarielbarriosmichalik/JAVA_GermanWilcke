@@ -90,6 +90,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem49 = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
         jMenuItem41 = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
@@ -367,12 +368,12 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem10.setMnemonic('r');
         jMenuItem10.setText("Facturas de Compra");
         jMenuItem10.addMenuKeyListener(new javax.swing.event.MenuKeyListener() {
-            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
-            }
             public void menuKeyPressed(javax.swing.event.MenuKeyEvent evt) {
                 jMenuItem10MenuKeyPressed(evt);
             }
             public void menuKeyReleased(javax.swing.event.MenuKeyEvent evt) {
+            }
+            public void menuKeyTyped(javax.swing.event.MenuKeyEvent evt) {
             }
         });
         jMenuItem10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -446,6 +447,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem14);
+
+        jMenuItem49.setText("Libro Mayor");
+        jMenuItem49.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem49ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem49);
         jMenu5.add(jSeparator7);
 
         jMenuItem41.setText("Estado de situación patrimonial");
@@ -457,7 +466,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu5.add(jMenuItem41);
         jMenu5.add(jSeparator8);
 
-        jMenuItem46.setText("Listado de pagos");
+        jMenuItem46.setText("Listado general");
         jMenuItem46.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem46ActionPerformed(evt);
@@ -805,6 +814,10 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem48ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem48ActionPerformed
         new Listado_de_cheques().setVisible(true);
     }//GEN-LAST:event_jMenuItem48ActionPerformed
+
+    private void jMenuItem49ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem49ActionPerformed
+        new Libro_mayor().setVisible(true);
+    }//GEN-LAST:event_jMenuItem49ActionPerformed
     
     public static void main(String args[]) {
         try {
@@ -877,6 +890,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem46;
     private javax.swing.JMenuItem jMenuItem47;
     private javax.swing.JMenuItem jMenuItem48;
+    private javax.swing.JMenuItem jMenuItem49;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

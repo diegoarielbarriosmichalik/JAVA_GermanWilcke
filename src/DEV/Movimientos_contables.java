@@ -95,14 +95,24 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jTextField_pago_proveedor_buscar = new javax.swing.JTextField();
         jDialog_deposito_bancario = new javax.swing.JDialog();
         jPanel13 = new javax.swing.JPanel();
-        jTextField_factura_cuenta1 = new javax.swing.JTextField();
-        jTextField_importe1 = new javax.swing.JTextField();
-        jDateChooser_factura_fecha1 = new com.toedter.calendar.JDateChooser();
+        jTextField_deposito_cuenta_vinculada = new javax.swing.JTextField();
+        jTextField_deposito_importe = new javax.swing.JTextField();
+        jDateChooser_deposito_fecha = new com.toedter.calendar.JDateChooser();
         jButton_guardar_factura1 = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
-        jTextField_comprobante1 = new javax.swing.JTextField();
-        jTextField_factura_proveedor1 = new javax.swing.JTextField();
+        jTextField_deposito_comprobante = new javax.swing.JTextField();
+        jTextField_deposito_cuenta_bancaria = new javax.swing.JTextField();
+        jTextField_deposito_descripcion = new javax.swing.JTextField();
+        jDialog_deposito_cuenta_bancaria = new javax.swing.JDialog();
+        jPanel14 = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable_deposito_cuenta_bancaria = new javax.swing.JTable();
+        jDialog_deposito_cuentas_vinculadas = new javax.swing.JDialog();
+        jPanel15 = new javax.swing.JPanel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTable_deposito_cuentas_vinculadas = new javax.swing.JTable();
+        jTextField_deposito_cuenta_buscar = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jButton_borrar = new javax.swing.JButton();
@@ -210,7 +220,8 @@ public class Movimientos_contables extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setText("Depósito Bancario");
+        jButton9.setMnemonic('m');
+        jButton9.setText("Movimiento Bancario");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -947,37 +958,37 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
         jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
 
-        jTextField_factura_cuenta1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuenta a imputar (F1 buscar)"));
-        jTextField_factura_cuenta1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_deposito_cuenta_vinculada.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuenta a imputar (F1 buscar)"));
+        jTextField_deposito_cuenta_vinculada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_factura_cuenta1KeyPressed(evt);
+                jTextField_deposito_cuenta_vinculadaKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_factura_cuenta1KeyReleased(evt);
+                jTextField_deposito_cuenta_vinculadaKeyReleased(evt);
             }
         });
 
-        jTextField_importe1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField_importe1.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe"));
-        jTextField_importe1.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_deposito_importe.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField_deposito_importe.setBorder(javax.swing.BorderFactory.createTitledBorder("Importe"));
+        jTextField_deposito_importe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_importe1ActionPerformed(evt);
+                jTextField_deposito_importeActionPerformed(evt);
             }
         });
-        jTextField_importe1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_deposito_importe.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_importe1KeyPressed(evt);
+                jTextField_deposito_importeKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_importe1KeyReleased(evt);
+                jTextField_deposito_importeKeyReleased(evt);
             }
         });
 
-        jDateChooser_factura_fecha1.setBackground(new java.awt.Color(255, 255, 255));
-        jDateChooser_factura_fecha1.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
-        jDateChooser_factura_fecha1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jDateChooser_deposito_fecha.setBackground(new java.awt.Color(255, 255, 255));
+        jDateChooser_deposito_fecha.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
+        jDateChooser_deposito_fecha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jDateChooser_factura_fecha1KeyPressed(evt);
+                jDateChooser_deposito_fechaKeyPressed(evt);
             }
         });
 
@@ -994,29 +1005,39 @@ public class Movimientos_contables extends javax.swing.JFrame {
             }
         });
 
-        jTextField_comprobante1.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        jTextField_comprobante1.setBorder(javax.swing.BorderFactory.createTitledBorder("Comprobante"));
-        jTextField_comprobante1.addActionListener(new java.awt.event.ActionListener() {
+        jTextField_deposito_comprobante.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        jTextField_deposito_comprobante.setBorder(javax.swing.BorderFactory.createTitledBorder("Comprobante"));
+        jTextField_deposito_comprobante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_comprobante1ActionPerformed(evt);
+                jTextField_deposito_comprobanteActionPerformed(evt);
             }
         });
-        jTextField_comprobante1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_deposito_comprobante.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_comprobante1KeyPressed(evt);
+                jTextField_deposito_comprobanteKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_comprobante1KeyReleased(evt);
+                jTextField_deposito_comprobanteKeyReleased(evt);
             }
         });
 
-        jTextField_factura_proveedor1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuenta Bancaria (F1 buscar)"));
-        jTextField_factura_proveedor1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_deposito_cuenta_bancaria.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuenta Bancaria (F1 buscar)"));
+        jTextField_deposito_cuenta_bancaria.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_factura_proveedor1KeyPressed(evt);
+                jTextField_deposito_cuenta_bancariaKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_factura_proveedor1KeyReleased(evt);
+                jTextField_deposito_cuenta_bancariaKeyReleased(evt);
+            }
+        });
+
+        jTextField_deposito_descripcion.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción"));
+        jTextField_deposito_descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_deposito_descripcionKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_deposito_descripcionKeyReleased(evt);
             }
         });
 
@@ -1027,20 +1048,21 @@ public class Movimientos_contables extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField_factura_cuenta1)
+                    .addComponent(jTextField_deposito_cuenta_vinculada)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton_guardar_factura1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator6)
                     .addComponent(jSeparator7)
-                    .addComponent(jTextField_factura_proveedor1)
+                    .addComponent(jTextField_deposito_cuenta_bancaria)
                     .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jTextField_comprobante1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_deposito_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_importe1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_deposito_importe, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser_factura_fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 171, Short.MAX_VALUE)))
+                        .addComponent(jDateChooser_deposito_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 171, Short.MAX_VALUE))
+                    .addComponent(jTextField_deposito_descripcion, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
@@ -1049,15 +1071,17 @@ public class Movimientos_contables extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField_factura_proveedor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField_factura_cuenta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextField_deposito_cuenta_bancaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField_deposito_cuenta_vinculada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField_deposito_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField_comprobante1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField_importe1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser_factura_fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField_deposito_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_deposito_importe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser_deposito_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1074,6 +1098,158 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jDialog_deposito_bancarioLayout.setVerticalGroup(
             jDialog_deposito_bancarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jDialog_deposito_cuenta_bancaria.setUndecorated(true);
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTable_deposito_cuenta_bancaria.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID ", "Cuenta Bancaria", "Número", "Banco"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_deposito_cuenta_bancaria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_deposito_cuenta_bancariaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable_deposito_cuenta_bancariaKeyReleased(evt);
+            }
+        });
+        jScrollPane9.setViewportView(jTable_deposito_cuenta_bancaria);
+        if (jTable_deposito_cuenta_bancaria.getColumnModel().getColumnCount() > 0) {
+            jTable_deposito_cuenta_bancaria.getColumnModel().getColumn(0).setResizable(false);
+            jTable_deposito_cuenta_bancaria.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_deposito_cuenta_bancaria.getColumnModel().getColumn(1).setResizable(false);
+            jTable_deposito_cuenta_bancaria.getColumnModel().getColumn(1).setPreferredWidth(150);
+            jTable_deposito_cuenta_bancaria.getColumnModel().getColumn(2).setResizable(false);
+            jTable_deposito_cuenta_bancaria.getColumnModel().getColumn(2).setPreferredWidth(90);
+            jTable_deposito_cuenta_bancaria.getColumnModel().getColumn(3).setResizable(false);
+            jTable_deposito_cuenta_bancaria.getColumnModel().getColumn(3).setPreferredWidth(200);
+        }
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialog_deposito_cuenta_bancariaLayout = new javax.swing.GroupLayout(jDialog_deposito_cuenta_bancaria.getContentPane());
+        jDialog_deposito_cuenta_bancaria.getContentPane().setLayout(jDialog_deposito_cuenta_bancariaLayout);
+        jDialog_deposito_cuenta_bancariaLayout.setHorizontalGroup(
+            jDialog_deposito_cuenta_bancariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_deposito_cuenta_bancariaLayout.setVerticalGroup(
+            jDialog_deposito_cuenta_bancariaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jDialog_deposito_cuentas_vinculadas.setUndecorated(true);
+
+        jPanel15.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
+
+        jTable_deposito_cuentas_vinculadas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Descripción", "Cuenta"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_deposito_cuentas_vinculadas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable_deposito_cuentas_vinculadasMouseClicked(evt);
+            }
+        });
+        jTable_deposito_cuentas_vinculadas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_deposito_cuentas_vinculadasKeyPressed(evt);
+            }
+        });
+        jScrollPane10.setViewportView(jTable_deposito_cuentas_vinculadas);
+        if (jTable_deposito_cuentas_vinculadas.getColumnModel().getColumnCount() > 0) {
+            jTable_deposito_cuentas_vinculadas.getColumnModel().getColumn(0).setResizable(false);
+            jTable_deposito_cuentas_vinculadas.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_deposito_cuentas_vinculadas.getColumnModel().getColumn(1).setResizable(false);
+            jTable_deposito_cuentas_vinculadas.getColumnModel().getColumn(1).setPreferredWidth(230);
+            jTable_deposito_cuentas_vinculadas.getColumnModel().getColumn(2).setResizable(false);
+            jTable_deposito_cuentas_vinculadas.getColumnModel().getColumn(2).setPreferredWidth(230);
+        }
+
+        jTextField_deposito_cuenta_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar por descripción"));
+        jTextField_deposito_cuenta_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_deposito_cuenta_buscarKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_deposito_cuenta_buscarKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+                    .addComponent(jTextField_deposito_cuenta_buscar))
+                .addContainerGap())
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField_deposito_cuenta_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialog_deposito_cuentas_vinculadasLayout = new javax.swing.GroupLayout(jDialog_deposito_cuentas_vinculadas.getContentPane());
+        jDialog_deposito_cuentas_vinculadas.getContentPane().setLayout(jDialog_deposito_cuentas_vinculadasLayout);
+        jDialog_deposito_cuentas_vinculadasLayout.setHorizontalGroup(
+            jDialog_deposito_cuentas_vinculadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_deposito_cuentas_vinculadasLayout.setVerticalGroup(
+            jDialog_deposito_cuentas_vinculadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setUndecorated(true);
@@ -1366,6 +1542,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
         Metodos.Asiento_contable_guardar();
         Metodos.Movimientos_contables_traer_datos();
         Movimientos_contables_clear();
+        Metodos.Movimientos_contables_pago_jtable();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
@@ -1402,6 +1579,9 @@ public class Movimientos_contables extends javax.swing.JFrame {
 
     private void jButton_facturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_facturaActionPerformed
         jDialog_credito();
+        jTextField_factura_proveedor.setText("");
+        Metodos.movimientos_contables_factura_id_proveedor = 0;
+        Metodos.movimientos_contables_cuentas_vicnuladas_id_cuenta = 0;
     }//GEN-LAST:event_jButton_facturaActionPerformed
 
     public void jDialog_credito() {
@@ -1442,6 +1622,15 @@ public class Movimientos_contables extends javax.swing.JFrame {
         jDialog_buscar.setLocationRelativeTo(null);
         jDialog_buscar.setAlwaysOnTop(true);
         jDialog_buscar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+
+    public void jDialog_deposito_cuenta_bancaria() {
+        jDialog_deposito_cuenta_bancaria.setVisible(true);
+        jDialog_deposito_cuenta_bancaria.setTitle("Cuentas Bancarias");
+        jDialog_deposito_cuenta_bancaria.setSize(500, 500);
+        jDialog_deposito_cuenta_bancaria.setLocationRelativeTo(null);
+        jDialog_deposito_cuenta_bancaria.setAlwaysOnTop(true);
+        jDialog_deposito_cuenta_bancaria.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
 
     public void jDialog_pago() {
@@ -1812,65 +2001,166 @@ public class Movimientos_contables extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton_buscarKeyPressed
 
-    private void jTextField_factura_cuenta1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_factura_cuenta1KeyReleased
+    private void jTextField_deposito_cuenta_vinculadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_cuenta_vinculadaKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_factura_cuenta1KeyReleased
+    }//GEN-LAST:event_jTextField_deposito_cuenta_vinculadaKeyReleased
 
-    private void jTextField_factura_cuenta1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_factura_cuenta1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_factura_cuenta1KeyPressed
-
-    private void jTextField_importe1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_importe1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_importe1ActionPerformed
-
-    private void jTextField_importe1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_importe1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_importe1KeyPressed
-
-    private void jTextField_importe1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_importe1KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_importe1KeyReleased
-
-    private void jDateChooser_factura_fecha1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDateChooser_factura_fecha1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jDateChooser_factura_fecha1KeyPressed
-
-    private void jButton_guardar_factura1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardar_factura1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_guardar_factura1ActionPerformed
-
-    private void jButton_guardar_factura1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_guardar_factura1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_guardar_factura1KeyPressed
-
-    private void jTextField_comprobante1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_comprobante1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_comprobante1ActionPerformed
-
-    private void jTextField_comprobante1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_comprobante1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_comprobante1KeyPressed
-
-    private void jTextField_comprobante1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_comprobante1KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_comprobante1KeyReleased
-
-    private void jTextField_factura_proveedor1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_factura_proveedor1KeyPressed
+    private void jTextField_deposito_cuenta_vinculadaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_cuenta_vinculadaKeyPressed
         if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
             jDialog_deposito_bancario.setVisible(false);
             jDialog_credito();
         }
-    }//GEN-LAST:event_jTextField_factura_proveedor1KeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_F1)) {
+            jDialog_deposito_cuentas_vinculadas();
+        }
+    }//GEN-LAST:event_jTextField_deposito_cuenta_vinculadaKeyPressed
 
-    private void jTextField_factura_proveedor1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_factura_proveedor1KeyReleased
+    private void jTextField_deposito_importeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_deposito_importeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_factura_proveedor1KeyReleased
+    }//GEN-LAST:event_jTextField_deposito_importeActionPerformed
+
+    private void jTextField_deposito_importeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_importeKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_deposito_bancario.setVisible(false);
+            jDialog_credito();
+        }
+    }//GEN-LAST:event_jTextField_deposito_importeKeyPressed
+
+    private void jTextField_deposito_importeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_importeKeyReleased
+        jTextField_deposito_importe.setText(Metodos.Separar_Miles(jTextField_deposito_importe.getText()));
+    }//GEN-LAST:event_jTextField_deposito_importeKeyReleased
+
+    private void jDateChooser_deposito_fechaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDateChooser_deposito_fechaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateChooser_deposito_fechaKeyPressed
+
+    private void jButton_guardar_factura1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardar_factura1ActionPerformed
+        Metodos.Movimientos_contables_deposito_guardar(
+                jDateChooser_deposito_fecha.getDate(),
+                jTextField_deposito_comprobante.getText(),
+                jTextField_deposito_importe.getText(),
+                jTextField_deposito_descripcion.getText()
+        );
+        Metodos.Movimientos_contables_factura_jtable();
+        Metodos.Movimientos_contables_totales();
+        jDialog_deposito_bancario.setVisible(false);
+    }//GEN-LAST:event_jButton_guardar_factura1ActionPerformed
+
+    private void jButton_guardar_factura1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_guardar_factura1KeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_deposito_bancario.setVisible(false);
+            jDialog_credito();
+        }
+    }//GEN-LAST:event_jButton_guardar_factura1KeyPressed
+
+    private void jTextField_deposito_comprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_deposito_comprobanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_deposito_comprobanteActionPerformed
+
+    private void jTextField_deposito_comprobanteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_comprobanteKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_deposito_bancario.setVisible(false);
+            jDialog_credito();
+        }
+    }//GEN-LAST:event_jTextField_deposito_comprobanteKeyPressed
+
+    private void jTextField_deposito_comprobanteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_comprobanteKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_deposito_comprobanteKeyReleased
+
+    private void jTextField_deposito_cuenta_bancariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_cuenta_bancariaKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_deposito_bancario.setVisible(false);
+            jDialog_credito();
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_F1)) {
+            jDialog_deposito_cuenta_bancaria();
+            Metodos.Movimientos_contables_deposito_cuenta_bancaria_jtable();
+        }
+    }//GEN-LAST:event_jTextField_deposito_cuenta_bancariaKeyPressed
+
+    private void jTextField_deposito_cuenta_bancariaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_cuenta_bancariaKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_deposito_cuenta_bancariaKeyReleased
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         jDialog_credito.setVisible(false);
         jDialog_deposito_bancario();
+        jDateChooser_deposito_fecha.setDate(Metodos.hoy);
+        jTextField_deposito_cuenta_bancaria.requestFocus();
+
+        Metodos.movimiento_contable_deposito_id_cuenta_bancaria = 0;
+        Metodos.movimiento_contable_deposito_id_cuenta_vinculada = 0;
+
+        jTextField_deposito_comprobante.setText("");
+        jTextField_deposito_cuenta_bancaria.setText("");
+        jTextField_deposito_cuenta_buscar.setText("");
+        jTextField_deposito_cuenta_vinculada.setText("");
+        jTextField_deposito_descripcion.setText("");
+        jTextField_deposito_importe.setText("");
+        jTextField_deposito_cuenta_bancaria.requestFocus();
+
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jTable_deposito_cuenta_bancariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_deposito_cuenta_bancariaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable_deposito_cuenta_bancariaKeyPressed
+
+    private void jTable_deposito_cuenta_bancariaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_deposito_cuenta_bancariaKeyReleased
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_deposito_cuenta_bancaria.setVisible(false);
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            Metodos.Movimientos_contables_deposito_selected();
+            jDialog_deposito_cuenta_bancaria.setVisible(false);
+        }
+    }//GEN-LAST:event_jTable_deposito_cuenta_bancariaKeyReleased
+
+    private void jTextField_deposito_descripcionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_descripcionKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_deposito_bancario.setVisible(false);
+            jDialog_credito();
+        }
+    }//GEN-LAST:event_jTextField_deposito_descripcionKeyPressed
+
+    private void jTextField_deposito_descripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_descripcionKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_deposito_descripcionKeyReleased
+
+    private void jTable_deposito_cuentas_vinculadasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_deposito_cuentas_vinculadasMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable_deposito_cuentas_vinculadasMouseClicked
+
+    private void jTable_deposito_cuentas_vinculadasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_deposito_cuentas_vinculadasKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_deposito_cuentas_vinculadas.setVisible(false);
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            Metodos.Movimientos_contables_deposito_cuenta_vinculada_selected();
+            jDialog_deposito_cuentas_vinculadas.setVisible(false);
+        }
+    }//GEN-LAST:event_jTable_deposito_cuentas_vinculadasKeyPressed
+
+    private void jTextField_deposito_cuenta_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_cuenta_buscarKeyReleased
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_deposito_cuentas_vinculadas.setVisible(false);
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+            try {
+                jTable_deposito_cuentas_vinculadas.requestFocus();
+                Robot r = new Robot();
+                r.keyPress(KeyEvent.VK_DOWN);
+            } catch (AWTException ex) {
+                System.err.println(ex);
+            }
+        } else {
+            Metodos.Movimientos_contables_deposito_cuentas_vinculadas_jtable(jTextField_deposito_cuenta_buscar.getText());
+        }
+    }//GEN-LAST:event_jTextField_deposito_cuenta_buscarKeyReleased
+
+    private void jTextField_deposito_cuenta_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_deposito_cuenta_buscarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_deposito_cuenta_buscarKeyPressed
 
     public void jDialog_detalle_borrar() {
         jDialog_detalle_borrar.setVisible(true);
@@ -1884,10 +2174,19 @@ public class Movimientos_contables extends javax.swing.JFrame {
     public void jDialog_deposito_bancario() {
         jDialog_deposito_bancario.setVisible(true);
         jDialog_deposito_bancario.setTitle("Depósito Bancario");
-        jDialog_deposito_bancario.setSize(500, 238);
+        jDialog_deposito_bancario.setSize(500, 283);
         jDialog_deposito_bancario.setLocationRelativeTo(null);
         jDialog_deposito_bancario.setAlwaysOnTop(true);
         jDialog_deposito_bancario.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+
+    public void jDialog_deposito_cuentas_vinculadas() {
+        jDialog_deposito_cuentas_vinculadas.setVisible(true);
+        jDialog_deposito_cuentas_vinculadas.setTitle("Cuentas");
+        jDialog_deposito_cuentas_vinculadas.setSize(500, 500);
+        jDialog_deposito_cuentas_vinculadas.setLocationRelativeTo(null);
+        jDialog_deposito_cuentas_vinculadas.setAlwaysOnTop(true);
+        jDialog_deposito_cuentas_vinculadas.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
 
     public void jDialog_proveedor() {
@@ -1970,14 +2269,16 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private javax.swing.JButton jButton_guardar_factura1;
     public static javax.swing.JButton jButton_pagos;
     public static com.toedter.calendar.JDateChooser jDateChooser_asiento_fecha;
+    public static com.toedter.calendar.JDateChooser jDateChooser_deposito_fecha;
     public static com.toedter.calendar.JDateChooser jDateChooser_factura_fecha;
-    public static com.toedter.calendar.JDateChooser jDateChooser_factura_fecha1;
     public static com.toedter.calendar.JDateChooser jDateChooser_pago_fecha;
     private javax.swing.JDialog jDialog_buscar;
     private javax.swing.JDialog jDialog_credito;
     private javax.swing.JDialog jDialog_cuenta_bancaria;
     private javax.swing.JDialog jDialog_cuentas_vinculadas;
     private javax.swing.JDialog jDialog_deposito_bancario;
+    private javax.swing.JDialog jDialog_deposito_cuenta_bancaria;
+    private javax.swing.JDialog jDialog_deposito_cuentas_vinculadas;
     private javax.swing.JDialog jDialog_detalle_borrar;
     private javax.swing.JDialog jDialog_pago;
     private javax.swing.JDialog jDialog_pago_borrar;
@@ -1989,6 +2290,8 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1998,6 +2301,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -2005,6 +2309,7 @@ public class Movimientos_contables extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -2015,6 +2320,8 @@ public class Movimientos_contables extends javax.swing.JFrame {
     public static javax.swing.JTable jTable_buscar;
     public static javax.swing.JTable jTable_cuenta_bancaria;
     public static javax.swing.JTable jTable_cuentas_vinculadas;
+    public static javax.swing.JTable jTable_deposito_cuenta_bancaria;
+    public static javax.swing.JTable jTable_deposito_cuentas_vinculadas;
     public static javax.swing.JTable jTable_factura_proveedor;
     public static javax.swing.JTable jTable_movimeintos_contables_factura;
     public static javax.swing.JTable jTable_pago;
@@ -2022,15 +2329,17 @@ public class Movimientos_contables extends javax.swing.JFrame {
     public static javax.swing.JTable jTable_tipo_pago;
     public static javax.swing.JTextField jTextField_asiento_nro;
     private javax.swing.JTextField jTextField_comprobante;
-    private javax.swing.JTextField jTextField_comprobante1;
     private javax.swing.JTextField jTextField_cuenta_buscar;
+    private javax.swing.JTextField jTextField_deposito_comprobante;
+    public static javax.swing.JTextField jTextField_deposito_cuenta_bancaria;
+    private javax.swing.JTextField jTextField_deposito_cuenta_buscar;
+    public static javax.swing.JTextField jTextField_deposito_cuenta_vinculada;
+    public static javax.swing.JTextField jTextField_deposito_descripcion;
+    private javax.swing.JTextField jTextField_deposito_importe;
     private javax.swing.JTextField jTextField_descripcion;
     public static javax.swing.JTextField jTextField_factura_cuenta;
-    public static javax.swing.JTextField jTextField_factura_cuenta1;
     public static javax.swing.JTextField jTextField_factura_proveedor;
-    public static javax.swing.JTextField jTextField_factura_proveedor1;
     private javax.swing.JTextField jTextField_importe;
-    private javax.swing.JTextField jTextField_importe1;
     public static javax.swing.JTextField jTextField_pago_cta_cte;
     private javax.swing.JTextField jTextField_pago_importe;
     public static javax.swing.JTextField jTextField_pago_nombre;
