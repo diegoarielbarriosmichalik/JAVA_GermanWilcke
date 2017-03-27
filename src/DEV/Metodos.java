@@ -84,6 +84,7 @@ public class Metodos {
     public static int cuentas_vicnuladas_id_cuenta = 0;
     public static int id_cuenta_vinculada = 0;
     public static int movimiento_contable_deposito_id_cuenta_bancaria = 0;
+    public static int compras_id_cuenta = 0;
     public static int movimiento_contable_deposito_id_cuenta_vinculada = 0;
     public static String ubicacion_proyecto = "";
     public static String usuario = "";
@@ -116,11 +117,17 @@ public class Metodos {
         movimiento_contable_deposito_id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuenta_bancaria.getSelectedRow(), 0)));
         Movimientos_contables.jTextField_deposito_cuenta_bancaria.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuenta_bancaria.getSelectedRow(), 1)));
     }
-
+    
     public synchronized static void Movimientos_contables_deposito_cuenta_vinculada_selected() {
-        DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_deposito_cuentas_vinculadas.getModel();
-        movimiento_contable_deposito_id_cuenta_vinculada = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuentas_vinculadas.getSelectedRow(), 0)));
-        Movimientos_contables.jTextField_deposito_cuenta_vinculada.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuentas_vinculadas.getSelectedRow(), 1)));
+        DefaultTableModel tm = (DefaultTableModel) Movimientos_contables.jTable_deposito_cuenta_bancaria.getModel();
+        movimiento_contable_deposito_id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuenta_bancaria.getSelectedRow(), 0)));
+        Movimientos_contables.jTextField_deposito_cuenta_bancaria.setText(String.valueOf(tm.getValueAt(Movimientos_contables.jTable_deposito_cuenta_bancaria.getSelectedRow(), 1)));
+    }
+
+    public synchronized static void Compras_cuenta_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Compras.jTable_cuenta.getModel();
+        compras_id_cuenta = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_cuenta.getSelectedRow(), 0)));
+        Compras.jTextField_cuenta.setText(String.valueOf(tm.getValueAt(Compras.jTable_cuenta.getSelectedRow(), 1)));
     }
 
     public synchronized static void Movimientos_contables_pago_selected() {
@@ -905,7 +912,8 @@ public class Metodos {
             if (result.next()) {
                 id_compra_detalle = result.getInt(1) + 1;
             }
-            PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO compra_detalle VALUES(?,?,?,?,?,?,?,?)");
+            PreparedStatement stUpdateProducto = conexion.prepareStatement(""
+                    + "INSERT INTO compra_detalle VALUES(?,?,?,?,?,?,?,?,?)");
             stUpdateProducto.setInt(1, id_compra_detalle);
             stUpdateProducto.setDouble(2, Double.parseDouble(unidades));
             stUpdateProducto.setLong(3, Long.parseLong(precio));
@@ -917,6 +925,7 @@ public class Metodos {
             stUpdateProducto.setInt(6, compras_id_producto);
             stUpdateProducto.setInt(7, compras_id_productos_ubicacion);
             stUpdateProducto.setInt(8, compras_id_sector);
+            stUpdateProducto.setInt(9, compras_id_cuenta);
             stUpdateProducto.executeUpdate();
 
         } catch (NumberFormatException | SQLException e) {
@@ -1384,9 +1393,9 @@ public class Metodos {
                 }
                 new Principal().setVisible(true);
                 entro = true;
-                
+
             }
-            
+
             System.err.println(membrete);
 
             if (entro == false) {
@@ -2245,6 +2254,37 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Compras_cuenta_jtable(String buscar) {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Compras.jTable_cuenta.getModel();
+            for (int j = 0; j < Compras.jTable_cuenta.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                     + "select id_cuenta, (nv1 || '.' || nv2 || '.' || nv3 || '.' || nv4 || '.' || nv5 || ' ' || cuenta ) as cuenta "
+                    + "from cuenta "
+                    + "where cuenta ilike '%" + buscar + "%' "
+                    + "and borrado != '1'");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1);
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Compras.jTable_cuenta.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public synchronized static void Movimientos_contables_factura_proveedor_jtable(String buscar) {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Movimientos_contables.jTable_factura_proveedor.getModel();
@@ -2900,15 +2940,15 @@ public class Metodos {
             }
 
             PreparedStatement ps = conexion.prepareStatement(""
-                    + "select id_compra_detalle, nombre, sector, ubicacion,  cantidad, "
-                    + "compra_detalle.precio, compra_detalle.total, compra_forma_pago "
+                    + "select id_compra_detalle, nombre, cuenta, sector, ubicacion,  cantidad, "
+                    + "compra_detalle.precio, compra_detalle.total "
                     + "from compra_detalle "
                     + "inner join productos on productos.id_producto = compra_detalle.id_producto "
                     + "inner join sector on sector.id_sector = compra_detalle.id_sector "
                     + "inner join compra on compra.id_compra = compra_detalle.id_compra "
-                    + "inner join compra_forma_pago on compra_forma_pago.id_compra_forma_pago = compra.id_compra_forma_pago "
                     + "inner join productos_ubicacion on compra_detalle.id_productos_ubicacion = productos_ubicacion.id_productos_ubicacion "
                     + "inner join ubicacion on productos_ubicacion.id_ubicacion = ubicacion.id_ubicacion "
+                    + "inner join cuenta on cuenta.id_cuenta = compra_detalle.id_cuenta "
                     + "where compra_detalle.id_compra = '" + id_compra + "' "
                     + "order by compra_detalle.id_compra_detalle DESC");
             ResultSet rs = ps.executeQuery();

@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Compras extends javax.swing.JFrame {
-    
+
     public Compras() {
         initComponents();
         setLocationRelativeTo(null);
@@ -20,7 +20,7 @@ public class Compras extends javax.swing.JFrame {
         jButton_borrar.setVisible(false);
         Compras_clear();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -47,6 +47,7 @@ public class Compras extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jTextField_ubicacion = new javax.swing.JTextField();
         jTextField_sector = new javax.swing.JTextField();
+        jTextField_cuenta = new javax.swing.JTextField();
         jDialog_detalle_producto = new javax.swing.JDialog();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -68,6 +69,11 @@ public class Compras extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable_forma_pago = new javax.swing.JTable();
+        jDialog_cuenta = new javax.swing.JDialog();
+        jPanel12 = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable_cuenta = new javax.swing.JTable();
+        jTextField_cuenta_buscar = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jt_Proveedor = new javax.swing.JTextField();
@@ -362,6 +368,13 @@ public class Compras extends javax.swing.JFrame {
             }
         });
 
+        jTextField_cuenta.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuenta (F1 para buscar)"));
+        jTextField_cuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField_cuentaKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -376,7 +389,8 @@ public class Compras extends javax.swing.JFrame {
                         .addGap(0, 440, Short.MAX_VALUE)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextField_ubicacion, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField_sector))
+                    .addComponent(jTextField_sector)
+                    .addComponent(jTextField_cuenta))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -390,11 +404,13 @@ public class Compras extends javax.swing.JFrame {
                 .addComponent(jTextField_precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField_sector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField_ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField_cuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jDialog_agregar_detalleLayout = new javax.swing.GroupLayout(jDialog_agregar_detalle.getContentPane());
@@ -737,6 +753,79 @@ public class Compras extends javax.swing.JFrame {
             .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jDialog_cuenta.setUndecorated(true);
+
+        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 204)));
+
+        jTable_cuenta.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Cuenta"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_cuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_cuentaKeyPressed(evt);
+            }
+        });
+        jScrollPane9.setViewportView(jTable_cuenta);
+        if (jTable_cuenta.getColumnModel().getColumnCount() > 0) {
+            jTable_cuenta.getColumnModel().getColumn(0).setResizable(false);
+            jTable_cuenta.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_cuenta.getColumnModel().getColumn(1).setResizable(false);
+            jTable_cuenta.getColumnModel().getColumn(1).setPreferredWidth(470);
+        }
+
+        jTextField_cuenta_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
+        jTextField_cuenta_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_cuenta_buscarKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                    .addComponent(jTextField_cuenta_buscar))
+                .addContainerGap())
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField_cuenta_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jDialog_cuentaLayout = new javax.swing.GroupLayout(jDialog_cuenta.getContentPane());
+        jDialog_cuenta.getContentPane().setLayout(jDialog_cuentaLayout);
+        jDialog_cuentaLayout.setHorizontalGroup(
+            jDialog_cuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_cuentaLayout.setVerticalGroup(
+            jDialog_cuentaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -821,7 +910,7 @@ public class Compras extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Producto", "Sector", "Ubicación", "Unidades", "Precio", "Total", "Forma de Pago"
+                "ID", "Producto", "Cuenta", "Sector", "Ubicación", "Unidades", "Precio", "Total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -848,10 +937,13 @@ public class Compras extends javax.swing.JFrame {
             jTable_detalle.getColumnModel().getColumn(3).setResizable(false);
             jTable_detalle.getColumnModel().getColumn(3).setPreferredWidth(100);
             jTable_detalle.getColumnModel().getColumn(4).setResizable(false);
+            jTable_detalle.getColumnModel().getColumn(4).setPreferredWidth(100);
             jTable_detalle.getColumnModel().getColumn(5).setResizable(false);
+            jTable_detalle.getColumnModel().getColumn(5).setPreferredWidth(20);
             jTable_detalle.getColumnModel().getColumn(6).setResizable(false);
+            jTable_detalle.getColumnModel().getColumn(6).setPreferredWidth(20);
             jTable_detalle.getColumnModel().getColumn(7).setResizable(false);
-            jTable_detalle.getColumnModel().getColumn(7).setPreferredWidth(70);
+            jTable_detalle.getColumnModel().getColumn(7).setPreferredWidth(20);
         }
 
         jButton_agregar_detalle.setMnemonic('a');
@@ -917,7 +1009,7 @@ public class Compras extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField_compra_tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_forma_pago, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                        .addComponent(jTextField_forma_pago, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -1017,7 +1109,7 @@ public class Compras extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Compras_clear();
     }//GEN-LAST:event_jButton3ActionPerformed
-    
+
     public static void Compras_clear() {
         jt_Proveedor.setText("");
         jLabel1.setText("");
@@ -1035,7 +1127,7 @@ public class Compras extends javax.swing.JFrame {
         Metodos.Compras_detalle_jtable();
         jButton_borrar.setVisible(false);
         jt_Proveedor.requestFocus();
-        
+
     }
 
     private void jt_ProveedorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_ProveedorKeyReleased
@@ -1043,13 +1135,13 @@ public class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_ProveedorKeyReleased
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
-        
+
         if (JOptionPane.showConfirmDialog(rootPane, "¿Desea borrar esta compra? Este proceso no se puede revertir.",
                 "ALERTA", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             Metodos.Compras_borrar();
             Compras_clear();
             jButton_borrar.setVisible(false);
-            
+
         }
 
     }//GEN-LAST:event_jButton_borrarActionPerformed
@@ -1065,7 +1157,7 @@ public class Compras extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
-        
+
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
             jDialog_proveedor();
         }
@@ -1074,7 +1166,7 @@ public class Compras extends javax.swing.JFrame {
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
         jDialog_compras();
     }//GEN-LAST:event_jButton_buscarActionPerformed
-    
+
     public void jDialog_compras() {
         jDialog_compras.setVisible(true);
         jDialog_compras.setTitle("Buscar Compras");
@@ -1084,9 +1176,9 @@ public class Compras extends javax.swing.JFrame {
         jDialog_compras.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         jTextField_buscar.setText("");
         jTextField_buscar.requestFocus();
-        
+
     }
-    
+
     public void jDialog_detalle_borrar() {
         jDialog_detalle_borrar.setVisible(true);
         jDialog_detalle_borrar.setTitle("Quitar detalle");
@@ -1095,7 +1187,7 @@ public class Compras extends javax.swing.JFrame {
         jDialog_detalle_borrar.setAlwaysOnTop(true);
         jDialog_detalle_borrar.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-    
+
     public void jDialog_proveedor() {
         jTextField_proveedor_buscar.setText("");
         jDialog_proveedor.setVisible(true);
@@ -1106,9 +1198,9 @@ public class Compras extends javax.swing.JFrame {
         jDialog_proveedor.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_proveedor_jtable(jTextField_proveedor_buscar.getText());
         jTextField_proveedor_buscar.requestFocus();
-        
+
     }
-    
+
     public void jDialog_sector() {
         jDialog_sector.setVisible(true);
         jDialog_sector.setTitle("Sector");
@@ -1118,7 +1210,7 @@ public class Compras extends javax.swing.JFrame {
         jDialog_sector.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_sector_jtable();
     }
-    
+
     public void jDialog_agregar_detalle() {
         jTextField_precio.setText("");
         jTextField_unidades.setText("");
@@ -1126,14 +1218,14 @@ public class Compras extends javax.swing.JFrame {
         Metodos.compras_id_producto = 0;
         jDialog_agregar_detalle.setVisible(true);
         jDialog_agregar_detalle.setTitle("Agregar detalle");
-        jDialog_agregar_detalle.setSize(499, 290);
+        jDialog_agregar_detalle.setSize(499, 335);
         jDialog_agregar_detalle.setLocationRelativeTo(null);
         jDialog_agregar_detalle.setAlwaysOnTop(true);
         jDialog_agregar_detalle.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         jTextField_producto.requestFocus();
-        
+
     }
-    
+
     public void jDialog_detalle_producto() {
         jTextField_buscar_producto.setText("");
         jDialog_detalle_producto.setVisible(true);
@@ -1143,7 +1235,7 @@ public class Compras extends javax.swing.JFrame {
         jDialog_detalle_producto.setAlwaysOnTop(true);
         jDialog_detalle_producto.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-    
+
     public void jDialog_ubicacion() {
         jDialog_ubicacion.setVisible(true);
         jDialog_ubicacion.setTitle("Ubicación");
@@ -1152,9 +1244,9 @@ public class Compras extends javax.swing.JFrame {
         jDialog_ubicacion.setAlwaysOnTop(true);
         jDialog_ubicacion.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_ubicacion_jtable();
-        
+
     }
-    
+
     public void jDialog_tipo_pago() {
         jDialog_tipo_pago.setVisible(true);
         jDialog_tipo_pago.setTitle("Tipo");
@@ -1163,9 +1255,9 @@ public class Compras extends javax.swing.JFrame {
         jDialog_tipo_pago.setAlwaysOnTop(true);
         jDialog_tipo_pago.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_tipo_pago_jtable();
-        
+
     }
-    
+
     public void jDialog_forma_pago() {
         jDialog_forma_pago.setVisible(true);
         jDialog_forma_pago.setTitle("Forma de Pago");
@@ -1175,7 +1267,17 @@ public class Compras extends javax.swing.JFrame {
         jDialog_forma_pago.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Compras_tipo_pago_jtable();
         Metodos.Compras_forma_pago_jtable();
-        
+
+    }
+
+    public void jDialog_cuenta() {
+        jDialog_cuenta.setVisible(true);
+        jDialog_cuenta.setTitle("Cuentas");
+        jDialog_cuenta.setSize(500, 500);
+        jDialog_cuenta.setLocationRelativeTo(null);
+        jDialog_cuenta.setAlwaysOnTop(true);
+        jDialog_cuenta.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+
     }
 
     private void jTable_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_buscarKeyPressed
@@ -1281,7 +1383,7 @@ public class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_precioKeyPressed
 
     private void jTextField_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscarKeyReleased
-        
+
         if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
             try {
                 jTable_buscar.requestFocus();
@@ -1309,7 +1411,7 @@ public class Compras extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             jDialog_detalle_producto.setVisible(false);
         }
-        
+
 
     }//GEN-LAST:event_jTextField_buscar_productoKeyPressed
 
@@ -1331,7 +1433,7 @@ public class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_agregar_detalleKeyPressed
 
     private void jTextField_buscar_productoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscar_productoKeyReleased
-        
+
         if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
             try {
                 jTable_productos.requestFocus();
@@ -1380,7 +1482,7 @@ public class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable_productosMouseClicked
 
     private void jTable_detalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_detalleMouseClicked
-        
+
         jDialog_detalle_borrar();
 //        
 
@@ -1448,14 +1550,40 @@ public class Compras extends javax.swing.JFrame {
     private void jTextField_precioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_precioKeyReleased
         jTextField_precio.setText(Metodos.Separar_Miles(jTextField_precio.getText()));
     }//GEN-LAST:event_jTextField_precioKeyReleased
-    
+
+    private void jTextField_cuentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_cuentaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_F1) {
+            jDialog_cuenta();
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_agregar_detalle();
+        }
+    }//GEN-LAST:event_jTextField_cuentaKeyPressed
+
+    private void jTable_cuentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_cuentaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_cuenta.setVisible(false);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Metodos.Compras_cuenta_selected();
+            jDialog_cuenta.setVisible(false);
+        }
+    }//GEN-LAST:event_jTable_cuentaKeyPressed
+
+    private void jTextField_cuenta_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_cuenta_buscarKeyReleased
+        Metodos.Compras_cuenta_jtable(jTextField_cuenta_buscar.getText());
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_cuenta.setVisible(false);
+        }
+    }//GEN-LAST:event_jTextField_cuenta_buscarKeyReleased
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                    
+
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
@@ -1479,6 +1607,7 @@ public class Compras extends javax.swing.JFrame {
     public static com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JDialog jDialog_agregar_detalle;
     private javax.swing.JDialog jDialog_compras;
+    private javax.swing.JDialog jDialog_cuenta;
     private javax.swing.JDialog jDialog_detalle_borrar;
     private javax.swing.JDialog jDialog_detalle_producto;
     private javax.swing.JDialog jDialog_forma_pago;
@@ -1490,6 +1619,7 @@ public class Compras extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1506,10 +1636,12 @@ public class Compras extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JTable jTable_buscar;
+    public static javax.swing.JTable jTable_cuenta;
     public static javax.swing.JTable jTable_detalle;
     public static javax.swing.JTable jTable_forma_pago;
     public static javax.swing.JTable jTable_productos;
@@ -1520,6 +1652,8 @@ public class Compras extends javax.swing.JFrame {
     public static javax.swing.JTextField jTextField_buscar;
     private javax.swing.JTextField jTextField_buscar_producto;
     public static javax.swing.JTextField jTextField_compra_tipo;
+    public static javax.swing.JTextField jTextField_cuenta;
+    private javax.swing.JTextField jTextField_cuenta_buscar;
     public static javax.swing.JTextField jTextField_forma_pago;
     private javax.swing.JTextField jTextField_precio;
     public static javax.swing.JTextField jTextField_producto;
