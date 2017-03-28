@@ -5,15 +5,16 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 public class Configuracion extends javax.swing.JFrame {
-
+    
     public Configuracion() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Configuracion");
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Metodos.Configuracion_buscar();
+        Metodos.Configuracion_asiento_compra_buscar();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -480,7 +481,7 @@ public class Configuracion extends javax.swing.JFrame {
         jDialog_contado.setAlwaysOnTop(true);
         jDialog_contado.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-
+    
     public void jDialog_credito() {
         jDialog_credito.setVisible(true);
         jDialog_credito.setTitle("Cuentas");
@@ -489,7 +490,7 @@ public class Configuracion extends javax.swing.JFrame {
         jDialog_credito.setAlwaysOnTop(true);
         jDialog_credito.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-
+    
     public void jDialog_pagares() {
         jDialog_pagares.setVisible(true);
         jDialog_pagares.setTitle("Cuentas");
@@ -498,19 +499,19 @@ public class Configuracion extends javax.swing.JFrame {
         jDialog_pagares.setAlwaysOnTop(true);
         jDialog_pagares.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
-
+    
 
     private void jTextField_empresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_empresaActionPerformed
 
     }//GEN-LAST:event_jTextField_empresaActionPerformed
-
+    
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
 
     }//GEN-LAST:event_formFocusGained
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-
+        
 
     }//GEN-LAST:event_formWindowActivated
 
@@ -551,11 +552,11 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_telefonoKeyPressed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        Metodos.Configuracion_guardar(jTextField_empresa.getText(), jTextField_ruc.getText(), jTextField_direccion.getText(), jTextField_telefono.getText());
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable_cuenta_contadoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_cuenta_contadoKeyPressed
@@ -603,9 +604,9 @@ public class Configuracion extends javax.swing.JFrame {
             jDialog_pagares();
         }
     }//GEN-LAST:event_jTextField_pagareKeyPressed
-
+    
     public static void main(String args[]) {
-
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {

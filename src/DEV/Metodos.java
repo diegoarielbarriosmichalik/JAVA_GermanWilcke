@@ -100,6 +100,7 @@ public class Metodos {
     public static String membrete = "";
     public static boolean entro = false;
     public static Date hoy = new Date();
+    public static boolean error = false;
 
     public static DecimalFormat num = new DecimalFormat("###,###,###");
 
@@ -217,6 +218,39 @@ public class Metodos {
                             st6.setLong(10, 0);
                         }
                         st6.executeUpdate();
+
+                        // INSERTAR HABER 
+                        st5 = conexion.createStatement();
+                        result5 = st5.executeQuery("SELECT MAX(id_asiento_compra_detalle) FROM asiento_compra_detalle");
+                        if (result5.next()) {
+                            id_asiento_compra_detalle = result5.getInt(1) + 1;
+                        }
+                        long total = 0;
+                        Statement st10 = conexion.createStatement();
+                        ResultSet result10 = st10.executeQuery("SELECT SUM(debe) FROM asiento_compra_detalle where id_asiento_compra = '" + id_asiento_compra + "'");
+                        if (result10.next()) {
+                            total = result10.getLong(1);
+                        }
+
+                        st5 = conexion.createStatement();
+                        result5 = st5.executeQuery("SELECT * FROM configuracion_asiento_compra");
+                        if (result5.next()) {
+                            contado_id_cuenta = result5.getInt("contado");
+                        }
+
+                        st6 = conexion.prepareStatement("INSERT INTO asiento_compra_detalle VALUES(?,?,?,?,?, ?,?,?,?,?)");
+                        st6.setInt(1, id_asiento_compra_detalle);
+                        st6.setInt(2, id_asiento_compra);
+                        st6.setInt(3, contado_id_cuenta);
+                        st6.setInt(4, 0);
+                        st6.setLong(5, total);
+                        st6.setLong(6, 0);
+                        st6.setLong(8, 0);
+                        st6.setLong(7, 0);
+                        st6.setLong(9, 0);
+                        st6.setLong(10, 0);
+                        st6.executeUpdate();
+
                     }
                 }
             }
@@ -252,6 +286,7 @@ public class Metodos {
         contado_id_cuenta = Integer.parseInt(String.valueOf(tm.getValueAt(Configuracion.jTable_cuenta_contado.getSelectedRow(), 0)));
         Configuracion.jTextField_contado.setText(String.valueOf(tm.getValueAt(Configuracion.jTable_cuenta_contado.getSelectedRow(), 1)));
     }
+
     public synchronized static void Configuraciones_asiento_compra_credito_selected() {
         DefaultTableModel tm = (DefaultTableModel) Configuracion.jTable_cuenta_credito.getModel();
         credito_id_cuenta = Integer.parseInt(String.valueOf(tm.getValueAt(Configuracion.jTable_cuenta_credito.getSelectedRow(), 0)));
@@ -1563,11 +1598,66 @@ public class Metodos {
 
     public synchronized static void Cuentas_imprimir() {
         try {
+
+            int id = 0;
+            String nv3 = "";
+            String nv4 = "";
+            String nv5 = "";
+
+            Statement stAuxiliar = conexion.createStatement();
+            stAuxiliar.executeUpdate("truncate table imprimir_plan_de_cuentas");
+
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select * from cuenta  "
+                    + "where borrado != '1' "
+                    + "order by nv1,nv2,nv3,nv4,nv5, cuenta");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String espacio = "";
+                id = id + 1;
+
+                if (rs.getInt("nv3") < 10) {
+                    nv3 = "0" + rs.getString("nv3");
+                }
+                if (rs.getInt("nv4") < 10) {
+                    nv4 = "0" + rs.getString("nv4");
+                }
+                if (rs.getInt("nv5") < 100) {
+                    nv5 = "0" + rs.getString("nv5");
+                }
+                if (rs.getInt("nv5") < 10) {
+                    nv5 = "00" + rs.getString("nv5");
+                }
+                if (rs.getInt("nv2") > 0) {
+                    espacio = espacio + "    ";
+                }
+                if (rs.getInt("nv3") > 0) {
+                    espacio = espacio + "    ";
+                }
+                if (rs.getInt("nv4") > 0) {
+                    espacio = espacio + "    ";
+                }
+                if (rs.getInt("nv5") > 0) {
+                    espacio = espacio + "    ";
+                }
+
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_plan_de_cuentas VALUES(?,?,?,?)");
+                stUpdateProducto.setInt(1, id);
+                stUpdateProducto.setString(2, rs.getString("nv1") + "." + rs.getString("nv2") + "." + nv3 + "." + nv4 + "." + nv5);
+                stUpdateProducto.setString(3, espacio + rs.getString("cuenta"));
+                if (rs.getInt("imputable") == 1) {
+                    stUpdateProducto.setString(4, "SI");
+                } else {
+                    stUpdateProducto.setString(4, "NO");
+                }
+                stUpdateProducto.executeUpdate();
+            }
+
             JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + "plan_de_cuentas.jasper");
             JasperPrint jp = JasperFillManager.fillReport(jr, null, conexion);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-        } catch (JRException ex) {
+        } catch (JRException | SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
@@ -1679,47 +1769,41 @@ public class Metodos {
             stAuxiliar.executeUpdate("truncate table imprimir_libro_mayor");
 
             Statement st12 = conexion.createStatement();
-            ResultSet result2 = st12.executeQuery(""
-                    + "SELECT SUM(importe) FROM asiento_contable "
-                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
-                    + "where asiento_contable.fecha < '" + desde + "' "
-                    + "and asiento_contable_factura.id_proveedor = '0' ");
-            if (result2.next()) {
-                saldos = result2.getLong(1);
-            }
+            ResultSet result2 = st12.executeQuery("");
+            //                    + "SELECT SUM(importe) FROM asiento_contable_compra "
+            //                    + "inner join asiento_contable_compra_detalle on asiento_contable_compra.id_asiento_compra = asiento_contable_compra_detalle.id_asiento_contable_compra "
+            //                    + "where asiento_contable.fecha < '" + desde + "' "
+            //                    + "and asiento_contable_factura.id_proveedor = '0' ");
+            //            if (result2.next()) {
+            //                saldos = result2.getLong(1);
+            //            }
 
+            //            st12 = conexion.createStatement();
+            //            result2 = st12.executeQuery(""
+            //                    + "SELECT SUM(importe) FROM asiento_contable "
+            //                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
+            //                    + "where asiento_contable.fecha < '" + desde + "' "
+            //                    + "and asiento_contable_factura.id_proveedor != '0' ");
+            //            if (result2.next()) {
+            //                saldos = saldos - result2.getLong(1);
+            //            }
             st12 = conexion.createStatement();
             result2 = st12.executeQuery(""
-                    + "SELECT SUM(importe) FROM asiento_contable "
-                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
-                    + "where asiento_contable.fecha < '" + desde + "' "
-                    + "and asiento_contable_factura.id_proveedor != '0' ");
-            if (result2.next()) {
-                saldos = saldos - result2.getLong(1);
-            }
-
-            st12 = conexion.createStatement();
-            result2 = st12.executeQuery(""
-                    + "SELECT * FROM asiento_contable "
-                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
-                    + "where asiento_contable.fecha >= '" + desde + "'"
-                    + "and asiento_contable.fecha <= '" + hasta + "' ");
+                    + "SELECT * FROM asiento_compra "
+                    + "inner join asiento_compra_detalle on asiento_compra_detalle.id_asiento_compra = asiento_compra_detalle.id_asiento_compra "
+                    + "inner join compra on compra.id_compra = asiento_compra.id_compra "
+                    + "where compra.fecha >= '" + desde + "'"
+                    + "and compra.fecha <= '" + hasta + "' ");
             while (result2.next()) {
                 id = id + 1;
                 stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_mayor VALUES(?,?,?,?,?,?,?)");
                 stUpdateProducto.setInt(1, id);
-                stUpdateProducto.setInt(2, result2.getInt("id_asiento_contable"));
+                stUpdateProducto.setInt(2, result2.getInt("id_asiento_compra"));
                 stUpdateProducto.setDate(3, result2.getDate("fecha"));
-                stUpdateProducto.setString(4, result2.getString("descripcion") + " s/ Comp.: " + result2.getString("comprobante"));
-                if (result2.getInt("id_proveedor") == 0) {
-                    stUpdateProducto.setInt(5, 0);
-                    stUpdateProducto.setLong(6, result2.getLong("importe"));
-                    saldos = saldos - result2.getLong("importe");
-                } else {
-                    stUpdateProducto.setLong(5, result2.getLong("importe"));
-                    stUpdateProducto.setInt(6, 0);
-                    saldos = saldos + result2.getLong("importe");
-                }
+                stUpdateProducto.setString(4, result2.getString("factura"));
+                stUpdateProducto.setLong(5, 0);
+                stUpdateProducto.setInt(6, 0);
+                saldos = saldos + result2.getLong("importe");
                 stUpdateProducto.setLong(7, saldos);
                 stUpdateProducto.executeUpdate();
 
@@ -1743,6 +1827,82 @@ public class Metodos {
             Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+//    public synchronized static void Libro_mayor(Date desde, Date hasta) {
+//        try {
+//            int id = 0;
+//
+//            long saldos = 0;
+//
+//            PreparedStatement stUpdateProducto = null;
+//
+//            Statement stAuxiliar = conexion.createStatement();
+//            stAuxiliar.executeUpdate("truncate table imprimir_libro_mayor");
+//
+//            Statement st12 = conexion.createStatement();
+//            ResultSet result2 = st12.executeQuery(""
+//                    + "SELECT SUM(importe) FROM asiento_contable "
+//                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
+//                    + "where asiento_contable.fecha < '" + desde + "' "
+//                    + "and asiento_contable_factura.id_proveedor = '0' ");
+//            if (result2.next()) {
+//                saldos = result2.getLong(1);
+//            }
+//
+//            st12 = conexion.createStatement();
+//            result2 = st12.executeQuery(""
+//                    + "SELECT SUM(importe) FROM asiento_contable "
+//                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
+//                    + "where asiento_contable.fecha < '" + desde + "' "
+//                    + "and asiento_contable_factura.id_proveedor != '0' ");
+//            if (result2.next()) {
+//                saldos = saldos - result2.getLong(1);
+//            }
+//
+//            st12 = conexion.createStatement();
+//            result2 = st12.executeQuery(""
+//                    + "SELECT * FROM asiento_contable "
+//                    + "inner join asiento_contable_factura on asiento_contable_factura.id_asiento_contable = asiento_contable.id_asiento_contable "
+//                    + "where asiento_contable.fecha >= '" + desde + "'"
+//                    + "and asiento_contable.fecha <= '" + hasta + "' ");
+//            while (result2.next()) {
+//                id = id + 1;
+//                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_mayor VALUES(?,?,?,?,?,?,?)");
+//                stUpdateProducto.setInt(1, id);
+//                stUpdateProducto.setInt(2, result2.getInt("id_asiento_contable"));
+//                stUpdateProducto.setDate(3, result2.getDate("fecha"));
+//                stUpdateProducto.setString(4, result2.getString("descripcion") + " s/ Comp.: " + result2.getString("comprobante"));
+//                if (result2.getInt("id_proveedor") == 0) {
+//                    stUpdateProducto.setInt(5, 0);
+//                    stUpdateProducto.setLong(6, result2.getLong("importe"));
+//                    saldos = saldos - result2.getLong("importe");
+//                } else {
+//                    stUpdateProducto.setLong(5, result2.getLong("importe"));
+//                    stUpdateProducto.setInt(6, 0);
+//                    saldos = saldos + result2.getLong("importe");
+//                }
+//                stUpdateProducto.setLong(7, saldos);
+//                stUpdateProducto.executeUpdate();
+//
+//            }
+//
+//            String reporte = "libro_mayor.jasper";
+//
+//            Map parametros = new HashMap();
+//            parametros.put("titulo", membrete);
+//            parametros.put("desde", desde);
+//            parametros.put("hasta", hasta);
+//
+//            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + reporte);
+//            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
+//            JasperViewer jv = new JasperViewer(jp, false);
+//            jv.setVisible(true);
+//
+//        } catch (JRException ex) {
+//            JOptionPane.showMessageDialog(null, ex);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
     public synchronized static void Compras_imprimir_detallado(Date desde, Date hasta) {
         try {
@@ -2042,47 +2202,63 @@ public class Metodos {
 
     public synchronized static void Cuentas_guardar(String nv1, String nv2, String nv3, String nv4, String nv5, String cuenta) {
         try {
+            error = false;
             if (id_cuenta == 0) {
-
+                boolean cargado = false;
                 Statement st1 = conexion.createStatement();
-
-                ResultSet result = st1.executeQuery("SELECT MAX(id_cuenta) FROM cuenta");
+                ResultSet result = st1.executeQuery(""
+                        + "SELECT * FROM cuenta "
+                        + "where nv1 ='" + nv1 + "' "
+                        + "and nv2 = '" + nv2 + "'"
+                        + "and nv3 = '" + nv3 + "' "
+                        + "and nv4 = '" + nv4 + "' "
+                        + "and nv5 = '" + nv5 + "' "
+                        + "and borrado != '1' ");
                 if (result.next()) {
-                    id_cuenta = result.getInt(1) + 1;
+                    cargado = true;
+                    error = true;
                 }
+                if (cargado == false) {
 
-                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO cuenta VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
-                stUpdateProducto.setInt(1, id_cuenta);
-                stUpdateProducto.setInt(2, Integer.parseInt(nv1));
-                stUpdateProducto.setInt(3, Integer.parseInt(nv2));
-                stUpdateProducto.setInt(4, Integer.parseInt(nv3));
-                stUpdateProducto.setInt(5, Integer.parseInt(nv4));
-                stUpdateProducto.setInt(6, Integer.parseInt(nv5));
-                stUpdateProducto.setString(7, cuenta);
-                stUpdateProducto.setInt(8, 0);
-                stUpdateProducto.setInt(9, 0);
-                stUpdateProducto.setInt(10, 0);
-                stUpdateProducto.setInt(11, 0);
-                if (Integer.parseInt(nv5) > 0) {
-                    stUpdateProducto.setInt(12, 1);
-                } else {
-                    stUpdateProducto.setInt(12, 0);
+                    st1 = conexion.createStatement();
+                    result = st1.executeQuery("SELECT MAX(id_cuenta) FROM cuenta");
+                    if (result.next()) {
+                        id_cuenta = result.getInt(1) + 1;
+                    }
+
+                    PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO cuenta VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+                    stUpdateProducto.setInt(1, id_cuenta);
+                    stUpdateProducto.setInt(2, Integer.parseInt(nv1));
+                    stUpdateProducto.setInt(3, Integer.parseInt(nv2));
+                    stUpdateProducto.setInt(4, Integer.parseInt(nv3));
+                    stUpdateProducto.setInt(5, Integer.parseInt(nv4));
+                    stUpdateProducto.setInt(6, Integer.parseInt(nv5));
+                    stUpdateProducto.setString(7, cuenta);
+                    stUpdateProducto.setInt(8, 0);
+                    stUpdateProducto.setInt(9, 0);
+                    stUpdateProducto.setInt(10, 0);
+                    stUpdateProducto.setInt(11, 0);
+                    if (Integer.parseInt(nv5) > 0) {
+                        stUpdateProducto.setInt(12, 1);
+                    } else {
+                        stUpdateProducto.setInt(12, 0);
+                    }
+                    stUpdateProducto.executeUpdate();
                 }
-                stUpdateProducto.executeUpdate();
 
                 //    JOptionPane.showMessageDialog(null, "Guardado correctamente");
             } else {
 
-//                PreparedStatement st = conexion.prepareStatement(""
-//                        + "UPDATE cuenta "
-//                        + "SET cuenta ='" + Cuentas_ABM.jTextField_cuenta.getText().trim() + "', "
-//                        + "nv1 ='" + nv1 + "', "
-//                        + "nv2 ='" + nv2 + "', "
-//                        + "nv3 ='" + nv3 + "', "
-//                        + "nv4 = '" + nv4 + "', "
-//                        + "nv5 = '" + nv5 + "' "
-//                        + "WHERE id_cuenta = '" + id_cuenta + "'");
-//                st.executeUpdate();
+                PreparedStatement st = conexion.prepareStatement(""
+                        + "UPDATE cuenta "
+                        + "SET cuenta ='" + cuenta + "', "
+                        + "nv1 ='" + nv1 + "', "
+                        + "nv2 ='" + nv2 + "', "
+                        + "nv3 ='" + nv3 + "', "
+                        + "nv4 = '" + nv4 + "', "
+                        + "nv5 = '" + nv5 + "' "
+                        + "WHERE id_cuenta = '" + id_cuenta + "'");
+                st.executeUpdate();
             }
 
         } catch (NumberFormatException | SQLException e) {
@@ -2108,12 +2284,12 @@ public class Metodos {
             Statement ST = conexion.createStatement();
             ResultSet RS = ST.executeQuery("SELECT * FROM cuenta where id_cuenta = '" + id_cuenta + "'");
             if (RS.next()) {
-                Cuentas_ABM.jTextField_nv1.setText(RS.getString("nv1"));
-                Cuentas_ABM.jTextField_nv2.setText(RS.getString("nv2"));
-                Cuentas_ABM.jTextField_nv3.setText(RS.getString("nv3"));
-                Cuentas_ABM.jTextField_nv4.setText(RS.getString("nv4"));
-                Cuentas_ABM.jTextField_nv5.setText(RS.getString("nv5"));
-                Cuentas_ABM.jTextField_cuenta.setText(RS.getString("cuenta").trim());
+                Cuentas.jTextField_nv1.setText(RS.getString("nv1"));
+                Cuentas.jTextField_nv2.setText(RS.getString("nv2"));
+                Cuentas.jTextField_nv3.setText(RS.getString("nv3"));
+                Cuentas.jTextField_nv4.setText(RS.getString("nv4"));
+                Cuentas.jTextField_nv5.setText(RS.getString("nv5"));
+                Cuentas.jTextField_cuenta.setText(RS.getString("cuenta").trim());
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -2131,7 +2307,9 @@ public class Metodos {
             PreparedStatement ps2 = conexion.prepareStatement(""
                     + "select id_cuenta,  (nv1 || '.' || nv2|| '.' || nv3|| '.' || nv4|| '.' || nv5|| ' ' || cuenta) AS cuenta  "
                     + "from cuenta "
-                    + "where cuenta ilike '%" + Cuentas.jTextField_buscar.getText() + "%' order by nv1, nv2,nv3,nv4,nv5");
+                    + "where cuenta ilike '%" + Cuentas.jTextField_buscar.getText() + "%' "
+                    + "and borrado != '1' "
+                    + "order by nv1, nv2,nv3,nv4,nv5");
             ResultSet rs2 = ps2.executeQuery();
             ResultSetMetaData rsm = rs2.getMetaData();
             ArrayList<Object[]> data2 = new ArrayList<>();
@@ -2202,7 +2380,7 @@ public class Metodos {
                     + "from asiento_compra_detalle "
                     + "inner join cuenta on cuenta.id_cuenta = asiento_compra_detalle.id_cuenta "
                     + "where id_asiento_compra = '" + id_asiento_compra + "' "
-                    + "order by nv1, nv2, nv3, nv4, nv5, cuenta");
+                    + "order by id_asiento_compra_detalle ASC");
             ResultSet rs2 = ps2.executeQuery();
             ResultSetMetaData rsm = rs2.getMetaData();
             ArrayList<Object[]> data2 = new ArrayList<>();
@@ -3656,7 +3834,7 @@ public class Metodos {
         }
     }
 
-    public static void Configuracion_guardar(String empresa, String ruc, String telefono, String direccion) {
+    public static void Configuracion_guardar(String empresa, String ruc, String direccion, String telefono) {
         try {
             PreparedStatement Update = conexion.prepareStatement("UPDATE configuracion "
                     + "SET empresa = '" + empresa + "', "
@@ -3665,7 +3843,7 @@ public class Metodos {
                     + "direccion = '" + direccion + "' "
                     + "WHERE id ='1'");
             Update.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Guardado correctamente");
+            JOptionPane.showMessageDialog(null, "Actualizado correctamente");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -3680,6 +3858,38 @@ public class Metodos {
                 Configuracion.jTextField_direccion.setText(rs.getString("direccion"));
                 Configuracion.jTextField_ruc.setText(rs.getString("ruc"));
                 Configuracion.jTextField_telefono.setText(rs.getString("telefono"));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public static void Configuracion_asiento_compra_buscar() {
+        try {
+            PreparedStatement ps = conexion.prepareStatement("select * from configuracion_asiento_compra ");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                PreparedStatement ps2 = conexion.prepareStatement(""
+                        + "select (nv1 || '.' || nv2 || '.' || nv3 || '.' || nv4 || '.' || nv5 || ' ' || cuenta ) AS cuenta "
+                        + "from cuenta where id_cuenta = '" + rs.getInt("contado") + "' ");
+                ResultSet rs2 = ps2.executeQuery();
+                if (rs2.next()) {
+                    Configuracion.jTextField_contado.setText(rs2.getString("cuenta"));
+                }
+                ps2 = conexion.prepareStatement(""
+                        + "select (nv1 || '.' || nv2 || '.' || nv3 || '.' || nv4 || '.' || nv5 || ' ' || cuenta ) AS cuenta "
+                        + "from cuenta where id_cuenta = '" + rs.getInt("credito") + "' ");
+                rs2 = ps2.executeQuery();
+                if (rs2.next()) {
+                    Configuracion.jTextField_credito.setText(rs2.getString("cuenta"));
+                }
+                ps2 = conexion.prepareStatement(""
+                        + "select (nv1 || '.' || nv2 || '.' || nv3 || '.' || nv4 || '.' || nv5 || ' ' || cuenta ) AS cuenta "
+                        + "from cuenta where id_cuenta = '" + rs.getInt("pagares") + "' ");
+                rs2 = ps2.executeQuery();
+                if (rs2.next()) {
+                    Configuracion.jTextField_pagare.setText(rs2.getString("cuenta"));
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
@@ -3922,4 +4132,23 @@ public class Metodos {
         }
     }
 
+//    public static void Configuracion_guardar(String empresa, String ruc, String direccion, String telefono) {
+//        PreparedStatement Update = conexion.prepareStatement("UPDATE configuracion "
+//                + "SET empresa = '" + empresa + "', "
+//                + "ruc = '" + ruc + "', "
+//                + "telefono = '" + telefono + "', "
+//                + "direccion = '" + direccion + "' ");
+//        Update.executeUpdate();
+//        JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+//    }
+    public static void Cuentas_delete() {
+        try {
+            PreparedStatement Update = conexion.prepareStatement("UPDATE cuenta "
+                    + "SET borrado = '1' "
+                    + "where id_cuenta = '" + id_cuenta + "' ");
+            Update.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
 }

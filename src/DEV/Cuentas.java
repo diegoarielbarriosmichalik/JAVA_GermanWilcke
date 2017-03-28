@@ -3,6 +3,7 @@ package DEV;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class Cuentas extends javax.swing.JFrame {
 
@@ -30,6 +31,7 @@ public class Cuentas extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jButton3 = new javax.swing.JButton();
+        jButton_borrar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -126,8 +128,7 @@ public class Cuentas extends javax.swing.JFrame {
         });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/terminar_mini.jpg"))); // NOI18N
-        jButton3.setMnemonic('g');
-        jButton3.setToolTipText("Alt + G");
+        jButton3.setToolTipText("");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -136,6 +137,19 @@ public class Cuentas extends javax.swing.JFrame {
         jButton3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jButton3KeyPressed(evt);
+            }
+        });
+
+        jButton_borrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/del_mini.png"))); // NOI18N
+        jButton_borrar.setToolTipText("");
+        jButton_borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_borrarActionPerformed(evt);
+            }
+        });
+        jButton_borrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton_borrarKeyPressed(evt);
             }
         });
 
@@ -150,7 +164,8 @@ public class Cuentas extends javax.swing.JFrame {
                     .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField_cuenta)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jTextField_nv1, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
@@ -181,7 +196,9 @@ public class Cuentas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -328,6 +345,7 @@ public class Cuentas extends javax.swing.JFrame {
 
     private void jButton_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_agregarActionPerformed
         jDialog_agregar();
+        jButton_borrar.setVisible(false);
         Clear();
     }//GEN-LAST:event_jButton_agregarActionPerformed
 
@@ -372,9 +390,9 @@ public class Cuentas extends javax.swing.JFrame {
             this.setVisible(false);
         }
         if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
-            this.setVisible(false);
-            new Cuentas_ABM().setVisible(true);
+            jDialog_agregar();
             Metodos.Cuentas_seleccionar();
+            jButton_borrar.setVisible(true);
         }
     }//GEN-LAST:event_jTable1KeyPressed
 
@@ -383,9 +401,9 @@ public class Cuentas extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_buscarKeyReleased
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        this.setVisible(false);
-        new Cuentas_ABM().setVisible(true);
+        jDialog_agregar();
         Metodos.Cuentas_seleccionar();
+        jButton_borrar.setVisible(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField_nv5FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_nv5FocusLost
@@ -455,6 +473,10 @@ public class Cuentas extends javax.swing.JFrame {
         Clear();
         jDialog_agregar.setVisible(false);
         Metodos.Cuentas_cargar_jtable();
+
+        if (Metodos.error == true) {
+            JOptionPane.showMessageDialog(null, "Error: Cuenta ya registrada.");
+        }
         jButton_agregar.requestFocus();
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -467,6 +489,16 @@ public class Cuentas extends javax.swing.JFrame {
     private void jTextField_cuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_cuentaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_cuentaActionPerformed
+
+    private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
+        Metodos.Cuentas_delete();
+        jDialog_agregar.setVisible(false);
+        Clear();
+    }//GEN-LAST:event_jButton_borrarActionPerformed
+
+    private void jButton_borrarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton_borrarKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton_borrarKeyPressed
 
     public static void main(String args[]) {
 
@@ -490,6 +522,7 @@ public class Cuentas extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton_agregar;
+    private javax.swing.JButton jButton_borrar;
     private javax.swing.JDialog jDialog_agregar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

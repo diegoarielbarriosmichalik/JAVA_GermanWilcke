@@ -1222,7 +1222,6 @@ public class Compras extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
-
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
             jDialog_proveedor();
         }
@@ -1241,7 +1240,6 @@ public class Compras extends javax.swing.JFrame {
         jDialog_compras.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         jTextField_buscar.setText("");
         jTextField_buscar.requestFocus();
-
     }
 
     public void jDialog_detalle_borrar() {
