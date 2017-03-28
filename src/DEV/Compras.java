@@ -1646,10 +1646,22 @@ public class Compras extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable_cuentaKeyPressed
 
     private void jTextField_cuenta_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_cuenta_buscarKeyReleased
-        Metodos.Compras_cuenta_jtable(jTextField_cuenta_buscar.getText());
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             jDialog_cuenta.setVisible(false);
         }
+
+        if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+            try {
+                jTable_cuenta.requestFocus();
+                Robot r = new Robot();
+                r.keyPress(KeyEvent.VK_DOWN);
+            } catch (AWTException ex) {
+                System.err.println(ex);
+            }
+        } else {
+            Metodos.Compras_cuenta_jtable(jTextField_cuenta_buscar.getText());
+        }
+
     }//GEN-LAST:event_jTextField_cuenta_buscarKeyReleased
 
     private void jTable_impuestoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_impuestoKeyPressed
