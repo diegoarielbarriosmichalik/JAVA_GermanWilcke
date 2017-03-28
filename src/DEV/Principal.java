@@ -4,9 +4,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
-    
+
     public Principal() {
-        
+
         initComponents();
         setLocationRelativeTo(null);
         setTitle(Metodos.titulo);
@@ -17,12 +17,12 @@ public class Principal extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                
+
                 close();
             }
         });
     }
-    
+
     private void close() {
         if (JOptionPane.showConfirmDialog(rootPane, "¿Salir del sistema?",
                 "Salir del sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -30,9 +30,9 @@ public class Principal extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-    
+
     public static int id_usuario;
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -89,14 +89,21 @@ public class Principal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu5 = new javax.swing.JMenu();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem50 = new javax.swing.JMenuItem();
+        jMenuItem51 = new javax.swing.JMenuItem();
+        jSeparator15 = new javax.swing.JPopupMenu.Separator();
         jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem49 = new javax.swing.JMenuItem();
         jSeparator7 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem49 = new javax.swing.JMenuItem();
         jMenuItem41 = new javax.swing.JMenuItem();
         jSeparator8 = new javax.swing.JPopupMenu.Separator();
         jMenuItem46 = new javax.swing.JMenuItem();
         jMenuItem47 = new javax.swing.JMenuItem();
         jMenuItem48 = new javax.swing.JMenuItem();
+        jSeparator16 = new javax.swing.JPopupMenu.Separator();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem52 = new javax.swing.JMenuItem();
+        jMenuItem53 = new javax.swing.JMenuItem();
         jSeparator12 = new javax.swing.JPopupMenu.Separator();
         jMenu4 = new javax.swing.JMenu();
         jSeparator23 = new javax.swing.JPopupMenu.Separator();
@@ -151,7 +158,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
+            .addGap(0, 1148, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,13 +447,26 @@ public class Principal extends javax.swing.JFrame {
         jMenu5.setText("Contabilidad");
         jMenu5.add(jSeparator4);
 
-        jMenuItem14.setText("Asiento Contable");
+        jMenuItem50.setText("Asiento de Compra");
+        jMenuItem50.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem50ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem50);
+
+        jMenuItem51.setText("Asiento de Venta");
+        jMenu5.add(jMenuItem51);
+        jMenu5.add(jSeparator15);
+
+        jMenuItem14.setText("Asientos Manuales");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem14ActionPerformed(evt);
             }
         });
         jMenu5.add(jMenuItem14);
+        jMenu5.add(jSeparator7);
 
         jMenuItem49.setText("Libro Mayor");
         jMenuItem49.addActionListener(new java.awt.event.ActionListener() {
@@ -455,7 +475,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem49);
-        jMenu5.add(jSeparator7);
 
         jMenuItem41.setText("Estado de situación patrimonial");
         jMenuItem41.addActionListener(new java.awt.event.ActionListener() {
@@ -489,6 +508,22 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem48);
+        jMenu5.add(jSeparator16);
+
+        jMenu7.setText("Procesos");
+
+        jMenuItem52.setText("Generar Asientos de Compras");
+        jMenuItem52.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem52ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem52);
+
+        jMenuItem53.setText("Generar Asientos de Ventas");
+        jMenu7.add(jMenuItem53);
+
+        jMenu5.add(jMenu7);
         jMenu5.add(jSeparator12);
 
         jMenuBar1.add(jMenu5);
@@ -601,7 +636,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -619,7 +654,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu_ventasMouseClicked
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        
+
 
     }//GEN-LAST:event_formKeyPressed
 
@@ -714,7 +749,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        
+
         if (Metodos.privilegio == 1) {
 //            new Usuarios_control().setVisible(true);
         } else {
@@ -818,7 +853,15 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem49ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem49ActionPerformed
         new Libro_mayor().setVisible(true);
     }//GEN-LAST:event_jMenuItem49ActionPerformed
-    
+
+    private void jMenuItem50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem50ActionPerformed
+        new Asiento_compra().setVisible(true);
+    }//GEN-LAST:event_jMenuItem50ActionPerformed
+
+    private void jMenuItem52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem52ActionPerformed
+        Metodos.Asientos_compra_generar();
+    }//GEN-LAST:event_jMenuItem52ActionPerformed
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -844,6 +887,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
@@ -892,6 +936,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem48;
     private javax.swing.JMenuItem jMenuItem49;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem50;
+    private javax.swing.JMenuItem jMenuItem51;
+    private javax.swing.JMenuItem jMenuItem52;
+    private javax.swing.JMenuItem jMenuItem53;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
@@ -907,6 +955,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
     private javax.swing.JPopupMenu.Separator jSeparator14;
+    private javax.swing.JPopupMenu.Separator jSeparator15;
+    private javax.swing.JPopupMenu.Separator jSeparator16;
     private javax.swing.JPopupMenu.Separator jSeparator17;
     private javax.swing.JPopupMenu.Separator jSeparator18;
     private javax.swing.JPopupMenu.Separator jSeparator19;

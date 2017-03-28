@@ -52,9 +52,10 @@ public class Conexion {
 //                db = "pipas_bar"; 
                 //db = "mca_novedades_nuevo";
 //                db = "mca"; // del campo
-                host = "localhost";
+//                host = "localhost";
+                host = "192.168.0.200";
                 user = "postgres";
-                pass = "postgres";
+                pass = "POSTGRES4K";
                 mac_adress = "-792900638";
             }
             if (result.equals("-1878214831")) { // muni 
@@ -76,7 +77,7 @@ public class Conexion {
             if (result.equals("1859179857")) { // Servidor GW 
                 db = "german_wilcke"; 
 //                host = "190.104.167.162"; 
-                host = "10.10.10.100"; 
+                host = "192.168.0.200"; 
                 user = "postgres";
                 pass = "postgres";
                 pass = "POSTGRES4K";
@@ -85,7 +86,7 @@ public class Conexion {
             if (result.equals("2090310955")) { // Jessica GW 
                 db = "german_wilcke"; 
 //                host = "190.104.167.162"; 
-                host = "10.10.10.100"; 
+                host = "192.168.0.200"; 
                 user = "postgres";
                 pass = "postgres";
                 pass = "POSTGRES4K";
@@ -94,7 +95,7 @@ public class Conexion {
             if (result.equals("-862396690")) { // clorinda GW 
                 db = "german_wilcke"; 
 //                host = "190.104.167.162"; 
-                host = "10.10.10.100"; 
+                host = "192.168.0.200"; 
                 user = "postgres";
                 pass = "postgres";
                 pass = "POSTGRES4K";
