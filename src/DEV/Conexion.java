@@ -76,8 +76,8 @@ public class Conexion {
             }
             if (result.equals("1859179857")) { // Servidor GW 
                 db = "german_wilcke"; 
-//                host = "190.104.167.162"; 
-                host = "192.168.0.200"; 
+                host = "190.104.167.162"; 
+//                host = "192.168.0.200"; 
                 user = "postgres";
                 pass = "postgres";
                 pass = "POSTGRES4K";
@@ -102,6 +102,8 @@ public class Conexion {
                 mac_adress = "-862396690";
             }
 
+            
+            
             if ((result.equals(mac_adress)) || (result.equals(mac_adress2))) {
                 Class.forName("org.postgresql.Driver");
                 conexion = DriverManager.getConnection("jdbc:postgresql://" + host + ":5432/" + db, user, pass);
@@ -111,7 +113,7 @@ public class Conexion {
                 JOptionPane.showMessageDialog(null, "PC no registrada (" + result + ")");
                 System.exit(-1);
             }
-
+            System.err.println("HOST: "+host+" DB: "+db);
         } catch (SQLException | ClassNotFoundException | IOException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
