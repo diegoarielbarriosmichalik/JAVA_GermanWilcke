@@ -242,14 +242,10 @@ public class Sector extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         Metodos.Sector_Guardar(jt_sector.getText());
-        jt_sector.requestFocus();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         jt_sector.setText("");
         Metodos.id_sector = 0;
         jt_sector.requestFocus();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jt_sectorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_sectorKeyReleased
 
@@ -260,6 +256,7 @@ public class Sector extends javax.swing.JFrame {
 //        jButton_borrar.setVisible(false);
     }//GEN-LAST:event_jButton_borrarActionPerformed
 
+    
     private void jt_sectorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_sectorFocusGained
     }//GEN-LAST:event_jt_sectorFocusGained
 
@@ -327,6 +324,12 @@ public class Sector extends javax.swing.JFrame {
         jt_sector.requestFocus();
         jButton_borrar.setVisible(true);
     }//GEN-LAST:event_jTable_ubicacionMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jt_sector.setText("");
+        Metodos.id_sector = 0;
+        jt_sector.requestFocus();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public static void main(String args[]) {
         try {

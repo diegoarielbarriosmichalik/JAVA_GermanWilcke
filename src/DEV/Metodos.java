@@ -171,14 +171,13 @@ public class Metodos {
                     while (result4.next()) {
 
                         id_producto = result4.getInt("id_producto");
-                        int iva = 0;
+                        int iva = result4.getInt("impuesto");
 
-                        Statement st7 = conexion.createStatement();
-                        ResultSet result7 = st7.executeQuery("SELECT * from productos where id_producto = '" + id_producto + "'");
-                        if (result7.next()) {
-                            iva = result7.getInt("iva");
-                        }
-
+//                        Statement st7 = conexion.createStatement();
+//                        ResultSet result7 = st7.executeQuery("SELECT * from productos where id_producto = '" + id_producto + "'");
+//                        if (result7.next()) {
+//                            iva = result7.getInt("iva");
+//                        }
                         long gravada_10_long = result4.getLong("total");
                         long gravada_5_long = result4.getLong("total");
                         long iva_10 = gravada_10_long / 11;
@@ -219,39 +218,38 @@ public class Metodos {
                         }
                         st6.executeUpdate();
 
-                        // INSERTAR HABER 
-                        st5 = conexion.createStatement();
-                        result5 = st5.executeQuery("SELECT MAX(id_asiento_compra_detalle) FROM asiento_compra_detalle");
-                        if (result5.next()) {
-                            id_asiento_compra_detalle = result5.getInt(1) + 1;
-                        }
-                        long total = 0;
-                        Statement st10 = conexion.createStatement();
-                        ResultSet result10 = st10.executeQuery("SELECT SUM(debe) FROM asiento_compra_detalle where id_asiento_compra = '" + id_asiento_compra + "'");
-                        if (result10.next()) {
-                            total = result10.getLong(1);
-                        }
-
-                        st5 = conexion.createStatement();
-                        result5 = st5.executeQuery("SELECT * FROM configuracion_asiento_compra");
-                        if (result5.next()) {
-                            contado_id_cuenta = result5.getInt("contado");
-                        }
-
-                        st6 = conexion.prepareStatement("INSERT INTO asiento_compra_detalle VALUES(?,?,?,?,?, ?,?,?,?,?)");
-                        st6.setInt(1, id_asiento_compra_detalle);
-                        st6.setInt(2, id_asiento_compra);
-                        st6.setInt(3, contado_id_cuenta);
-                        st6.setInt(4, 0);
-                        st6.setLong(5, total);
-                        st6.setLong(6, 0);
-                        st6.setLong(8, 0);
-                        st6.setLong(7, 0);
-                        st6.setLong(9, 0);
-                        st6.setLong(10, 0);
-                        st6.executeUpdate();
-
                     }
+                    // INSERTAR HABER 
+                    Statement st5 = conexion.createStatement();
+                    ResultSet result5 = st5.executeQuery("SELECT MAX(id_asiento_compra_detalle) FROM asiento_compra_detalle");
+                    if (result5.next()) {
+                        id_asiento_compra_detalle = result5.getInt(1) + 1;
+                    }
+                    long total = 0;
+                    Statement st10 = conexion.createStatement();
+                    ResultSet result10 = st10.executeQuery("SELECT SUM(debe) FROM asiento_compra_detalle where id_asiento_compra = '" + id_asiento_compra + "'");
+                    if (result10.next()) {
+                        total = result10.getLong(1);
+                    }
+
+                    st5 = conexion.createStatement();
+                    result5 = st5.executeQuery("SELECT * FROM configuracion_asiento_compra");
+                    if (result5.next()) {
+                        contado_id_cuenta = result5.getInt("contado");
+                    }
+
+                    PreparedStatement st8 = conexion.prepareStatement("INSERT INTO asiento_compra_detalle VALUES(?,?,?,?,?, ?,?,?,?,?)");
+                    st8.setInt(1, id_asiento_compra_detalle);
+                    st8.setInt(2, id_asiento_compra);
+                    st8.setInt(3, contado_id_cuenta);
+                    st8.setInt(4, 0);
+                    st8.setLong(5, total);
+                    st8.setLong(6, 0);
+                    st8.setLong(8, 0);
+                    st8.setLong(7, 0);
+                    st8.setLong(9, 0);
+                    st8.setLong(10, 0);
+                    st8.executeUpdate();
                 }
             }
         } catch (SQLException ex) {
@@ -272,7 +270,7 @@ public class Metodos {
     public synchronized static void Compras_impuestos_selected() {
         DefaultTableModel tm = (DefaultTableModel) Compras.jTable_impuesto.getModel();
         compras_id_impuesto = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_impuesto.getSelectedRow(), 0)));
-        //  Compras.jTextField_impuesto.setText(String.valueOf(tm.getValueAt(Compras.jTable_impuesto.getSelectedRow(), 1)));
+        Compras.jTextField_impuesto.setText(String.valueOf(tm.getValueAt(Compras.jTable_impuesto.getSelectedRow(), 1)));
     }
 
     public synchronized static void Movimientos_contables_deposito_selected() {
@@ -382,7 +380,7 @@ public class Metodos {
     public synchronized static void Compras_detalle_productos_ubicacion_selected() {
         DefaultTableModel tm = (DefaultTableModel) Compras.jTable_ubicacion.getModel();
         compras_id_productos_ubicacion = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_ubicacion.getSelectedRow(), 0)));
-        Compras.jTextField_ubicacion.setText(String.valueOf(tm.getValueAt(Compras.jTable_ubicacion.getSelectedRow(), 1)));
+//        Compras.jTextField_ubicacion.setText(String.valueOf(tm.getValueAt(Compras.jTable_ubicacion.getSelectedRow(), 1)));
     }
 
     public synchronized static void Productos_ubicacion_selected() {
@@ -527,11 +525,11 @@ public class Metodos {
         Metodos.id_ubicacion = 0;
         Metodos.id_proveedor = 1;
         Producto.producto_nombre.setText("");
-        Producto.producto_precio.setText("");
+        Producto.producto_precio.setText("0");
         // Producto.ubicacion.setText("");
         Producto.producto_proveedor.setText("No especificado");
         Producto.producto_rubro.setText("No especificado");
-        Producto.producto_stock_bajo.setText("");
+        Producto.producto_stock_bajo.setText("0");
         Producto.producto_nombre.requestFocus();
         Producto.producto_codigo.setText("");
         Producto.producto_nombre.setEditable(true);
@@ -641,7 +639,7 @@ public class Metodos {
                     + "order by id_productos_ubicacion ASC ");
             if (result.next()) {
                 compras_id_productos_ubicacion = result.getInt("id_productos_ubicacion");
-                Compras.jTextField_ubicacion.setText(result.getString("ubicacion"));
+//                Compras.jTextField_ubicacion.setText(result.getString("ubicacion"));
             }
         } catch (SQLException ex) {
             System.err.println(ex);
@@ -1091,7 +1089,7 @@ public class Metodos {
         }
     }
 
-    public synchronized static void Compras_agregar_detalle_guardar(String unidades, String precio) {
+    public synchronized static void Compras_agregar_detalle_guardar(String unidades, String precio, String impuesto) {
         try {
 
             precio = precio.replace(".", "");
@@ -1102,7 +1100,7 @@ public class Metodos {
                 id_compra_detalle = result.getInt(1) + 1;
             }
             PreparedStatement stUpdateProducto = conexion.prepareStatement(""
-                    + "INSERT INTO compra_detalle VALUES(?,?,?,?,?,?,?,?,?)");
+                    + "INSERT INTO compra_detalle VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
             stUpdateProducto.setInt(1, id_compra_detalle);
             stUpdateProducto.setDouble(2, Double.parseDouble(unidades));
             stUpdateProducto.setLong(3, Long.parseLong(precio));
@@ -1115,10 +1113,28 @@ public class Metodos {
             stUpdateProducto.setInt(7, compras_id_productos_ubicacion);
             stUpdateProducto.setInt(8, compras_id_sector);
             stUpdateProducto.setInt(9, compras_id_cuenta);
+            stUpdateProducto.setInt(10, Integer.parseInt(impuesto));
+            
+            if (Integer.parseInt(impuesto) == 0) {
+                stUpdateProducto.setLong(11, total_long);
+            } else {
+                stUpdateProducto.setLong(11, 0);
+            }
+            if (Integer.parseInt(impuesto) == 5) {
+                stUpdateProducto.setLong(12, total_long);
+            } else {
+                stUpdateProducto.setLong(12, 0);
+            }
+            if (Integer.parseInt(impuesto) == 10) {
+                stUpdateProducto.setLong(13, total_long);
+            } else {
+                stUpdateProducto.setLong(13, 0);
+            }
+
             stUpdateProducto.executeUpdate();
 
         } catch (NumberFormatException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
 
@@ -3393,8 +3409,8 @@ public class Metodos {
             }
 
             PreparedStatement ps = conexion.prepareStatement(""
-                    + "select id_compra_detalle, nombre, cuenta, sector, ubicacion,  cantidad, "
-                    + "compra_detalle.precio, compra_detalle.total "
+                    + "select id_compra_detalle, nombre, cuenta, sector, cantidad, "
+                    + "compra_detalle.precio, iva_0, iva_5, iva_10 "
                     + "from compra_detalle "
                     + "inner join productos on productos.id_producto = compra_detalle.id_producto "
                     + "inner join sector on sector.id_sector = compra_detalle.id_sector "
