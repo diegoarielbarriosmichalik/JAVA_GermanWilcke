@@ -1316,10 +1316,13 @@ public class Compras extends javax.swing.JFrame {
         Metodos.compras_id_tipo = 1;
         Metodos.compras_id_forma_pago = 0;
         Metodos.compras_id_sector = 0;
+        Metodos.compras_id_cuenta = 0;
         Metodos.id_compra = 0;
         Metodos.compras_id_productos_ubicacion = 0;
         jTextField_compra_tipo.setText("CONTADO");
+        jTextField_sector.setText("");
         jTextField_forma_pago.setText("No especificado");
+        jTextField_cuenta.setText("");
         jTextField_timbrado.setText("");
         jt_factura.setText("");
         jDateChooser3.setDate(Metodos.hoy);

@@ -2083,53 +2083,102 @@ public class Metodos {
 
             Statement stAuxiliar = conexion.createStatement();
             stAuxiliar.executeUpdate("truncate table extracto_cuenta_proveedores");
+
             int id = 0;
+            long saldo = 0;
+
+            Statement st30 = conexion.createStatement();
+            ResultSet result30 = st30.executeQuery(""
+                    + "SELECT SUM(compra.total) FROM compra_detalle "
+                    + "inner join compra on compra.id_compra = compra_detalle.id_compra "
+                    + "where id_proveedor = '" + listado_compras_id_proveedor + "' "
+                    + "and fecha < '" + desde + "'");
+            while (result30.next()) {
+                saldo = result30.getLong(1);
+            }
+
+            Statement st31 = conexion.createStatement();
+            ResultSet result31 = st31.executeQuery(""
+                    + "SELECT SUM(importe) FROM recibo_dinero_proveedores "
+                    + "where id_proveedor = '" + listado_compras_id_proveedor + "' "
+                    + "and  fecha < '" + desde + "'");
+            while (result31.next()) {
+                saldo = saldo - result31.getLong(1);
+            }
+
+            id = id + 1;
+            PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO extracto_cuenta_proveedores VALUES(?,?,?,?,?,?,?)");
+            stUpdateProducto.setInt(1, id);
+            stUpdateProducto.setDate(2, util_Date_to_sql_date(desde));
+            stUpdateProducto.setString(3, "TRANSPORTE");
+            stUpdateProducto.setInt(4, 0);
+            stUpdateProducto.setLong(5, 0);
+            stUpdateProducto.setLong(6, saldo);
+            stUpdateProducto.setInt(7, listado_compras_id_proveedor);
+            stUpdateProducto.executeUpdate();
+
             Statement st12 = conexion.createStatement();
             ResultSet result2 = st12.executeQuery(""
                     + "SELECT * FROM compra_detalle "
                     + "inner join compra on compra.id_compra = compra_detalle.id_compra "
                     + "where id_proveedor = '" + listado_compras_id_proveedor + "' "
-                    + "and (fecha >= '" + desde + "' or fecha <= '" + hasta + "') ");
+                    + "and (fecha >= '" + desde + "' and fecha <= '" + hasta + "') ");
             while (result2.next()) {
 
                 id = id + 1;
-                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO extracto_cuenta_proveedores VALUES(?,?,?,?,?,?,?)");
+
+                stUpdateProducto = conexion.prepareStatement("INSERT INTO extracto_cuenta_proveedores VALUES(?,?,?,?,?,?,?)");
                 stUpdateProducto.setInt(1, id);
                 stUpdateProducto.setDate(2, util_Date_to_sql_date(result2.getDate("fecha")));
-                stUpdateProducto.setString(3, "Segun factura: "+result2.getString("factura"));
+                stUpdateProducto.setString(3, "Segun factura: " + result2.getString("factura"));
                 stUpdateProducto.setInt(4, 0);
                 stUpdateProducto.setLong(5, result2.getLong("total"));
-                stUpdateProducto.setInt(6, 0);
+                stUpdateProducto.setLong(6, 0);
                 stUpdateProducto.setInt(7, listado_compras_id_proveedor);
                 stUpdateProducto.executeUpdate();
 
             }
-            
+
             st12 = conexion.createStatement();
             result2 = st12.executeQuery(""
                     + "SELECT * FROM recibo_dinero_proveedores "
                     + "where id_proveedor = '" + listado_compras_id_proveedor + "' "
-                    + "and (fecha >= '" + desde + "' or fecha <= '" + hasta + "') ");
+                    + "and (fecha >= '" + desde + "' and fecha <= '" + hasta + "') ");
             while (result2.next()) {
-                 id = id + 1;
-                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO extracto_cuenta_proveedores VALUES(?,?,?,?,?,?,?)");
+                id = id + 1;
+
+                stUpdateProducto = conexion.prepareStatement("INSERT INTO extracto_cuenta_proveedores VALUES(?,?,?,?,?,?,?)");
                 stUpdateProducto.setInt(1, id);
                 stUpdateProducto.setDate(2, util_Date_to_sql_date(result2.getDate("fecha")));
-                stUpdateProducto.setString(3, result2.getString("descripcion"));
+                stUpdateProducto.setString(3, result2.getString("descripcion").trim() + " S/ Rec. Nº " + result2.getString("numero"));
                 stUpdateProducto.setLong(4, result2.getLong("importe"));
                 stUpdateProducto.setLong(5, 0);
-                stUpdateProducto.setInt(6, 0);
+                stUpdateProducto.setLong(6, 0);
                 stUpdateProducto.setInt(7, listado_compras_id_proveedor);
                 stUpdateProducto.executeUpdate();
+            }
+            saldo = 0;
+            st12 = conexion.createStatement();
+            result2 = st12.executeQuery(""
+                    + "SELECT * FROM extracto_cuenta_proveedores "
+                    + "order by fecha ASC, id ");
+            while (result2.next()) {
+
+                saldo = saldo + result2.getLong("saldo") - result2.getLong("debe") + result2.getLong("haber");
+
+                PreparedStatement Update2 = conexion.prepareStatement(""
+                        + "UPDATE extracto_cuenta_proveedores "
+                        + "SET saldo = '" + saldo + "' "
+                        + "WHERE id ='" + result2.getLong("id") + "'");
+                Update2.executeUpdate();
+
             }
 
             JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + "extracto_x_proveedor.jasper");
             JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        } catch (SQLException ex) {
+        } catch (JRException | SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
@@ -2673,7 +2722,7 @@ public class Metodos {
                     + "select id_proveedor, nombre, nombre_fantasia "
                     + "from proveedor "
                     + "where nombre ilike '%" + buscar + "%' "
-                    + "and nombre_fantasia ilike '%" + buscar + "%' "
+                    + "or nombre_fantasia ilike '%" + buscar + "%' "
                     + "order by nombre ");
             ResultSet rs2 = ps2.executeQuery();
             ResultSetMetaData rsm = rs2.getMetaData();
@@ -3226,8 +3275,8 @@ public class Metodos {
             PreparedStatement ps2 = conexion.prepareStatement(""
                     + "select id_proveedor, nombre, nombre_fantasia "
                     + "from proveedor "
-                    + "where nombre ilike '%" + buscar + "%' "
-                    + "and nombre_fantasia ilike '%" + buscar + "%' "
+                    + "where (nombre ilike '%" + buscar + "%' "
+                    + "or nombre_fantasia ilike '%" + buscar + "%') "
                     + "order by nombre ");
             ResultSet rs2 = ps2.executeQuery();
             ResultSetMetaData rsm = rs2.getMetaData();
@@ -3263,7 +3312,7 @@ public class Metodos {
                     + "select id_proveedor, nombre, nombre_fantasia "
                     + "from proveedor "
                     + "where nombre ilike '%" + buscar + "%' "
-                    + "and nombre_fantasia ilike '%" + buscar + "%' "
+                    + "or nombre_fantasia ilike '%" + buscar + "%' "
                     + "order by nombre ");
             ResultSet rs2 = ps2.executeQuery();
             ResultSetMetaData rsm = rs2.getMetaData();
@@ -4564,20 +4613,23 @@ public class Metodos {
 
     }
 
-    static void Recibo_de_dinero_proveedor_guardar(String proveedor, String dinero, String concepto, Date fecha) {
+    static void Recibo_de_dinero_proveedor_guardar(String proveedor, String dinero, String concepto, Date fecha, String recibo) {
         try {
             PreparedStatement ps = conexion.prepareStatement("select max(id_recibo_dinero_proveedores) from recibo_dinero_proveedores");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 id_recibo_dinero_proveedores = rs.getInt(1) + 1;
             }
-            PreparedStatement st2 = conexion.prepareStatement("INSERT INTO recibo_dinero_proveedores VALUES(?,?,?,?,?)");
+            PreparedStatement st2 = conexion.prepareStatement("INSERT INTO recibo_dinero_proveedores VALUES(?,?,?,?,?,?)");
             st2.setInt(1, id_recibo_dinero_proveedores);
             st2.setInt(2, recibo_dinero_proveedores_id_proveedor);
             st2.setDate(3, util_Date_to_sql_date(fecha));
             st2.setLong(4, Long.parseLong(dinero.replace(".", "")));
             st2.setString(5, concepto);
+            st2.setLong(6, Long.parseLong(recibo));
+
             st2.executeUpdate();
+
             JOptionPane.showMessageDialog(null, "Guardado correctamente");
         } catch (SQLException ex) {
             System.err.println(ex);

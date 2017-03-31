@@ -319,7 +319,7 @@ public class Listado_compras_x_proveedor_x_cuenta extends javax.swing.JFrame {
         }
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
             jDialog_proveedor();
-            Metodos.Listado_compras_proveedor_x_cuenta_jtable(jTextField_buscar.getText());
+           // Metodos.Listado_compras_proveedor_x_cuenta_jtable(jTextField_buscar.getText());
         }
     }//GEN-LAST:event_jtexfield_proveedorKeyPressed
 

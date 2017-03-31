@@ -12,7 +12,7 @@
 	<queryString>
 		<![CDATA[select * from extracto_cuenta_proveedores
 inner join proveedor on proveedor.id_proveedor = extracto_cuenta_proveedores.id_proveedor
-order by fecha ]]>
+order by fecha ASC, id]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="fecha" class="java.sql.Date"/>
@@ -71,7 +71,7 @@ order by fecha ]]>
 				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nombre}.trim()]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nombre}.trim() + " - RUC: "+$F{ruc}.trim() + " Telf. "+$F{telefono}.trim()]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="3" width="555" height="20" uuid="7222a0da-54b1-440e-9c63-5aa9631edb45"/>
