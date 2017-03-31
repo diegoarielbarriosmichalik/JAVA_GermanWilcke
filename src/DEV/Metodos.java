@@ -32,7 +32,9 @@ public class Metodos {
     public static int id_producto = 0;
     public static int producto_id_ubicacion = 0;
     public static int id_proveedor = 0;
+    public static int id_recibo_dinero_proveedores = 0;
     public static int compras_id_timbrado = 0;
+    public static int recibo_dinero_proveedores_id_proveedor = 0;
     public static int id_timbrado = 0;
     public static int proveedor_id_timbrado = 0;
     public static int movimiento_contable_id_asiento_contable_pago = 0;
@@ -278,6 +280,12 @@ public class Metodos {
         Compras.jTextField_timbrado.setText(String.valueOf(tm.getValueAt(Compras.jTable_timbrado.getSelectedRow(), 1)));
     }
 
+    public synchronized static void Recido_de_dinero_proveedor_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Recibo_de_dinero.jTable_proveedor.getModel();
+        recibo_dinero_proveedores_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Recibo_de_dinero.jTable_proveedor.getSelectedRow(), 0)));
+        Recibo_de_dinero.jTextField_proveedor.setText(String.valueOf(tm.getValueAt(Recibo_de_dinero.jTable_proveedor.getSelectedRow(), 1)));
+    }
+
     public synchronized static void Asiento_compra_selected() {
         DefaultTableModel tm = (DefaultTableModel) Asiento_compra.jTable_asientos.getModel();
         id_asiento_compra = Integer.parseInt(String.valueOf(tm.getValueAt(Asiento_compra.jTable_asientos.getSelectedRow(), 0)));
@@ -461,6 +469,12 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getModel();
         listado_compras_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getSelectedRow(), 0)));
         Listado_compras_x_proveedor_x_cuenta.jtexfield_proveedor.setText(String.valueOf(tm.getValueAt(Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getSelectedRow(), 1)).trim());
+    }
+
+    public synchronized static void Extracto_compras_proveedor_x_cuenta_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Extracto_cuentas_x_proveedor.jTable_proveedor.getModel();
+        listado_compras_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Extracto_cuentas_x_proveedor.jTable_proveedor.getSelectedRow(), 0)));
+        Extracto_cuentas_x_proveedor.jtexfield_proveedor.setText(String.valueOf(tm.getValueAt(Extracto_cuentas_x_proveedor.jTable_proveedor.getSelectedRow(), 1)).trim());
     }
 
     public synchronized static void Compra_buscar_selected() {
@@ -2059,6 +2073,67 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Extracto_Compras_imprimir_proveedor_x_cuenta(Date desde, Date hasta) {
+        try {
+            Map parametros = new HashMap();
+            parametros.put("desde", desde);
+            parametros.put("hasta", hasta);
+            parametros.put("id_proveedor", listado_compras_id_proveedor);
+            parametros.put("titulo", empresa);
+
+            Statement stAuxiliar = conexion.createStatement();
+            stAuxiliar.executeUpdate("truncate table extracto_cuenta_proveedores");
+            int id = 0;
+            Statement st12 = conexion.createStatement();
+            ResultSet result2 = st12.executeQuery(""
+                    + "SELECT * FROM compra_detalle "
+                    + "inner join compra on compra.id_compra = compra_detalle.id_compra "
+                    + "where id_proveedor = '" + listado_compras_id_proveedor + "' "
+                    + "and (fecha >= '" + desde + "' or fecha <= '" + hasta + "') ");
+            while (result2.next()) {
+
+                id = id + 1;
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO extracto_cuenta_proveedores VALUES(?,?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id);
+                stUpdateProducto.setDate(2, util_Date_to_sql_date(result2.getDate("fecha")));
+                stUpdateProducto.setString(3, "Segun factura: "+result2.getString("factura"));
+                stUpdateProducto.setInt(4, 0);
+                stUpdateProducto.setLong(5, result2.getLong("total"));
+                stUpdateProducto.setInt(6, 0);
+                stUpdateProducto.setInt(7, listado_compras_id_proveedor);
+                stUpdateProducto.executeUpdate();
+
+            }
+            
+            st12 = conexion.createStatement();
+            result2 = st12.executeQuery(""
+                    + "SELECT * FROM recibo_dinero_proveedores "
+                    + "where id_proveedor = '" + listado_compras_id_proveedor + "' "
+                    + "and (fecha >= '" + desde + "' or fecha <= '" + hasta + "') ");
+            while (result2.next()) {
+                 id = id + 1;
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO extracto_cuenta_proveedores VALUES(?,?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id);
+                stUpdateProducto.setDate(2, util_Date_to_sql_date(result2.getDate("fecha")));
+                stUpdateProducto.setString(3, result2.getString("descripcion"));
+                stUpdateProducto.setLong(4, result2.getLong("importe"));
+                stUpdateProducto.setLong(5, 0);
+                stUpdateProducto.setInt(6, 0);
+                stUpdateProducto.setInt(7, listado_compras_id_proveedor);
+                stUpdateProducto.executeUpdate();
+            }
+
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + "extracto_x_proveedor.jasper");
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
     public synchronized static void Estado_de_situacion_patrimonial(Date desde, Date hasta) {
         try {
             Map parametros = new HashMap();
@@ -2578,6 +2653,39 @@ public class Metodos {
                 data2.add(rows);
             }
             dtm = (DefaultTableModel) Asiento_compra.jTable_compras_detalle.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public synchronized static void Recibo_de_dinero_proveedor_jtable(String buscar) {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Recibo_de_dinero.jTable_proveedor.getModel();
+            for (int j = 0; j < Recibo_de_dinero.jTable_proveedor.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_proveedor, nombre, nombre_fantasia "
+                    + "from proveedor "
+                    + "where nombre ilike '%" + buscar + "%' "
+                    + "and nombre_fantasia ilike '%" + buscar + "%' "
+                    + "order by nombre ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Recibo_de_dinero.jTable_proveedor.getModel();
             for (int i = 0; i < data2.size(); i++) {
                 dtm.addRow(data2.get(i));
             }
@@ -3136,6 +3244,42 @@ public class Metodos {
                 data2.add(rows);
             }
             dtm = (DefaultTableModel) Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public synchronized static void Extracto_compras_proveedor_x_cuenta_jtable(String buscar) {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Extracto_cuentas_x_proveedor.jTable_proveedor.getModel();
+            for (int j = 0; j < Extracto_cuentas_x_proveedor.jTable_proveedor.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_proveedor, nombre, nombre_fantasia "
+                    + "from proveedor "
+                    + "where nombre ilike '%" + buscar + "%' "
+                    + "and nombre_fantasia ilike '%" + buscar + "%' "
+                    + "order by nombre ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    if (rs2.getObject(i + 1) != null) {
+                        rows[i] = rs2.getObject(i + 1).toString().trim();
+                    } else {
+                        rows[i] = rs2.getObject(i + 1);
+                    }
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Extracto_cuentas_x_proveedor.jTable_proveedor.getModel();
             for (int i = 0; i < data2.size(); i++) {
                 dtm.addRow(data2.get(i));
             }
@@ -4419,4 +4563,46 @@ public class Metodos {
         }
 
     }
+
+    static void Recibo_de_dinero_proveedor_guardar(String proveedor, String dinero, String concepto, Date fecha) {
+        try {
+            PreparedStatement ps = conexion.prepareStatement("select max(id_recibo_dinero_proveedores) from recibo_dinero_proveedores");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                id_recibo_dinero_proveedores = rs.getInt(1) + 1;
+            }
+            PreparedStatement st2 = conexion.prepareStatement("INSERT INTO recibo_dinero_proveedores VALUES(?,?,?,?,?)");
+            st2.setInt(1, id_recibo_dinero_proveedores);
+            st2.setInt(2, recibo_dinero_proveedores_id_proveedor);
+            st2.setDate(3, util_Date_to_sql_date(fecha));
+            st2.setLong(4, Long.parseLong(dinero.replace(".", "")));
+            st2.setString(5, concepto);
+            st2.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Guardado correctamente");
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public synchronized static String getSepararMiles(String txtprec) {
+        String valor = txtprec;
+
+        int largo = valor.length();
+        if (largo > 8) {
+            valor = valor.substring(largo - 9, largo - 6) + "." + valor.substring(largo - 6, largo - 3) + "." + valor.substring(largo - 3, largo);
+        } else if (largo > 7) {
+            valor = valor.substring(largo - 8, largo - 6) + "." + valor.substring(largo - 6, largo - 3) + "." + valor.substring(largo - 3, largo);
+        } else if (largo > 6) {
+            valor = valor.substring(largo - 7, largo - 6) + "." + valor.substring(largo - 6, largo - 3) + "." + valor.substring(largo - 3, largo);
+        } else if (largo > 5) {
+            valor = valor.substring(largo - 6, largo - 3) + "." + valor.substring(largo - 3, largo);
+        } else if (largo > 4) {
+            valor = valor.substring(largo - 5, largo - 3) + "." + valor.substring(largo - 3, largo);
+        } else if (largo > 3) {
+            valor = valor.substring(largo - 4, largo - 3) + "." + valor.substring(largo - 3, largo);
+        }
+        txtprec = valor;
+        return valor;
+    }
+
 }

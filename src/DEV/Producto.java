@@ -19,6 +19,12 @@ public class Producto extends javax.swing.JFrame {
         producto_codigo.setVisible(false);
         jTextField_precio_de_compra.setVisible(false);
         jDateChooser_vencimiento.setVisible(false);
+        jTextField_iva.setVisible(false);
+        jTextField_ubicacion_a.setVisible(false);
+        jTextField_ubicacion_de.setVisible(false);
+        producto_proveedor.setVisible(false);
+        producto_rubro.setVisible(false);
+        producto_stock_bajo.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -722,15 +728,15 @@ public class Producto extends javax.swing.JFrame {
             }
         });
 
-        producto_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre del producto o servicio"));
-        producto_nombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                producto_nombreActionPerformed(evt);
-            }
-        });
+        producto_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción"));
         producto_nombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 producto_nombreFocusLost(evt);
+            }
+        });
+        producto_nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                producto_nombreActionPerformed(evt);
             }
         });
         producto_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
