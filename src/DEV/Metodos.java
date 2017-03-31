@@ -32,6 +32,9 @@ public class Metodos {
     public static int id_producto = 0;
     public static int producto_id_ubicacion = 0;
     public static int id_proveedor = 0;
+    public static int compras_id_timbrado = 0;
+    public static int id_timbrado = 0;
+    public static int proveedor_id_timbrado = 0;
     public static int movimiento_contable_id_asiento_contable_pago = 0;
     public static int id_asiento_contable = 0;
     public static int id_asiento_contable_pago = 0;
@@ -55,6 +58,7 @@ public class Metodos {
     public static int producto_id_unidad_medida = 0;
     public static int id_productos_tipo = 0;
     public static int id_cuenta = 0;
+    public static int productos_id_timbrado = 0;
     public static int id_cliente = 0;
     public static int cuenta_bancaria_id_banco = 0;
     public static int id_cuenta_bancaria = 0;
@@ -97,6 +101,7 @@ public class Metodos {
     public static String titulo_de_pagos = "";
     public static String path = "";
     public static String titulo = "";
+    public static String empresa = "";
     public static String membrete = "";
     public static boolean entro = false;
     public static Date hoy = new Date();
@@ -260,6 +265,17 @@ public class Metodos {
     public synchronized static void Proveedor_selected() {
         DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_proveedor.getModel();
         id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
+    }
+
+    public synchronized static void Timbrado_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_timbrado.getModel();
+        id_timbrado = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_timbrado.getSelectedRow(), 0)));
+    }
+
+    public synchronized static void Compras_timbrado_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Compras.jTable_timbrado.getModel();
+        compras_id_timbrado = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_timbrado.getSelectedRow(), 0)));
+        Compras.jTextField_timbrado.setText(String.valueOf(tm.getValueAt(Compras.jTable_timbrado.getSelectedRow(), 1)));
     }
 
     public synchronized static void Asiento_compra_selected() {
@@ -441,6 +457,12 @@ public class Metodos {
         Listado_compras_por_proveedor.jtexfield_proveedor.setText(String.valueOf(tm.getValueAt(Listado_compras_por_proveedor.jTable_proveedor.getSelectedRow(), 1)).trim());
     }
 
+    public synchronized static void Listado_compras_proveedor_x_cuenta_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getModel();
+        listado_compras_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getSelectedRow(), 0)));
+        Listado_compras_x_proveedor_x_cuenta.jtexfield_proveedor.setText(String.valueOf(tm.getValueAt(Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getSelectedRow(), 1)).trim());
+    }
+
     public synchronized static void Compra_buscar_selected() {
         DefaultTableModel tm = (DefaultTableModel) Compras.jTable_buscar.getModel();
         id_compra = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_buscar.getSelectedRow(), 0)));
@@ -563,6 +585,9 @@ public class Metodos {
                 }
                 if (result.getString("nombre") != null) {
                     Proveedor.JT_Nombre.setText(result.getString("nombre").trim());
+                }
+                if (result.getString("nombre_fantasia") != null) {
+                    Proveedor.JT_Nombre_Fantasia.setText(result.getString("nombre_fantasia").trim());
                 }
                 if (result.getString("ruc") != null) {
                     Proveedor.JT_Ruc.setText(result.getString("ruc").trim());
@@ -687,9 +712,10 @@ public class Metodos {
     public static void Compras_buscar_traer_datos() {
         try {
             Statement st1 = conexion.createStatement();
-            ResultSet result = st1.executeQuery("SELECT *, proveedor.nombre as proveedor_nombre, usuario.nombre as usuario_nombre FROM compra "
+            ResultSet result = st1.executeQuery("SELECT *, proveedor.nombre as proveedor_nombre, usuario.nombre as usuario_nombre, timbrado as timbrado FROM compra "
                     + " inner join proveedor on proveedor.id_proveedor = compra.id_proveedor "
                     + " inner join compra_tipo on compra_tipo.id_compra_tipo = compra.id_compra_tipo "
+                    + " inner join timbrado on timbrado.id_timbrado = compra.id_timbrado "
                     + " inner join usuario on usuario.id_usuario = compra.id_usuario "
                     + " inner join compra_forma_pago on compra_forma_pago.id_compra_forma_pago = compra.id_compra_forma_pago "
                     + "where id_compra = '" + id_compra + "'");
@@ -698,16 +724,18 @@ public class Metodos {
                 compras_id_proveedor = result.getInt("id_proveedor");
                 compras_id_tipo = result.getInt("id_compra_tipo");
                 compras_id_forma_pago = result.getInt("id_compra_forma_pago");
+                compras_id_timbrado = result.getInt("id_timbrado");
 
                 if (result.getString("factura") != null) {
                     Compras.jt_factura.setText(result.getString("factura").trim());
                 }
+                Compras.jTextField_timbrado.setText(result.getString("timbrado").trim());
 
                 if (result.getString("fecha") != null) {
                     Compras.jDateChooser3.setDate(result.getDate("fecha"));
                 }
                 if (result.getString("proveedor_nombre") != null) {
-                    Compras.jt_Proveedor.setText(result.getString("proveedor_nombre").trim());
+                    Compras.jt_Proveedor.setText(result.getString("proveedor_nombre").trim() + " (" + result.getString("nombre_fantasia").trim() + ")");
                 }
                 if (result.getString("compra_tipo") != null) {
                     Compras.jTextField_compra_tipo.setText(result.getString("compra_tipo").trim());
@@ -822,27 +850,27 @@ public class Metodos {
 
     }
 
-    public synchronized static void Proveedor_guardar(String nombre_proveedor, String ruc, String telefono, String direccion) {
+    public synchronized static void Proveedor_guardar(String nombre_proveedor, String ruc, String telefono, String direccion, String nombre_fantasia) {
         try {
 
             if ((nombre_proveedor == null) && (nombre_proveedor.length() < 1)) {
                 JOptionPane.showMessageDialog(null, "Ingresar el Nombre");
             } else if (Metodos.id_proveedor == 0) {
 
-                int id = 0;
                 Statement st1 = conexion.createStatement();
                 ResultSet result = st1.executeQuery("SELECT MAX(id_proveedor) FROM proveedor");
                 if (result.next()) {
-                    id = result.getInt(1) + 1;
+                    id_proveedor = result.getInt(1) + 1;
                 }
 
-                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO proveedor VALUES(?,?,?,?,?,?)");
-                stUpdateProducto.setInt(1, id);
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO proveedor VALUES(?,?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id_proveedor);
                 stUpdateProducto.setString(2, nombre_proveedor);
                 stUpdateProducto.setString(3, ruc);
                 stUpdateProducto.setString(4, telefono);
                 stUpdateProducto.setString(5, direccion);
                 stUpdateProducto.setInt(6, 0);
+                stUpdateProducto.setString(7, nombre_fantasia);
                 stUpdateProducto.executeUpdate();
                 Proveedor.jButton_borrar.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
@@ -851,6 +879,7 @@ public class Metodos {
                         " UPDATE proveedor "
                         + " SET nombre ='" + nombre_proveedor + "',"
                         + " direccion ='" + direccion + "',"
+                        + " nombre_fantasia ='" + nombre_fantasia + "',"
                         + " telefono ='" + telefono + "',"
                         + " ruc ='" + ruc + "' "
                         + " WHERE id_proveedor = '" + Metodos.id_proveedor + "'");
@@ -1114,7 +1143,7 @@ public class Metodos {
             stUpdateProducto.setInt(8, compras_id_sector);
             stUpdateProducto.setInt(9, compras_id_cuenta);
             stUpdateProducto.setInt(10, Integer.parseInt(impuesto));
-            
+
             if (Integer.parseInt(impuesto) == 0) {
                 stUpdateProducto.setLong(11, total_long);
             } else {
@@ -1305,7 +1334,7 @@ public class Metodos {
                     id_compra = result.getInt(1) + 1;
                 }
 
-                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO compra VALUES(?,?,?,?,?,?,?,?,?)");
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO compra VALUES(?,?,?,?,?,?,?,?,?,?)");
                 stUpdateProducto.setInt(1, id_compra);
                 stUpdateProducto.setInt(2, compras_id_proveedor);
                 stUpdateProducto.setString(3, factura);
@@ -1315,16 +1344,64 @@ public class Metodos {
                 stUpdateProducto.setInt(7, compras_id_tipo);
                 stUpdateProducto.setInt(8, compras_id_forma_pago);
                 stUpdateProducto.setInt(9, id_usuario);
+                stUpdateProducto.setInt(10, compras_id_timbrado);
                 stUpdateProducto.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
 
             } else {
+//                Date ahora = new Date();
+//                PreparedStatement st = conexion.prepareStatement(
+//                        " UPDATE compra "
+//                        + " SET factura ='" + factura + "',"
+//                        + " fecha ='" + util_Date_to_sql_date(fecha) + "',"
+//                        + " id_proveedor ='" + compras_id_proveedor + "',"
+//                        + " id_timbrado ='" + compras_id_timbrado + "',"
+//                        + " id_compra_forma_pago ='" + compras_id_forma_pago + "',"
+//                        + " modificado_por ='" + usuario + "', "
+//                        + " modificado_fecha ='" + util_Date_to_sql_date(ahora) + "', "
+//                        + " id_compra_tipo ='" + compras_id_tipo + "' "
+//                        + " WHERE id_compra = '" + id_compra + "'");
+//                st.executeUpdate();
+
+//                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (NumberFormatException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public static void Compras_update(String factura, Date fecha) {
+        try {
+            if (id_compra == 0) {
+                Statement st1 = conexion.createStatement();
+                ResultSet result = st1.executeQuery("SELECT MAX(id_compra) FROM compra");
+                if (result.next()) {
+                    id_compra = result.getInt(1) + 1;
+                }
+
+                PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO compra VALUES(?,?,?,?,?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id_compra);
+                stUpdateProducto.setInt(2, compras_id_proveedor);
+                stUpdateProducto.setString(3, factura);
+                stUpdateProducto.setDate(4, util_Date_to_sql_date(fecha));
+                stUpdateProducto.setInt(5, 0); // borrado
+                stUpdateProducto.setInt(6, 0); // total
+                stUpdateProducto.setInt(7, compras_id_tipo);
+                stUpdateProducto.setInt(8, compras_id_forma_pago);
+                stUpdateProducto.setInt(9, id_usuario);
+                stUpdateProducto.setInt(10, compras_id_timbrado);
+                stUpdateProducto.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+
+            } else {
+
                 Date ahora = new Date();
                 PreparedStatement st = conexion.prepareStatement(
                         " UPDATE compra "
                         + " SET factura ='" + factura + "',"
                         + " fecha ='" + util_Date_to_sql_date(fecha) + "',"
                         + " id_proveedor ='" + compras_id_proveedor + "',"
+                        + " id_timbrado ='" + compras_id_timbrado + "',"
                         + " id_compra_forma_pago ='" + compras_id_forma_pago + "',"
                         + " modificado_por ='" + usuario + "', "
                         + " modificado_fecha ='" + util_Date_to_sql_date(ahora) + "', "
@@ -1332,10 +1409,10 @@ public class Metodos {
                         + " WHERE id_compra = '" + id_compra + "'");
                 st.executeUpdate();
 
-//                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
             }
-        } catch (NumberFormatException | SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+        } catch (SQLException ex) {
+            System.err.println(ex);
         }
     }
 
@@ -1513,6 +1590,18 @@ public class Metodos {
 
     }
 
+    public synchronized static void Timbrado_borrar() {
+        try {
+            PreparedStatement Update2 = conexion.prepareStatement(""
+                    + "DELETE from timbrado "
+                    + "where id_timbrado  ='" + id_timbrado + "'");
+            Update2.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+
+    }
+
     public synchronized static void Movimientos_contables_factura_borrar() {
         try {
             PreparedStatement Update2 = conexion.prepareStatement(""
@@ -1550,7 +1639,7 @@ public class Metodos {
             Update22.executeUpdate();
             JOptionPane.showMessageDialog(null, "Compra borrada correctamente");
         } catch (SQLException ex) {
-            System.err.println(ex);
+            JOptionPane.showMessageDialog(null, "ERROR: No se puede borrar. Es posible que haya un asiento asociado a esta factura.");
         }
 
     }
@@ -1595,6 +1684,7 @@ public class Metodos {
                 if (rs2.next()) {
                     membrete = rs2.getString("empresa").trim() + " RUC: " + rs2.getString("ruc").trim();
                     titulo = rs2.getString("empresa").trim() + " - Usuario: " + nombre;
+                    empresa = rs2.getString("empresa").trim();
                 }
                 new Principal().setVisible(true);
                 entro = true;
@@ -1944,6 +2034,23 @@ public class Metodos {
             parametros.put("id_proveedor", listado_compras_id_proveedor);
 
             JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + "compras_por_proveedores.jasper");
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+
+    public synchronized static void Listado_Compras_imprimir_proveedor_x_cuenta(Date desde, Date hasta) {
+        try {
+            Map parametros = new HashMap();
+            parametros.put("desde", desde);
+            parametros.put("hasta", hasta);
+            parametros.put("id_proveedor", listado_compras_id_proveedor);
+            parametros.put("titulo", empresa);
+
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + "compras_x_proveedor_x_factura.jasper");
             JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
             JasperViewer jv = new JasperViewer(jp, false);
             jv.setVisible(true);
@@ -2375,6 +2482,69 @@ public class Metodos {
                 data2.add(rows);
             }
             dtm = (DefaultTableModel) Movimientos_contables.jTable_deposito_cuentas_vinculadas.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public synchronized static void Timbrado_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Proveedor.jTable_timbrado.getModel();
+            for (int j = 0; j < Proveedor.jTable_timbrado.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_timbrado,  timbrado, vencimiento  "
+                    + "from timbrado "
+                    + "where id_proveedor = '" + id_proveedor + "'");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Proveedor.jTable_timbrado.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public synchronized static void Compras_timbrado_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Compras.jTable_timbrado.getModel();
+            for (int j = 0; j < Compras.jTable_timbrado.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_timbrado,  timbrado, vencimiento  "
+                    + "from timbrado "
+                    + "where id_proveedor = '" + compras_id_proveedor + "' "
+                    + "order by vencimiento DESC");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Compras.jTable_timbrado.getModel();
             for (int i = 0; i < data2.size(); i++) {
                 dtm.addRow(data2.get(i));
             }
@@ -2938,6 +3108,42 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Listado_compras_proveedor_x_cuenta_jtable(String buscar) {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getModel();
+            for (int j = 0; j < Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_proveedor, nombre, nombre_fantasia "
+                    + "from proveedor "
+                    + "where nombre ilike '%" + buscar + "%' "
+                    + "and nombre_fantasia ilike '%" + buscar + "%' "
+                    + "order by nombre ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    if (rs2.getObject(i + 1) != null) {
+                        rows[i] = rs2.getObject(i + 1).toString().trim();
+                    } else {
+                        rows[i] = rs2.getObject(i + 1);
+                    }
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Listado_compras_x_proveedor_x_cuenta.jTable_proveedor.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public synchronized static void Listado_compras_sector_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Listado_compras_por_sector.jTable_sector.getModel();
@@ -3157,7 +3363,7 @@ public class Metodos {
     public synchronized static void Proveedor_jtable(String buscar) {
         try {
             PreparedStatement ps = conexion.prepareStatement(""
-                    + "select id_proveedor, nombre "
+                    + "select id_proveedor, nombre, nombre_fantasia "
                     + "from proveedor "
                     + "where nombre ilike '%" + buscar + "%' "
                     + "and borrado != '1' "
@@ -3271,10 +3477,13 @@ public class Metodos {
         try {
 
             PreparedStatement ps = conexion.prepareStatement(""
-                    + "select id_proveedor, nombre "
+                    + "select id_proveedor, nombre, nombre_fantasia "
                     + "from proveedor "
-                    + "where nombre ilike '%" + buscar + "%'"
-                    + " ");
+                    + "where (nombre ilike '%" + buscar + "%' "
+                    + "or nombre_fantasia ilike '%" + buscar + "%') "
+                    + "and borrado != '1' "
+                    + "and id_proveedor > '0'"
+                    + " order by nombre");
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rsm = rs.getMetaData();
             DefaultTableModel dtm = (DefaultTableModel) Compras.jTable_proveedor.getModel();
@@ -3286,9 +3495,11 @@ public class Metodos {
             while (rs.next()) {
                 Object[] rows = new Object[rsm.getColumnCount()];
                 for (int i = 0; i < rows.length; i++) {
-
-                    rows[i] = rs.getObject(i + 1);
-
+                    if (rs.getObject(i + 1) != null) {
+                        rows[i] = rs.getObject(i + 1).toString().trim();
+                    } else {
+                        rows[i] = rs.getObject(i + 1);
+                    }
                 }
                 data.add(rows);
             }
@@ -3334,9 +3545,11 @@ public class Metodos {
     public synchronized static void Compras_buscar_jtable(String buscar) {
         try {
 
-            PreparedStatement ps = conexion.prepareStatement("select id_compra, nombre, factura, fecha from compra"
+            PreparedStatement ps = conexion.prepareStatement("select id_compra, nombre, nombre_fantasia, factura, fecha from compra"
                     + " inner join proveedor on proveedor.id_proveedor = compra.id_proveedor "
-                    + " where nombre ilike '%" + buscar + "%'");
+                    + " where nombre ilike '%" + buscar + "%' "
+                    + "or nombre_fantasia ilike '%" + buscar + "%' "
+                    + "order by fecha DESC, nombre ");
             ResultSet rs = ps.executeQuery();
             ResultSetMetaData rsm = rs.getMetaData();
             DefaultTableModel dtm = (DefaultTableModel) Compras.jTable_buscar.getModel();
@@ -3348,7 +3561,12 @@ public class Metodos {
             while (rs.next()) {
                 Object[] rows = new Object[rsm.getColumnCount()];
                 for (int i = 0; i < rows.length; i++) {
-                    rows[i] = rs.getObject(i + 1).toString().trim();
+
+                    if (rs.getObject(i + 1) != null) {
+                        rows[i] = rs.getObject(i + 1).toString().trim();
+                    } else {
+                        rows[i] = rs.getObject(i + 1);
+                    }
                 }
                 data.add(rows);
             }
@@ -3400,12 +3618,25 @@ public class Metodos {
                 j -= 1;
             }
 
-            PreparedStatement ps2 = conexion.prepareStatement("select SUM(total) "
-                    + " from compra_detalle "
+            long total = 0;
+            long iva_10 = 0;
+            long iva_5 = 0;
+            long iva_0 = 0;
+
+            PreparedStatement ps2 = conexion.prepareStatement("select * from compra_detalle "
                     + " where id_compra = '" + id_compra + "'");
             ResultSet rs2 = ps2.executeQuery();
             while (rs2.next()) {
-                Compras.jTextField_total.setText(num.format(rs2.getLong(1)));
+
+                total = rs2.getLong("total") + total;
+                iva_0 = rs2.getLong("iva_0") + iva_0;
+                iva_5 = rs2.getLong("iva_5") + iva_5;
+                iva_10 = rs2.getLong("iva_10") + iva_10;
+
+                Compras.jTextField_total.setText(num.format(total));
+                Compras.jTextField_iva_0.setText(num.format(iva_0));
+                Compras.jTextField_iva_5.setText(num.format(iva_5 / 21));
+                Compras.jTextField_iva_10.setText(num.format(iva_10 / 11));
             }
 
             PreparedStatement ps = conexion.prepareStatement(""
@@ -4166,5 +4397,26 @@ public class Metodos {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
+    }
+
+    static void Timbrado_guardar(String timbrado, Date vencimiento) {
+
+        try {
+            PreparedStatement ps = conexion.prepareStatement("select max(id_timbrado) from timbrado");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                proveedor_id_timbrado = rs.getInt(1) + 1;
+            }
+            PreparedStatement st2 = conexion.prepareStatement("INSERT INTO timbrado VALUES(?,?,?,?)");
+            st2.setInt(1, proveedor_id_timbrado);
+            st2.setInt(2, id_proveedor);
+            st2.setLong(3, Long.parseLong(timbrado));
+            st2.setDate(4, util_Date_to_sql_date(vencimiento));
+            st2.executeUpdate();
+//            JOptionPane.showMessageDialog(null, "Guardado correctamente");
+        } catch (SQLException ex) {
+            Logger.getLogger(Metodos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

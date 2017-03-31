@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="plan_de_cuentas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65eb46d0-0dff-4bf9-862e-1b9c6c5a832e">
+	<property name="ireport.zoom" value="1.948717100000002"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="desde" class="java.util.Date"/>
+	<parameter name="hasta" class="java.util.Date"/>
+	<parameter name="id_proveedor" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="titulo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select *, productos.nombre as producto_nombre, proveedor.nombre as proveedor_nombre from compra
+inner join proveedor on proveedor.id_proveedor = compra.id_proveedor
+inner join compra_detalle on compra_detalle.id_compra = compra.id_compra
+inner join cuenta on cuenta.id_cuenta = compra_detalle.id_cuenta
+inner join sector on sector.id_sector = compra_detalle.id_sector
+inner join productos on productos.id_producto = compra_detalle.id_producto
+where compra.id_proveedor = $P{id_proveedor}
+and id_compra_tipo = '2']]>
+	</queryString>
+	<field name="id_compra" class="java.lang.Integer"/>
+	<field name="id_proveedor" class="java.lang.Integer"/>
+	<field name="factura" class="java.lang.String"/>
+	<field name="fecha" class="java.sql.Date"/>
+	<field name="borrado" class="java.lang.Integer"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="id_compra_tipo" class="java.lang.Integer"/>
+	<field name="id_compra_forma_pago" class="java.lang.Integer"/>
+	<field name="id_usuario" class="java.lang.Integer"/>
+	<field name="modificado_por" class="java.lang.String"/>
+	<field name="modificado_fecha" class="java.sql.Date"/>
+	<field name="id_timbrado" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="ruc" class="java.lang.String"/>
+	<field name="direccion" class="java.lang.String"/>
+	<field name="nombre_fantasia" class="java.lang.String"/>
+	<field name="id_compra_detalle" class="java.lang.Integer"/>
+	<field name="cantidad" class="java.math.BigDecimal"/>
+	<field name="precio" class="java.math.BigDecimal"/>
+	<field name="id_producto" class="java.lang.Integer"/>
+	<field name="id_productos_ubicacion" class="java.lang.Integer"/>
+	<field name="id_sector" class="java.lang.Integer"/>
+	<field name="id_cuenta" class="java.lang.Integer"/>
+	<field name="impuesto" class="java.lang.Integer"/>
+	<field name="iva_0" class="java.math.BigDecimal"/>
+	<field name="iva_5" class="java.math.BigDecimal"/>
+	<field name="iva_10" class="java.math.BigDecimal"/>
+	<field name="nv1" class="java.lang.Integer"/>
+	<field name="nv2" class="java.lang.Integer"/>
+	<field name="nv3" class="java.lang.Integer"/>
+	<field name="nv4" class="java.lang.Integer"/>
+	<field name="nv5" class="java.lang.Integer"/>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="iva" class="java.lang.Integer"/>
+	<field name="deducible" class="java.lang.Integer"/>
+	<field name="gravada" class="java.lang.Integer"/>
+	<field name="imputable" class="java.lang.Integer"/>
+	<field name="sector" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="stock_bajo" class="java.lang.Integer"/>
+	<field name="vencimiento" class="java.sql.Date"/>
+	<field name="porcentaje" class="java.lang.Integer"/>
+	<field name="dir_imagen" class="java.lang.String"/>
+	<field name="id_productos_tipo" class="java.lang.Integer"/>
+	<field name="id_unidad_medida" class="java.lang.Integer"/>
+	<field name="producto_nombre" class="java.lang.String"/>
+	<field name="proveedor_nombre" class="java.lang.String"/>
+	<variable name="total" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[($F{precio} * $F{cantidad})]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="83" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="68" width="60" height="13" uuid="4dd50ba7-eabd-46a7-a39b-f36eeb0d255a"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="81" width="555" height="1" uuid="e3e1e4be-30dc-4591-8c09-b921707f1646"/>
+			</line>
+			<line>
+				<reportElement x="0" y="68" width="555" height="1" uuid="001f5872-ea83-4703-869f-d9205e975b1a"/>
+			</line>
+			<staticText>
+				<reportElement x="411" y="68" width="73" height="13" uuid="ccebf712-e610-4ccb-93b9-6b7db34d5a72"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura Crédito]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="491" y="68" width="43" height="13" uuid="d41b5af7-03ce-421d-adab-3d2221e0433d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="68" width="110" height="13" uuid="bdff6442-3edb-4501-a5fa-63c5773f1bc9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="0" y="24" width="555" height="23" uuid="385c6d4f-af4c-4f77-8772-f0b3ba899fea"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proveedor_nombre}.trim()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="3" width="555" height="20" uuid="7222a0da-54b1-440e-9c63-5aa9631edb45"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="202" y="47" width="32" height="11" uuid="fbd48f87-56ad-450b-9434-9a7e12e42e0c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Desde: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="47" width="32" height="11" uuid="ad04ba3b-9b93-4f85-b24e-747ef7550acb"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="230" y="47" width="55" height="11" uuid="7ef15980-2dab-44bb-b001-ac83673eaf80"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{desde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="314" y="47" width="100" height="11" uuid="f6753bf8-cf43-4d8e-8ffb-5f884860c442"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hasta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="13" width="555" height="1" uuid="d453baf0-3927-4f06-a990-13079a154a94"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="420" y="1" width="51" height="11" uuid="ca2b3d0f-e6d2-4d66-99bd-2eaf2ac4bb5f"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{factura}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="4" y="1" width="51" height="11" uuid="21823060-b204-4781-92f0-85043ce16552"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="491" y="1" width="51" height="11" uuid="3ae419bc-029c-4f87-9ba3-e6009fcc1808"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precio} * $F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="62" y="1" width="329" height="11" uuid="22400f5d-0ebc-4d10-886c-57463bba3fd3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="36" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="5" y="10" width="100" height="20" uuid="42a9e257-bbb5-4e43-96d4-47191c177ab7"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="6" width="555" height="1" uuid="e0045206-b07a-4e3a-a2aa-13ef1fe05e5a"/>
+			</line>
+			<staticText>
+				<reportElement x="430" y="10" width="40" height="20" uuid="e5d8dbd1-3ef5-48f0-b35a-2a0b537956f5"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField pattern="#,##0;-#,##0">
+				<reportElement x="470" y="10" width="80" height="20" uuid="059dcfb1-d7b5-4af2-bcba-2d238073dc24"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
