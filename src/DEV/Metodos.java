@@ -34,6 +34,11 @@ public class Metodos {
     public static int id_proveedor = 0;
     public static int id_recibo_dinero_proveedores = 0;
     public static int compras_id_timbrado = 0;
+    public static int cheques_id_proveedor = 0;
+    public static int cheques_id_cuenta_bancaria = 0;
+    public static int id_cheque = 0;
+    public static int depositos_bancarios_id_cuenta_bancaria = 0;
+    public static int id_deposito_bancario = 0;
     public static int recibo_dinero_proveedores_id_proveedor = 0;
     public static int id_timbrado = 0;
     public static int proveedor_id_timbrado = 0;
@@ -137,6 +142,23 @@ public class Metodos {
                 Asiento_compra.jTextField_factura.setText(result.getString("factura").trim());
                 Asiento_compra.jTextField_asiento.setText(result.getString("id_asiento_compra"));
                 Asiento_compra.jDateChooser_fecha.setDate(result.getDate("fecha"));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public static void Cuenta_bancaria_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery(""
+                    + "SELECT * FROM cuenta_bancaria "
+                    + "inner join banco on banco.id_banco = cuenta_bancaria.id_banco "
+                    + "where id_cuenta_bancaria = '" + id_cuenta_bancaria + "'"
+                    + " ");
+            while (result.next()) {
+                cuenta_bancaria_id_banco = result.getInt("id_banco");
+                Cuenta_bancaria.jt_banco.setText(result.getString("banco").trim());
             }
         } catch (SQLException ex) {
             System.err.println(ex);
@@ -269,6 +291,11 @@ public class Metodos {
         id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_proveedor.getSelectedRow(), 0)));
     }
 
+    public synchronized static void Depositos_bancarios_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Depositos_bancarios.jTable_buscar.getModel();
+        id_deposito_bancario = Integer.parseInt(String.valueOf(tm.getValueAt(Depositos_bancarios.jTable_buscar.getSelectedRow(), 0)));
+    }
+
     public synchronized static void Timbrado_selected() {
         DefaultTableModel tm = (DefaultTableModel) Proveedor.jTable_timbrado.getModel();
         id_timbrado = Integer.parseInt(String.valueOf(tm.getValueAt(Proveedor.jTable_timbrado.getSelectedRow(), 0)));
@@ -278,6 +305,37 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Compras.jTable_timbrado.getModel();
         compras_id_timbrado = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_timbrado.getSelectedRow(), 0)));
         Compras.jTextField_timbrado.setText(String.valueOf(tm.getValueAt(Compras.jTable_timbrado.getSelectedRow(), 1)));
+    }
+
+    public synchronized static void Cheques_proveedor_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Cheques.jTable_proveedor.getModel();
+        cheques_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Cheques.jTable_proveedor.getSelectedRow(), 0)));
+        Cheques.jTextField_proveedor.setText(String.valueOf(tm.getValueAt(Cheques.jTable_proveedor.getSelectedRow(), 1)));
+    }
+    
+    public synchronized static void Cheques_cuentas_bancarias_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Cheques.jTable_cuenta_bancaria.getModel();
+        cheques_id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Cheques.jTable_cuenta_bancaria.getSelectedRow(), 0)));
+        Cheques.jTextField_cuenta.setText(String.valueOf(tm.getValueAt(Cheques.jTable_cuenta_bancaria.getSelectedRow(), 1))+ " - "+ String.valueOf(tm.getValueAt(Cheques.jTable_cuenta_bancaria.getSelectedRow(), 2)));
+    }
+
+    public synchronized static void Deposito_bancario_cuenta_bancaria_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Depositos_bancarios.jTable_cuentas.getModel();
+        depositos_bancarios_id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Depositos_bancarios.jTable_cuentas.getSelectedRow(), 0)));
+        Depositos_bancarios.jTextField_cuenta_bancaria.setText(String.valueOf(tm.getValueAt(Depositos_bancarios.jTable_cuentas.getSelectedRow(), 1)) + " - " + String.valueOf(tm.getValueAt(Depositos_bancarios.jTable_cuentas.getSelectedRow(), 2)));
+    }
+
+    public synchronized static void Cuentas_bancarias_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Cuenta_bancaria.jTable_cuenta_bancaria.getModel();
+        id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Cuenta_bancaria.jTable_cuenta_bancaria.getSelectedRow(), 0)));
+        Cuenta_bancaria.jt_numero.setText(String.valueOf(tm.getValueAt(Cuenta_bancaria.jTable_cuenta_bancaria.getSelectedRow(), 1)));
+        Cuenta_bancaria.jt_nombre.setText(String.valueOf(tm.getValueAt(Cuenta_bancaria.jTable_cuenta_bancaria.getSelectedRow(), 2)));
+    }
+
+    public synchronized static void Bancos_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Banco.jTable_bancos.getModel();
+        id_banco = Integer.parseInt(String.valueOf(tm.getValueAt(Banco.jTable_bancos.getSelectedRow(), 0)));
+        Banco.jt_nombre.setText(String.valueOf(tm.getValueAt(Banco.jTable_bancos.getSelectedRow(), 1)).toString().trim());
     }
 
     public synchronized static void Recido_de_dinero_proveedor_selected() {
@@ -609,6 +667,31 @@ public class Metodos {
                 if (result.getString("telefono") != null) {
                     Proveedor.JT_Telefono.setText(result.getString("telefono").trim());
                 }
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    public static void Depositos_bancarios_traer_datos() {
+        try {
+            Statement st1 = conexion.createStatement();
+            ResultSet result = st1.executeQuery(""
+                    + "SELECT *, cuenta_bancaria.numero as cuenta_numero, banco "
+                    + "FROM deposito_bancario "
+                    + "inner join cuenta_bancaria on cuenta_bancaria.id_cuenta_bancaria = deposito_bancario.id_cuenta_bancaria "
+                    + "inner join banco on banco.id_banco = cuenta_bancaria.id_banco "
+                    + "where id_deposito_bancario = '" + id_deposito_bancario + "'");
+            if (result.next()) {
+
+                depositos_bancarios_id_cuenta_bancaria = result.getInt("id_cuenta_bancaria");
+
+                Depositos_bancarios.jTextField_comprobante.setText(result.getString("numero"));
+                Depositos_bancarios.jTextField_monto.setText(result.getString("monto"));
+                Depositos_bancarios.jDateChooser_fecha.setDate(result.getDate("fecha"));
+                Depositos_bancarios.jTextField_cuenta_bancaria.setText(result.getString("cuenta_numero").trim() + " - " + result.getString("banco").trim());
+                Depositos_bancarios.jTextField_cuenta_bancaria.requestFocus();
+
             }
         } catch (SQLException ex) {
             System.err.println(ex);
@@ -3966,6 +4049,188 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Cheques_cuentas_bancarias_jtable() {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_cuenta_bancaria, numero, banco "
+                    + "from cuenta_bancaria "
+                    + "inner join banco on banco.id_banco = cuenta_bancaria.id_banco ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Cheques.jTable_cuenta_bancaria.getModel();
+            for (int j = 0; j < Cheques.jTable_cuenta_bancaria.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1).toString().trim();
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Cheques.jTable_cuenta_bancaria.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Cheques_proveedor_jtable(String buscar) {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_proveedor, nombre "
+                    + "from proveedor "
+                    + "where nombre ilike '%" + buscar + "%'");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Cheques.jTable_proveedor.getModel();
+            for (int j = 0; j < Cheques.jTable_proveedor.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1).toString().trim();
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Cheques.jTable_proveedor.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Depositos_bancarios_jtable() {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_deposito_bancario, deposito_bancario.numero, fecha, monto, cuenta_bancaria.numero "
+                    + "from deposito_bancario "
+                    + "inner join cuenta_bancaria on cuenta_bancaria.id_cuenta_bancaria = deposito_bancario.id_cuenta_bancaria "
+                    + "order by fecha ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Depositos_bancarios.jTable_buscar.getModel();
+            for (int j = 0; j < Depositos_bancarios.jTable_buscar.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1).toString().trim();
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Depositos_bancarios.jTable_buscar.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Depositos_bancarios_cuentas_bancarias_jtable() {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_cuenta_bancaria, numero, banco "
+                    + "from cuenta_bancaria "
+                    + "inner join banco on banco.id_banco = cuenta_bancaria.id_banco ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Depositos_bancarios.jTable_cuentas.getModel();
+            for (int j = 0; j < Depositos_bancarios.jTable_cuentas.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1).toString().trim();
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Depositos_bancarios.jTable_cuentas.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Cuentas_bancarias_jtable() {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_cuenta_bancaria, numero, nombre "
+                    + "from cuenta_bancaria order by nombre ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Cuenta_bancaria.jTable_cuenta_bancaria.getModel();
+            for (int j = 0; j < Cuenta_bancaria.jTable_cuenta_bancaria.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    if (rs.getObject(i + 1) != null) {
+                        rows[i] = rs.getObject(i + 1).toString().trim();
+                    }
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Cuenta_bancaria.jTable_cuenta_bancaria.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
+    public synchronized static void Bancos_jatble() {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select * "
+                    + "from banco "
+                    + "order by banco");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Banco.jTable_bancos.getModel();
+            for (int j = 0; j < Banco.jTable_bancos.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1);
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Banco.jTable_bancos.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
     public synchronized static void Compras_ubicacion_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Compras.jTable_ubicacion.getModel();
@@ -4407,7 +4672,7 @@ public class Metodos {
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
             } else {
                 PreparedStatement Update = conexion.prepareStatement("UPDATE banco "
-                        + "SET nombre = '" + nombre + "' "
+                        + "SET banco = '" + nombre + "' "
                         + "WHERE id_banco ='" + id_banco + "'");
                 Update.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Actualizado correctamente");
@@ -4636,6 +4901,42 @@ public class Metodos {
         }
     }
 
+    static void Depositos_bancarios_guardar(String comprobante, String importe, Date fecha) {
+        try {
+            if (id_deposito_bancario == 0) {
+
+                PreparedStatement ps = conexion.prepareStatement("select max(id_deposito_bancario) from deposito_bancario");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_deposito_bancario = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO deposito_bancario VALUES(?,?,?,?,?,?,?)");
+                st2.setInt(1, id_deposito_bancario);
+                st2.setLong(2, Long.parseLong(comprobante.replace(".", "")));
+                st2.setDate(3, util_Date_to_sql_date(fecha));
+                st2.setLong(4, Long.parseLong(importe.replace(".", "")));
+                st2.setInt(5, depositos_bancarios_id_cuenta_bancaria);
+                st2.setLong(6, 0);
+                st2.setLong(7, 0);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+
+            } else {
+                PreparedStatement st = conexion.prepareStatement(
+                        " UPDATE deposito_bancario "
+                        + " SET monto ='" + Long.parseLong(importe.replace(".", "")) + "',"
+                        + " fecha ='" + util_Date_to_sql_date(fecha) + "',"
+                        + " numero ='" + Long.parseLong(comprobante.replace(".", "")) + "',"
+                        + " id_cuenta_bancaria ='" + depositos_bancarios_id_cuenta_bancaria + "' "
+                        + " WHERE id_deposito_bancario = '" + id_deposito_bancario + "'");
+                st.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public synchronized static String getSepararMiles(String txtprec) {
         String valor = txtprec;
 
@@ -4657,4 +4958,43 @@ public class Metodos {
         return valor;
     }
 
+    static void Cheque_guardar(String numero, String importe, Date fecha, String descripcion) {
+        try {
+            if (id_cheque == 0) {
+
+                PreparedStatement ps = conexion.prepareStatement("select max(id_cheque) from cheque");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_cheque = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO cheque VALUES(?,?,?,?,?,?,?,?,?)");
+                st2.setInt(1, id_cheque);
+                st2.setInt(2, cheques_id_cuenta_bancaria);
+                st2.setInt(3, cheques_id_proveedor);
+                st2.setLong(4, Long.parseLong(numero.replace(".", "")));
+                st2.setLong(5, Long.parseLong(importe.replace(".", "")));
+                st2.setDate(6, util_Date_to_sql_date(fecha));
+                st2.setString(7, descripcion);
+                st2.setInt(8, 0);
+                st2.setInt(9, 0);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+
+            } else {
+                PreparedStatement st = conexion.prepareStatement(
+                        " UPDATE deposito_bancario "
+                        + " SET id_cuenta_bancaria ='" + cheques_id_cuenta_bancaria + "',"
+                        + " fecha ='" + util_Date_to_sql_date(fecha) + "',"
+                        + " numero ='" + Long.parseLong(numero.replace(".", "")) + "',"
+                        + " importe ='" + Long.parseLong(importe.replace(".", "")) + "',"
+                        + " id_proveedor ='" + cheques_id_proveedor + "',"
+                        + " id_cuenta_bancaria ='" + cheques_id_cuenta_bancaria + "' "
+                        + " WHERE id_cheque = '" + id_cheque + "'");
+                st.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
 }

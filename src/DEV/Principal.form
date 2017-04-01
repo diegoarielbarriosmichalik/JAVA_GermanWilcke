@@ -209,7 +209,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem44">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cuentas Corrientes"/>
+                <Property name="text" type="java.lang.String" value="Cuentas Bancarias"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem44ActionPerformed"/>
@@ -524,20 +524,30 @@
                 <Property name="text" type="java.lang.String" value="Ordenes de Compra"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator26">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem24">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cheques"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem26">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Depositos bancarios"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem24ActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem22">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Transferencia bancarias"/>
+                <Property name="text" type="java.lang.String" value="Transferencias Bancarias"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem26">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Dep&#xf3;sitos Bancarios"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem26ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator27">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem30">
               <Properties>
@@ -549,7 +559,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem25">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Recibos"/>
+                <Property name="text" type="java.lang.String" value="Recibos de Dinero"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator22">
@@ -558,6 +568,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Libro banco"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem27ActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
             </MenuItem>
@@ -590,6 +603,8 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Listado de recibos"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator25">
             </MenuItem>
           </SubComponents>
         </Menu>

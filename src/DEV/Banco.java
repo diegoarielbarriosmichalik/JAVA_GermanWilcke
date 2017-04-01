@@ -1,7 +1,5 @@
 package DEV;
 
-import DEV.Conexion;
-import DEV.Metodos;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -31,8 +29,7 @@ public class Banco extends javax.swing.JFrame {
         jDialog_buscar = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_cliente = new javax.swing.JTable();
-        jTextField_buscar = new javax.swing.JTextField();
+        jTable_bancos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jt_nombre = new javax.swing.JTextField();
@@ -49,7 +46,7 @@ public class Banco extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
 
-        jTable_cliente.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_bancos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -65,33 +62,23 @@ public class Banco extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable_cliente.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTable_bancos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable_clienteMouseClicked(evt);
+                jTable_bancosMouseClicked(evt);
             }
         });
-        jTable_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTable_bancos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTable_clienteKeyPressed(evt);
+                jTable_bancosKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable_cliente);
-        if (jTable_cliente.getColumnModel().getColumnCount() > 0) {
-            jTable_cliente.getColumnModel().getColumn(0).setResizable(false);
-            jTable_cliente.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTable_cliente.getColumnModel().getColumn(1).setResizable(false);
-            jTable_cliente.getColumnModel().getColumn(1).setPreferredWidth(470);
+        jScrollPane1.setViewportView(jTable_bancos);
+        if (jTable_bancos.getColumnModel().getColumnCount() > 0) {
+            jTable_bancos.getColumnModel().getColumn(0).setResizable(false);
+            jTable_bancos.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_bancos.getColumnModel().getColumn(1).setResizable(false);
+            jTable_bancos.getColumnModel().getColumn(1).setPreferredWidth(470);
         }
-
-        jTextField_buscar.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
-        jTextField_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_buscarKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_buscarKeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -99,18 +86,14 @@ public class Banco extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
-                    .addComponent(jTextField_buscar))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -286,25 +269,11 @@ public class Banco extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
-        //  Metodos.Cliente_update();
         jButton_borrar.setVisible(false);
     }//GEN-LAST:event_jButton_borrarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        //Facturacion.jT_buscador.requestFocus();
-//        if (Metodos.formulario_que_pide == 1) {
-//            Metodos.Facturacion_update_cliente(Metodos.id_cliente);
-//            Metodos.formulario_que_pide = 0;
-//        }
-//        if (Metodos.formulario_que_pide == 4) {
-//            Metodos.formulario_que_pide = 0;
-//         //   Facturacion_Terminar.jTextField_ruc.setText(jt_ruc.getText());
-//         //   Facturacion_Terminar.jTextField_ci.setText(jTextField_ci.getText());
-//            Facturacion_Terminar.jTextField_nombre.setText(jt_nombre.getText());
-//            Facturacion_Terminar.jTextField_nombre.requestFocus();
-//
-//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jt_nombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_nombreFocusLost
@@ -315,22 +284,14 @@ public class Banco extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
-//
-//        if (evt.getKeyCode() == KeyEvent.VK_F1) {
-//            new Cliente_buscar().setVisible(true);
-//            Cliente_buscar.jT_Buscar.setText("");
-//            Cliente_buscar.formulario = 1;
-//        }
-
     }//GEN-LAST:event_jt_nombreKeyPressed
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
-//        jDialog_buscar();
+        jDialog_buscar();
+        Metodos.Bancos_jatble();
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
     public void jDialog_buscar() {
-        jTextField_buscar.setText("");
-        jTextField_buscar.requestFocus();
         jDialog_buscar.setVisible(true);
         jDialog_buscar.setTitle("Buscar cliente");
         jDialog_buscar.setSize(500, 500);
@@ -340,43 +301,29 @@ public class Banco extends javax.swing.JFrame {
     }
 
 
-    private void jTable_clienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_clienteKeyPressed
+    private void jTable_bancosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_bancosKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//            jDialog_buscar.setVisible(false);
-//            jt_nombre.requestFocus();
+            jDialog_buscar.setVisible(false);
+            jt_nombre.requestFocus();
         }
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-//            jDialog_buscar.setVisible(false);
-//            Metodos.Cliente_selected();
-//            Metodos.Cliente_traer_datos();
-//            jt_nombre.requestFocus();
-//            jButton_borrar.setVisible(true);
+            jDialog_buscar.setVisible(false);
+            Metodos.Bancos_selected();
+            jt_nombre.requestFocus();
+            jButton_borrar.setVisible(true);
 
         }
-    }//GEN-LAST:event_jTable_clienteKeyPressed
+    }//GEN-LAST:event_jTable_bancosKeyPressed
 
-    private void jTextField_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscarKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-//            jDialog_buscar.setVisible(false);
-//            jt_nombre.requestFocus();
-        }
-
-
-    }//GEN-LAST:event_jTextField_buscarKeyPressed
-
-    private void jTable_clienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_clienteMouseClicked
-//        Metodos.Cliente_selected();
-//        Metodos.Cliente_traer_datos();
-//        jDialog_buscar.setVisible(false);
-//        jButton_borrar.setVisible(true);
-    }//GEN-LAST:event_jTable_clienteMouseClicked
-
-    private void jTextField_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscarKeyReleased
-//        Metodos.Cliente_jatble(jTextField_buscar.getText());
-    }//GEN-LAST:event_jTextField_buscarKeyReleased
+    private void jTable_bancosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable_bancosMouseClicked
+        jDialog_buscar.setVisible(false);
+        Metodos.Bancos_selected();
+        jt_nombre.requestFocus();
+        jButton_borrar.setVisible(true);
+    }//GEN-LAST:event_jTable_bancosMouseClicked
 
     private void jt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jt_nombreActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jt_nombreActionPerformed
 
     public static void main(String args[]) {
@@ -409,8 +356,7 @@ public class Banco extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    public static javax.swing.JTable jTable_cliente;
-    private javax.swing.JTextField jTextField_buscar;
+    public static javax.swing.JTable jTable_bancos;
     public static javax.swing.JTextField jt_nombre;
     // End of variables declaration//GEN-END:variables
 }

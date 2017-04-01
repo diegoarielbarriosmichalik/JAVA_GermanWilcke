@@ -117,9 +117,11 @@ public class Principal extends javax.swing.JFrame {
         jSeparator23 = new javax.swing.JPopupMenu.Separator();
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenuItem36 = new javax.swing.JMenuItem();
+        jSeparator26 = new javax.swing.JPopupMenu.Separator();
         jMenuItem24 = new javax.swing.JMenuItem();
-        jMenuItem26 = new javax.swing.JMenuItem();
         jMenuItem22 = new javax.swing.JMenuItem();
+        jMenuItem26 = new javax.swing.JMenuItem();
+        jSeparator27 = new javax.swing.JPopupMenu.Separator();
         jMenuItem30 = new javax.swing.JMenuItem();
         jMenuItem25 = new javax.swing.JMenuItem();
         jSeparator22 = new javax.swing.JPopupMenu.Separator();
@@ -131,6 +133,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem31 = new javax.swing.JMenuItem();
         jMenuItem33 = new javax.swing.JMenuItem();
         jMenuItem35 = new javax.swing.JMenuItem();
+        jSeparator25 = new javax.swing.JPopupMenu.Separator();
         jMenu1 = new javax.swing.JMenu();
         jMenu8 = new javax.swing.JMenu();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
@@ -311,7 +314,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem43);
 
-        jMenuItem44.setText("Cuentas Corrientes");
+        jMenuItem44.setText("Cuentas Bancarias");
         jMenuItem44.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem44ActionPerformed(evt);
@@ -611,15 +614,27 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem36.setText("Ordenes de Compra");
         jMenu4.add(jMenuItem36);
+        jMenu4.add(jSeparator26);
 
         jMenuItem24.setText("Cheques");
+        jMenuItem24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem24ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem24);
 
-        jMenuItem26.setText("Depositos bancarios");
-        jMenu4.add(jMenuItem26);
-
-        jMenuItem22.setText("Transferencia bancarias");
+        jMenuItem22.setText("Transferencias Bancarias");
         jMenu4.add(jMenuItem22);
+
+        jMenuItem26.setText("Depósitos Bancarios");
+        jMenuItem26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem26ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem26);
+        jMenu4.add(jSeparator27);
 
         jMenuItem30.setText("Pagarés");
         jMenuItem30.addActionListener(new java.awt.event.ActionListener() {
@@ -629,11 +644,16 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem30);
 
-        jMenuItem25.setText("Recibos");
+        jMenuItem25.setText("Recibos de Dinero");
         jMenu4.add(jMenuItem25);
         jMenu4.add(jSeparator22);
 
         jMenuItem27.setText("Libro banco");
+        jMenuItem27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem27ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem27);
         jMenu4.add(jSeparator2);
 
@@ -654,6 +674,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem35.setText("Listado de recibos");
         jMenu4.add(jMenuItem35);
+        jMenu4.add(jSeparator25);
 
         jMenuBar1.add(jMenu4);
 
@@ -959,6 +980,18 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem57ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem57ActionPerformed
         new Extracto_cuentas_x_proveedor().setVisible(true);
     }//GEN-LAST:event_jMenuItem57ActionPerformed
+
+    private void jMenuItem26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem26ActionPerformed
+        new Depositos_bancarios().setVisible(true);
+    }//GEN-LAST:event_jMenuItem26ActionPerformed
+
+    private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem27ActionPerformed
+
+    private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
+        new Cheques().setVisible(true);
+    }//GEN-LAST:event_jMenuItem24ActionPerformed
     
     public static void main(String args[]) {
         try {
@@ -1071,6 +1104,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator22;
     private javax.swing.JPopupMenu.Separator jSeparator23;
     private javax.swing.JPopupMenu.Separator jSeparator24;
+    private javax.swing.JPopupMenu.Separator jSeparator25;
+    private javax.swing.JPopupMenu.Separator jSeparator26;
+    private javax.swing.JPopupMenu.Separator jSeparator27;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JPopupMenu.Separator jSeparator5;
