@@ -4,16 +4,25 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
 public class Libro_banco extends javax.swing.JFrame {
-
+    
     public Libro_banco() {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Libro Banco");
-        setIconImage(new ImageIcon(getClass().getResource("/Images/4k_icon.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/Imagenes/4k_icon.png")).getImage());
         jDateChooser_a.setDate(Metodos.hoy);
         jDateChooser_de.setDate(Metodos.hoy);
     }
-
+    
+    public void jDialog_cuentas_bancarias() {
+        jDialog_cuentas_bancarias.setVisible(true);
+        jDialog_cuentas_bancarias.setTitle("Cuentas Bancarias");
+        jDialog_cuentas_bancarias.setSize(500, 500);
+        jDialog_cuentas_bancarias.setLocationRelativeTo(null);
+        jDialog_cuentas_bancarias.setAlwaysOnTop(true);
+        jDialog_cuentas_bancarias.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/4k_icon.png")).getImage());
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -43,6 +52,14 @@ public class Libro_banco extends javax.swing.JFrame {
                 "ID", "Numero", "Banco"
             }
         ));
+        jTable_cuenta_bancari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_cuenta_bancariKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable_cuenta_bancariKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable_cuenta_bancari);
         if (jTable_cuenta_bancari.getColumnModel().getColumnCount() > 0) {
             jTable_cuenta_bancari.getColumnModel().getColumn(1).setPreferredWidth(235);
@@ -173,7 +190,7 @@ public class Libro_banco extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      //  Metodos.getMovimientoBanco();
+       Metodos.Imprimir_libro_banco(jDateChooser_de.getDate(), jDateChooser_a.getDate(), jTextField_cuenta.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField_cuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_cuentaMouseClicked
@@ -182,7 +199,8 @@ public class Libro_banco extends javax.swing.JFrame {
 
     private void jTextField_cuentaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_cuentaKeyPressed
         if ((evt.getKeyCode() == KeyEvent.VK_F1)) {
-        
+            jDialog_cuentas_bancarias();
+            Metodos.Libro_banco_cuentas_bancarias_jtable();
         }
         if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
             this.setVisible(false);
@@ -199,6 +217,20 @@ public class Libro_banco extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_cuentaKeyReleased
 
+    private void jTable_cuenta_bancariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_cuenta_bancariKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
+            jDialog_cuentas_bancarias.setVisible(false);
+        }
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
+            Metodos.Libro_banco_cuentas_bancarias_selected();
+            jDialog_cuentas_bancarias.setVisible(false);
+        }
+    }//GEN-LAST:event_jTable_cuenta_bancariKeyPressed
+
+    private void jTable_cuenta_bancariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_cuenta_bancariKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable_cuenta_bancariKeyReleased
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
 public class Cheques extends javax.swing.JFrame {
-
+    
     public Cheques() {
         initComponents();
         setLocationRelativeTo(null);
@@ -14,7 +14,7 @@ public class Cheques extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/4k_icon.png")).getImage());
         Clear();
     }
-
+    
     public static void Clear() {
         jTextField_proveedor.setText("");
         jTextField_buscar_proveedor.setText("");
@@ -26,8 +26,9 @@ public class Cheques extends javax.swing.JFrame {
         jTextField_numero.requestFocus();
         Metodos.cheques_id_cuenta_bancaria = 0;
         Metodos.cheques_id_proveedor = 0;
+        Metodos.id_cheque = 0;
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -327,6 +328,11 @@ public class Cheques extends javax.swing.JFrame {
         });
 
         jTextField_importe.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuenta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 255)), "Importe")); // NOI18N
+        jTextField_importe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_importeKeyReleased(evt);
+            }
+        });
 
         jTextField_descripcion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuenta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 255)), "Descripción")); // NOI18N
 
@@ -489,7 +495,7 @@ public class Cheques extends javax.swing.JFrame {
                 Robot r = new Robot();
                 r.keyPress(KeyEvent.VK_DOWN);
             } catch (AWTException ex) {
-
+                
             }
         } else {
             Metodos.Cheques_proveedor_jtable(jTextField_buscar_proveedor.getText());
@@ -532,6 +538,10 @@ public class Cheques extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable_cuenta_bancariaKeyPressed
 
+    private void jTextField_importeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_importeKeyReleased
+        jTextField_importe.setText(Metodos.getSepararMiles(jTextField_importe.getText().replace(".", "")));
+    }//GEN-LAST:event_jTextField_importeKeyReleased
+    
     public void jDialog_cheques() {
         jDialog_cheques.setVisible(true);
         jDialog_cheques.setTitle("Cheques");
@@ -539,7 +549,7 @@ public class Cheques extends javax.swing.JFrame {
         jDialog_cheques.setLocationRelativeTo(null);
         jDialog_cheques.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/4k_icon.png")).getImage());
     }
-
+    
     public void jDialog_Proveedor() {
         jDialog_proveedor.setVisible(true);
         jDialog_proveedor.setTitle("Beneficiarios");
@@ -549,7 +559,7 @@ public class Cheques extends javax.swing.JFrame {
         jTextField_buscar_proveedor.setText("");
         jTextField_buscar_proveedor.requestFocus();
     }
-
+    
     public void jDialog_cuenta_bancaria() {
         jDialog_cuenta_bancaria.setVisible(true);
         jDialog_cuenta_bancaria.setTitle("Cuentas Bancarias");
@@ -557,7 +567,7 @@ public class Cheques extends javax.swing.JFrame {
         jDialog_cuenta_bancaria.setLocationRelativeTo(null);
         jDialog_cuenta_bancaria.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/4k_icon.png")).getImage());
     }
-
+    
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

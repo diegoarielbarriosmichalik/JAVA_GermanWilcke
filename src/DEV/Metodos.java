@@ -26,6 +26,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class Metodos {
 
     public static int id_usuario = 0;
+    public static int id_transferencia = 0;
     public static int id_tipo_pago = 0;
     public static int listado_pagos_tipo_pago = 0;
     public static int id_rubro = 0;
@@ -34,6 +35,8 @@ public class Metodos {
     public static int id_proveedor = 0;
     public static int id_recibo_dinero_proveedores = 0;
     public static int compras_id_timbrado = 0;
+    public static int libro_banco_id_cuenta_bancaria = 0;
+    public static int transferencia_id_cuenta_bancaria = 0;
     public static int cheques_id_proveedor = 0;
     public static int cheques_id_cuenta_bancaria = 0;
     public static int id_cheque = 0;
@@ -307,16 +310,28 @@ public class Metodos {
         Compras.jTextField_timbrado.setText(String.valueOf(tm.getValueAt(Compras.jTable_timbrado.getSelectedRow(), 1)));
     }
 
+    public synchronized static void Libro_banco_cuentas_bancarias_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Libro_banco.jTable_cuenta_bancari.getModel();
+        libro_banco_id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Libro_banco.jTable_cuenta_bancari.getSelectedRow(), 0)));
+        Libro_banco.jTextField_cuenta.setText(String.valueOf(tm.getValueAt(Libro_banco.jTable_cuenta_bancari.getSelectedRow(), 1)) + " - " + String.valueOf(tm.getValueAt(Libro_banco.jTable_cuenta_bancari.getSelectedRow(), 2)));
+    }
+
+    public synchronized static void Transferencia_cuenta_bancaria_selected() {
+        DefaultTableModel tm = (DefaultTableModel) Transferencias.jTable_cuenta_bancaria.getModel();
+        transferencia_id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Transferencias.jTable_cuenta_bancaria.getSelectedRow(), 0)));
+        Transferencias.jTextField_cuenta_bancaria.setText(String.valueOf(tm.getValueAt(Transferencias.jTable_cuenta_bancaria.getSelectedRow(), 1)));
+    }
+
     public synchronized static void Cheques_proveedor_selected() {
         DefaultTableModel tm = (DefaultTableModel) Cheques.jTable_proveedor.getModel();
         cheques_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Cheques.jTable_proveedor.getSelectedRow(), 0)));
         Cheques.jTextField_proveedor.setText(String.valueOf(tm.getValueAt(Cheques.jTable_proveedor.getSelectedRow(), 1)));
     }
-    
+
     public synchronized static void Cheques_cuentas_bancarias_selected() {
         DefaultTableModel tm = (DefaultTableModel) Cheques.jTable_cuenta_bancaria.getModel();
         cheques_id_cuenta_bancaria = Integer.parseInt(String.valueOf(tm.getValueAt(Cheques.jTable_cuenta_bancaria.getSelectedRow(), 0)));
-        Cheques.jTextField_cuenta.setText(String.valueOf(tm.getValueAt(Cheques.jTable_cuenta_bancaria.getSelectedRow(), 1))+ " - "+ String.valueOf(tm.getValueAt(Cheques.jTable_cuenta_bancaria.getSelectedRow(), 2)));
+        Cheques.jTextField_cuenta.setText(String.valueOf(tm.getValueAt(Cheques.jTable_cuenta_bancaria.getSelectedRow(), 1)) + " - " + String.valueOf(tm.getValueAt(Cheques.jTable_cuenta_bancaria.getSelectedRow(), 2)));
     }
 
     public synchronized static void Deposito_bancario_cuenta_bancaria_selected() {
@@ -3074,6 +3089,37 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Libro_banco_cuentas_bancarias_jtable() {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Libro_banco.jTable_cuenta_bancari.getModel();
+            for (int j = 0; j < Libro_banco.jTable_cuenta_bancari.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_cuenta_bancaria,  numero, banco  "
+                    + "from cuenta_bancaria "
+                    + "inner join banco on banco.id_banco = cuenta_bancaria.id_banco "
+                    + "order by banco ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Libro_banco.jTable_cuenta_bancari.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public synchronized static void Cuentas_vinculdas_cargar_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Cuentas_vinculadas.jTable_cuentas_vinculadas.getModel();
@@ -4079,6 +4125,36 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Tranferencias_cuentas_bancarias_jtable() {
+        try {
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select id_cuenta_bancaria, numero, banco "
+                    + "from cuenta_bancaria "
+                    + "inner join banco on banco.id_banco = cuenta_bancaria.id_banco ");
+            ResultSet rs = ps.executeQuery();
+            ResultSetMetaData rsm = rs.getMetaData();
+            DefaultTableModel dtm = (DefaultTableModel) Transferencias.jTable_cuenta_bancaria.getModel();
+            for (int j = 0; j < Transferencias.jTable_cuenta_bancaria.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            ArrayList<Object[]> data = new ArrayList<>();
+            while (rs.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs.getObject(i + 1).toString().trim();
+                }
+                data.add(rows);
+            }
+            dtm = (DefaultTableModel) Transferencias.jTable_cuenta_bancaria.getModel();
+            for (int i = 0; i < data.size(); i++) {
+                dtm.addRow(data.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error: " + ex);
+        }
+    }
+
     public synchronized static void Cheques_proveedor_jtable(String buscar) {
         try {
             PreparedStatement ps = conexion.prepareStatement(""
@@ -4941,7 +5017,11 @@ public class Metodos {
         String valor = txtprec;
 
         int largo = valor.length();
-        if (largo > 8) {
+        if (largo > 10) {
+            valor = valor.substring(largo - 11, largo - 9) + "." + valor.substring(largo - 9, largo - 6) + "." + valor.substring(largo - 6, largo - 3) + "." + valor.substring(largo - 3, largo);
+        } else if (largo > 9) {
+            valor = valor.substring(largo - 10, largo - 9) + "." + valor.substring(largo - 9, largo - 6) + "." + valor.substring(largo - 6, largo - 3) + "." + valor.substring(largo - 3, largo);
+        } else if (largo > 8) {
             valor = valor.substring(largo - 9, largo - 6) + "." + valor.substring(largo - 6, largo - 3) + "." + valor.substring(largo - 3, largo);
         } else if (largo > 7) {
             valor = valor.substring(largo - 8, largo - 6) + "." + valor.substring(largo - 6, largo - 3) + "." + valor.substring(largo - 3, largo);
@@ -4982,7 +5062,7 @@ public class Metodos {
 
             } else {
                 PreparedStatement st = conexion.prepareStatement(
-                        " UPDATE deposito_bancario "
+                        " UPDATE cheque "
                         + " SET id_cuenta_bancaria ='" + cheques_id_cuenta_bancaria + "',"
                         + " fecha ='" + util_Date_to_sql_date(fecha) + "',"
                         + " numero ='" + Long.parseLong(numero.replace(".", "")) + "',"
@@ -4995,6 +5075,175 @@ public class Metodos {
             }
         } catch (SQLException ex) {
             System.err.println(ex);
+        }
+    }
+
+    static void Transferencia_guardar(String numero, String importe, Date fecha, String descripcion) {
+        try {
+            if (id_transferencia == 0) {
+
+                PreparedStatement ps = conexion.prepareStatement("select max(id_transferencia) from transferencia");
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    id_transferencia = rs.getInt(1) + 1;
+                }
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO transferencia VALUES(?,?,?,?,?,?,?)");
+                st2.setInt(1, id_transferencia);
+                st2.setInt(2, transferencia_id_cuenta_bancaria);
+                st2.setLong(3, Long.parseLong(numero.replace(".", "")));
+                st2.setLong(4, Long.parseLong(importe.replace(".", "")));
+                st2.setDate(5, util_Date_to_sql_date(fecha));
+                st2.setString(6, descripcion);
+                st2.setInt(7, 0);
+                st2.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Guardado correctamente");
+
+            } else {
+                PreparedStatement st = conexion.prepareStatement(
+                        " UPDATE transferencia "
+                        + " SET id_cuenta_bancaria ='" + transferencia_id_cuenta_bancaria + "',"
+                        + " fecha ='" + util_Date_to_sql_date(fecha) + "',"
+                        + " numero ='" + Long.parseLong(numero.replace(".", "")) + "',"
+                        + " importe ='" + Long.parseLong(importe.replace(".", "")) + "',"
+                        + " id_cuenta_bancaria ='" + cheques_id_cuenta_bancaria + "' "
+                        + " WHERE id_transferencia = '" + id_transferencia + "'");
+                st.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Actualizado correctamente");
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
+    static void Imprimir_libro_banco(Date desde, Date hasta, String cuenta_bancaria) {
+        try {
+            int id = 0;
+            long saldo = 0;
+            Statement stAuxiliar = conexion.createStatement();
+            stAuxiliar.executeUpdate("truncate table imprimir_libro_banco");
+////        Saldo inicial bancario
+            PreparedStatement ps = conexion.prepareStatement(""
+                    + "select sum(monto) from deposito_bancario "
+                    + "where fecha < '" + desde + "' "
+                    + "and id_cuenta_bancaria = '" + libro_banco_id_cuenta_bancaria + "'");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                saldo = saldo + rs.getLong(1);
+            }
+
+            ps = conexion.prepareStatement(""
+                    + "select SUM(importe) from cheque "
+                    + "inner join proveedor on proveedor.id_proveedor = cheque.id_proveedor "
+                    + "where fecha < '" + desde + "' "
+                    + "and id_cuenta_bancaria = '" + libro_banco_id_cuenta_bancaria + "'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                saldo = saldo - rs.getLong(1);
+            }
+
+            ps = conexion.prepareStatement(""
+                    + "select * from transferencia "
+                    + "where fecha < '" + desde + "' "
+                    + "and id_cuenta_bancaria = '" + libro_banco_id_cuenta_bancaria + "'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                saldo = saldo - rs.getLong(1);
+            }
+
+            id = id + 1;
+            PreparedStatement stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_banco VALUES(?,?,?,?,?,?,?)");
+            stUpdateProducto.setInt(1, id);
+            stUpdateProducto.setDate(2, util_Date_to_sql_date(desde));
+            stUpdateProducto.setString(3, "-");
+            stUpdateProducto.setLong(4, 0);
+            stUpdateProducto.setLong(5, 0);
+            stUpdateProducto.setLong(6, saldo);
+            stUpdateProducto.setString(7, "SALDO ANTERIOR");
+            stUpdateProducto.executeUpdate();
+
+            //fin saldo inicial bancario
+            ps = conexion.prepareStatement(""
+                    + "select * from deposito_bancario "
+                    + "where fecha >= '" + desde + "' and fecha <= '" + hasta + "' "
+                    + "and id_cuenta_bancaria = '" + libro_banco_id_cuenta_bancaria + "' ");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                id = id + 1;
+                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_banco VALUES(?,?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id);
+                stUpdateProducto.setDate(2, rs.getDate("fecha"));
+                stUpdateProducto.setString(3, rs.getString("numero"));
+                stUpdateProducto.setLong(4, 0);
+                stUpdateProducto.setLong(5, rs.getLong("monto"));
+                stUpdateProducto.setLong(6, 0);
+                stUpdateProducto.setString(7, "DEPOSITO BANCARIO");
+                stUpdateProducto.executeUpdate();
+            }
+            ps = conexion.prepareStatement(""
+                    + "select * from cheque "
+                    + "inner join proveedor on proveedor.id_proveedor = cheque.id_proveedor "
+                    + "where fecha >= '" + desde + "' and fecha <= '" + hasta + "' "
+                    + "and id_cuenta_bancaria = '" + libro_banco_id_cuenta_bancaria + "'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                id = id + 1;
+                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_banco VALUES(?,?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id);
+                stUpdateProducto.setDate(2, rs.getDate("fecha"));
+                stUpdateProducto.setString(3, rs.getString("numero"));
+                stUpdateProducto.setLong(4, rs.getLong("importe"));
+                stUpdateProducto.setLong(5, 0);
+                stUpdateProducto.setLong(6, 0);
+                stUpdateProducto.setString(7, "CHEQUE a favor de " + rs.getString("nombre").trim());
+                stUpdateProducto.executeUpdate();
+            }
+            ps = conexion.prepareStatement(""
+                    + "select * from transferencia "
+                    + "where fecha >= '" + desde + "' and fecha <= '" + hasta + "' "
+                    + "and id_cuenta_bancaria = '" + libro_banco_id_cuenta_bancaria + "'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                id = id + 1;
+                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_banco VALUES(?,?,?,?,?,?,?)");
+                stUpdateProducto.setInt(1, id);
+                stUpdateProducto.setDate(2, rs.getDate("fecha"));
+                stUpdateProducto.setString(3, rs.getString("numero"));
+                if (rs.getLong("importe") > 0) {
+                    stUpdateProducto.setLong(4, 0);
+                    stUpdateProducto.setLong(5, (rs.getLong("importe")));
+                } else {
+                    stUpdateProducto.setLong(4, rs.getLong("importe") * -1);
+                    stUpdateProducto.setLong(5, 0);
+                }
+                stUpdateProducto.setLong(6, 0);
+                stUpdateProducto.setString(7, "TRANSFERENCIA BANCARIA");
+                stUpdateProducto.executeUpdate();
+            }
+            saldo = 0;
+            Statement st12 = conexion.createStatement();
+            ResultSet result2 = st12.executeQuery(""
+                    + "SELECT * FROM imprimir_libro_banco "
+                    + "order by fecha ASC, id ");
+            while (result2.next()) {
+                saldo = saldo + result2.getLong("saldo_actual") - result2.getLong("debito") + result2.getLong("credito");
+                PreparedStatement Update2 = conexion.prepareStatement(""
+                        + "UPDATE imprimir_libro_banco "
+                        + "SET saldo_actual = '" + saldo + "' "
+                        + "WHERE id ='" + result2.getLong("id") + "'");
+                Update2.executeUpdate();
+            }
+            Map parametros = new HashMap();
+            parametros.put("desde", desde);
+            parametros.put("hasta", hasta);
+            parametros.put("empresa", empresa);
+            parametros.put("cuenta", cuenta_bancaria);
+
+            JasperReport jr = (JasperReport) JRLoader.loadObjectFromFile(path + "libro_banco.jasper");
+            JasperPrint jp = JasperFillManager.fillReport(jr, parametros, conexion);
+            JasperViewer jv = new JasperViewer(jp, false);
+            jv.setVisible(true);
+        } catch (JRException | SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
         }
     }
 }

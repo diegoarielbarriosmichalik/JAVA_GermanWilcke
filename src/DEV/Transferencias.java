@@ -1,7 +1,5 @@
 package DEV;
 
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
@@ -12,15 +10,15 @@ public class Transferencias extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Transferencias");
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/4k_icon.png")).getImage());
-
+        Clear();
     }
 
     public static void Clear() {
-
-        jTextField_buscar_beneficiario.setText("");
+        Metodos.id_transferencia = 0;
         jTextField_descripcion.setText("");
         jTextField_importe.setText("");
         jTextField_numero.setText("");
+        jTextField_cuenta_bancaria.setText("");
         jDateChooser_fecha.setDate(Metodos.hoy);
         jTextField_numero.requestFocus();
     }
@@ -29,16 +27,10 @@ public class Transferencias extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog_cheques = new javax.swing.JDialog();
+        jDialog_cuentas_bancarias = new javax.swing.JDialog();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable_cheques = new javax.swing.JTable();
-        jTextField_buscar_cheque = new javax.swing.JTextField();
-        jDialog_beneficiarios = new javax.swing.JDialog();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable_beneficiario = new javax.swing.JTable();
-        jTextField_buscar_beneficiario = new javax.swing.JTextField();
+        jTable_cuenta_bancaria = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jTextField_numero = new javax.swing.JTextField();
         jTextField_importe = new javax.swing.JTextField();
@@ -49,56 +41,44 @@ public class Transferencias extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jButton_imprimir2 = new javax.swing.JButton();
-        jTextField_cuenta1 = new javax.swing.JTextField();
+        jTextField_cuenta_bancaria = new javax.swing.JTextField();
 
-        jDialog_cheques.setUndecorated(true);
+        jDialog_cuentas_bancarias.setUndecorated(true);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
         jPanel2.setPreferredSize(new java.awt.Dimension(500, 500));
 
-        jTable_cheques.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_cuenta_bancaria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Beneficiario", "Numero", "Cuenta", "Fecha", "Importe"
+                "ID", "Numero", "Banco"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTable_cheques.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTable_cuenta_bancaria.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTable_chequesKeyPressed(evt);
+                jTable_cuenta_bancariaKeyPressed(evt);
             }
         });
-        jScrollPane1.setViewportView(jTable_cheques);
-        if (jTable_cheques.getColumnModel().getColumnCount() > 0) {
-            jTable_cheques.getColumnModel().getColumn(0).setResizable(false);
-            jTable_cheques.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTable_cheques.getColumnModel().getColumn(1).setResizable(false);
-            jTable_cheques.getColumnModel().getColumn(1).setPreferredWidth(200);
-            jTable_cheques.getColumnModel().getColumn(2).setResizable(false);
-            jTable_cheques.getColumnModel().getColumn(3).setResizable(false);
-            jTable_cheques.getColumnModel().getColumn(4).setResizable(false);
-            jTable_cheques.getColumnModel().getColumn(5).setResizable(false);
+        jScrollPane1.setViewportView(jTable_cuenta_bancaria);
+        if (jTable_cuenta_bancaria.getColumnModel().getColumnCount() > 0) {
+            jTable_cuenta_bancaria.getColumnModel().getColumn(0).setResizable(false);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(1).setResizable(false);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(1).setPreferredWidth(235);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(2).setResizable(false);
+            jTable_cuenta_bancaria.getColumnModel().getColumn(2).setPreferredWidth(235);
         }
-
-        jTextField_buscar_cheque.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
-        jTextField_buscar_cheque.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_buscar_chequeKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_buscar_chequeKeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -106,114 +86,29 @@ public class Transferencias extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                    .addComponent(jTextField_buscar_cheque))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField_buscar_cheque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jDialog_chequesLayout = new javax.swing.GroupLayout(jDialog_cheques.getContentPane());
-        jDialog_cheques.getContentPane().setLayout(jDialog_chequesLayout);
-        jDialog_chequesLayout.setHorizontalGroup(
-            jDialog_chequesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog_chequesLayout.createSequentialGroup()
+        javax.swing.GroupLayout jDialog_cuentas_bancariasLayout = new javax.swing.GroupLayout(jDialog_cuentas_bancarias.getContentPane());
+        jDialog_cuentas_bancarias.getContentPane().setLayout(jDialog_cuentas_bancariasLayout);
+        jDialog_cuentas_bancariasLayout.setHorizontalGroup(
+            jDialog_cuentas_bancariasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog_cuentas_bancariasLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        jDialog_chequesLayout.setVerticalGroup(
-            jDialog_chequesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog_chequesLayout.createSequentialGroup()
+        jDialog_cuentas_bancariasLayout.setVerticalGroup(
+            jDialog_cuentas_bancariasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog_cuentas_bancariasLayout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jDialog_beneficiarios.setUndecorated(true);
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 255)));
-        jPanel3.setPreferredSize(new java.awt.Dimension(500, 500));
-
-        jTable_beneficiario.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Beneficiario"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable_beneficiario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTable_beneficiarioKeyPressed(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTable_beneficiario);
-        if (jTable_beneficiario.getColumnModel().getColumnCount() > 0) {
-            jTable_beneficiario.getColumnModel().getColumn(0).setResizable(false);
-            jTable_beneficiario.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTable_beneficiario.getColumnModel().getColumn(1).setResizable(false);
-            jTable_beneficiario.getColumnModel().getColumn(1).setPreferredWidth(470);
-        }
-
-        jTextField_buscar_beneficiario.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
-        jTextField_buscar_beneficiario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_buscar_beneficiarioKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField_buscar_beneficiarioKeyReleased(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                    .addComponent(jTextField_buscar_beneficiario))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTextField_buscar_beneficiario, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jDialog_beneficiariosLayout = new javax.swing.GroupLayout(jDialog_beneficiarios.getContentPane());
-        jDialog_beneficiarios.getContentPane().setLayout(jDialog_beneficiariosLayout);
-        jDialog_beneficiariosLayout.setHorizontalGroup(
-            jDialog_beneficiariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog_beneficiariosLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jDialog_beneficiariosLayout.setVerticalGroup(
-            jDialog_beneficiariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog_beneficiariosLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -231,6 +126,11 @@ public class Transferencias extends javax.swing.JFrame {
         });
 
         jTextField_importe.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuenta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 255)), "Importe")); // NOI18N
+        jTextField_importe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_importeKeyReleased(evt);
+            }
+        });
 
         jTextField_descripcion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuenta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 255)), "Descripción")); // NOI18N
 
@@ -267,15 +167,15 @@ public class Transferencias extends javax.swing.JFrame {
             }
         });
 
-        jTextField_cuenta1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuenta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 255)), "Cuenta Bancaria(F1 buscar)")); // NOI18N
-        jTextField_cuenta1.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTextField_cuenta_bancaria.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cuenta", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(102, 102, 255)), "Cuenta Bancaria(F1 buscar)")); // NOI18N
+        jTextField_cuenta_bancaria.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField_cuenta1FocusLost(evt);
+                jTextField_cuenta_bancariaFocusLost(evt);
             }
         });
-        jTextField_cuenta1.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextField_cuenta_bancaria.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextField_cuenta1KeyPressed(evt);
+                jTextField_cuenta_bancariaKeyPressed(evt);
             }
         });
 
@@ -302,7 +202,7 @@ public class Transferencias extends javax.swing.JFrame {
                             .addComponent(jTextField_numero))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField_cuenta1, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                            .addComponent(jTextField_cuenta_bancaria, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
                             .addComponent(jTextField_descripcion))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -315,7 +215,7 @@ public class Transferencias extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_numero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_cuenta1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_cuenta_bancaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField_importe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -347,9 +247,8 @@ public class Transferencias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
-        jDialog_cheques();
-        jTextField_buscar_cheque.setText("");
-        jTextField_buscar_cheque.requestFocus();
+
+
     }//GEN-LAST:event_jButton_buscarActionPerformed
 
     private void jButton_imprimir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_imprimir1ActionPerformed
@@ -360,86 +259,43 @@ public class Transferencias extends javax.swing.JFrame {
 //        Metodos.Cheques_verificar();
     }//GEN-LAST:event_jTextField_numeroFocusLost
 
-    private void jTable_beneficiarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_beneficiarioKeyPressed
-        if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
-//            Metodos.Cheques_beneficiario_selected();
-            jDialog_beneficiarios.setVisible(false);
-        }
+    private void jTable_cuenta_bancariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_cuenta_bancariaKeyPressed
         if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
-            jDialog_beneficiarios.setVisible(false);
-        }
-    }//GEN-LAST:event_jTable_beneficiarioKeyPressed
-
-    private void jTextField_buscar_beneficiarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscar_beneficiarioKeyPressed
-        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
-            jDialog_beneficiarios.setVisible(false);
-        }
-    }//GEN-LAST:event_jTextField_buscar_beneficiarioKeyPressed
-
-    private void jTextField_buscar_beneficiarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscar_beneficiarioKeyReleased
-        if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
-            try {
-                jTable_beneficiario.requestFocus();
-                Robot r = new Robot();
-                r.keyPress(KeyEvent.VK_DOWN);
-            } catch (AWTException ex) {
-
-            }
-        } else {
-//            Metodos.Cheques_beneficiario_jtable(jTextField_buscar_beneficiario.getText());
-        }
-    }//GEN-LAST:event_jTextField_buscar_beneficiarioKeyReleased
-
-    private void jTable_chequesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_chequesKeyPressed
-        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
-            jDialog_cheques.setVisible(false);
+            jDialog_cuentas_bancarias.setVisible(false);
         }
         if ((evt.getKeyCode() == KeyEvent.VK_ENTER)) {
-//            Metodos.Cheques_selected();
+            Metodos.Transferencia_cuenta_bancaria_selected();
 //            Metodos.Cheques_buscar();
-            jDialog_cheques.setVisible(false);
+            jDialog_cuentas_bancarias.setVisible(false);
         }
-    }//GEN-LAST:event_jTable_chequesKeyPressed
-
-    private void jTextField_buscar_chequeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscar_chequeKeyPressed
-        if ((evt.getKeyCode() == KeyEvent.VK_ESCAPE)) {
-            jDialog_cheques.setVisible(false);
-        }
-    }//GEN-LAST:event_jTextField_buscar_chequeKeyPressed
-
-    private void jTextField_buscar_chequeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_buscar_chequeKeyReleased
-//        Metodos.Cheques_jtable(jTextField_buscar_cheque.getText());
-    }//GEN-LAST:event_jTextField_buscar_chequeKeyReleased
+    }//GEN-LAST:event_jTable_cuenta_bancariaKeyPressed
 
     private void jButton_imprimir2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_imprimir2ActionPerformed
-//        Metodos.Cheque_guardar(jTextField_numero.getText(), jTextField_importe.getText(), jDateChooser_fecha.getDate(), jTextField_descripcion.getText(), jTextField_nombre.getText());
-
+        Metodos.Transferencia_guardar(jTextField_numero.getText(), jTextField_importe.getText(), jDateChooser_fecha.getDate(), jTextField_descripcion.getText());
+        Clear();
     }//GEN-LAST:event_jButton_imprimir2ActionPerformed
 
-    private void jTextField_cuenta1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_cuenta1FocusLost
+    private void jTextField_cuenta_bancariaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_cuenta_bancariaFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_cuenta1FocusLost
+    }//GEN-LAST:event_jTextField_cuenta_bancariaFocusLost
 
-    private void jTextField_cuenta1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_cuenta1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_cuenta1KeyPressed
+    private void jTextField_cuenta_bancariaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_cuenta_bancariaKeyPressed
+        if ((evt.getKeyCode() == KeyEvent.VK_F1)) {
+            jDialog_cuentas_bancarias();
+            Metodos.Tranferencias_cuentas_bancarias_jtable();
+        }
+    }//GEN-LAST:event_jTextField_cuenta_bancariaKeyPressed
 
-    public void jDialog_cheques() {
-        jDialog_cheques.setVisible(true);
-        jDialog_cheques.setTitle("Cheques");
-        jDialog_cheques.setSize(500, 500);
-        jDialog_cheques.setLocationRelativeTo(null);
-        jDialog_cheques.setIconImage(new ImageIcon(getClass().getResource("/Images/4k_icon.png")).getImage());
-    }
+    private void jTextField_importeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_importeKeyReleased
+        jTextField_importe.setText(Metodos.getSepararMiles(jTextField_importe.getText().replace(".", "")));
+    }//GEN-LAST:event_jTextField_importeKeyReleased
 
-    public void jDialog_beneficiarios() {
-        jDialog_beneficiarios.setVisible(true);
-        jDialog_beneficiarios.setTitle("Beneficiarios");
-        jDialog_beneficiarios.setSize(500, 500);
-        jDialog_beneficiarios.setLocationRelativeTo(null);
-        jDialog_beneficiarios.setIconImage(new ImageIcon(getClass().getResource("/Images/4k_icon.png")).getImage());
-        jTextField_buscar_beneficiario.setText("");
-        jTextField_buscar_beneficiario.requestFocus();
+    public void jDialog_cuentas_bancarias() {
+        jDialog_cuentas_bancarias.setVisible(true);
+        jDialog_cuentas_bancarias.setTitle("Cuentas Bancarias");
+        jDialog_cuentas_bancarias.setSize(500, 500);
+        jDialog_cuentas_bancarias.setLocationRelativeTo(null);
+        jDialog_cuentas_bancarias.setIconImage(new ImageIcon(getClass().getResource("/Imagenes/4k_icon.png")).getImage());
     }
 
     public static void main(String args[]) {
@@ -463,20 +319,14 @@ public class Transferencias extends javax.swing.JFrame {
     private javax.swing.JButton jButton_imprimir1;
     private javax.swing.JButton jButton_imprimir2;
     public static com.toedter.calendar.JDateChooser jDateChooser_fecha;
-    private javax.swing.JDialog jDialog_beneficiarios;
-    private javax.swing.JDialog jDialog_cheques;
+    private javax.swing.JDialog jDialog_cuentas_bancarias;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    public static javax.swing.JTable jTable_beneficiario;
-    public static javax.swing.JTable jTable_cheques;
-    public static javax.swing.JTextField jTextField_buscar_beneficiario;
-    private javax.swing.JTextField jTextField_buscar_cheque;
-    public static javax.swing.JTextField jTextField_cuenta1;
+    public static javax.swing.JTable jTable_cuenta_bancaria;
+    public static javax.swing.JTextField jTextField_cuenta_bancaria;
     public static javax.swing.JTextField jTextField_descripcion;
     public static javax.swing.JTextField jTextField_importe;
     public static javax.swing.JTextField jTextField_numero;

@@ -625,6 +625,11 @@ public class Principal extends javax.swing.JFrame {
         jMenu4.add(jMenuItem24);
 
         jMenuItem22.setText("Transferencias Bancarias");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem22);
 
         jMenuItem26.setText("Depósitos Bancarios");
@@ -986,12 +991,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem26ActionPerformed
 
     private void jMenuItem27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem27ActionPerformed
-        // TODO add your handling code here:
+        new Libro_banco().setVisible(true);
     }//GEN-LAST:event_jMenuItem27ActionPerformed
 
     private void jMenuItem24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem24ActionPerformed
         new Cheques().setVisible(true);
     }//GEN-LAST:event_jMenuItem24ActionPerformed
+
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        new Transferencias().setVisible(true);
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
     
     public static void main(String args[]) {
         try {
