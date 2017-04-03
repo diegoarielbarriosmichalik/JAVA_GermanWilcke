@@ -38,6 +38,7 @@ public class Metodos {
     public static int libro_banco_id_cuenta_bancaria = 0;
     public static int transferencia_id_cuenta_bancaria = 0;
     public static int cheques_id_proveedor = 0;
+    public static int transferencia_id_proveedor = 0;
     public static int cheques_id_cuenta_bancaria = 0;
     public static int id_cheque = 0;
     public static int depositos_bancarios_id_cuenta_bancaria = 0;
@@ -326,6 +327,11 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Cheques.jTable_proveedor.getModel();
         cheques_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Cheques.jTable_proveedor.getSelectedRow(), 0)));
         Cheques.jTextField_proveedor.setText(String.valueOf(tm.getValueAt(Cheques.jTable_proveedor.getSelectedRow(), 1)));
+    }
+    public synchronized static void Transferencia_proveedor_selected() {
+         DefaultTableModel tm = (DefaultTableModel) Transferencias.jTable_proveedor.getModel();
+        transferencia_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Transferencias.jTable_proveedor.getSelectedRow(), 0)));
+        Transferencias.jTextField_proveedor.setText(String.valueOf(tm.getValueAt(Transferencias.jTable_proveedor.getSelectedRow(), 1)));
     }
 
     public synchronized static void Cheques_cuentas_bancarias_selected() {
@@ -3574,6 +3580,37 @@ public class Metodos {
         }
     }
 
+    public synchronized static void Tranferencias_proveedor_jtable(String buscar) {
+        try {
+            DefaultTableModel dtm = (DefaultTableModel) Transferencias.jTable_proveedor.getModel();
+            for (int j = 0; j < Transferencias.jTable_proveedor.getRowCount(); j++) {
+                dtm.removeRow(j);
+                j -= 1;
+            }
+            PreparedStatement ps2 = conexion.prepareStatement(""
+                    + "select id_proveedor, nombre "
+                    + "from proveedor "
+                    + "where nombre ilike '%" + buscar + "%'"
+                    + "order by nombre ");
+            ResultSet rs2 = ps2.executeQuery();
+            ResultSetMetaData rsm = rs2.getMetaData();
+            ArrayList<Object[]> data2 = new ArrayList<>();
+            while (rs2.next()) {
+                Object[] rows = new Object[rsm.getColumnCount()];
+                for (int i = 0; i < rows.length; i++) {
+                    rows[i] = rs2.getObject(i + 1).toString().trim();
+                }
+                data2.add(rows);
+            }
+            dtm = (DefaultTableModel) Transferencias.jTable_proveedor.getModel();
+            for (int i = 0; i < data2.size(); i++) {
+                dtm.addRow(data2.get(i));
+            }
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
+    }
+
     public synchronized static void Ubicacion_jtable() {
         try {
             DefaultTableModel dtm = (DefaultTableModel) Ubicacion.jTable_ubicacion.getModel();
@@ -5087,7 +5124,7 @@ public class Metodos {
                 if (rs.next()) {
                     id_transferencia = rs.getInt(1) + 1;
                 }
-                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO transferencia VALUES(?,?,?,?,?,?,?)");
+                PreparedStatement st2 = conexion.prepareStatement("INSERT INTO transferencia VALUES(?,?,?,?,?,?,?,?)");
                 st2.setInt(1, id_transferencia);
                 st2.setInt(2, transferencia_id_cuenta_bancaria);
                 st2.setLong(3, Long.parseLong(numero.replace(".", "")));
@@ -5095,6 +5132,7 @@ public class Metodos {
                 st2.setDate(5, util_Date_to_sql_date(fecha));
                 st2.setString(6, descripcion);
                 st2.setInt(7, 0);
+                st2.setInt(8, transferencia_id_proveedor);
                 st2.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Guardado correctamente");
 
@@ -5105,6 +5143,7 @@ public class Metodos {
                         + " fecha ='" + util_Date_to_sql_date(fecha) + "',"
                         + " numero ='" + Long.parseLong(numero.replace(".", "")) + "',"
                         + " importe ='" + Long.parseLong(importe.replace(".", "")) + "',"
+                        + " id_proveedor ='" + transferencia_id_proveedor + "',"
                         + " id_cuenta_bancaria ='" + cheques_id_cuenta_bancaria + "' "
                         + " WHERE id_transferencia = '" + id_transferencia + "'");
                 st.executeUpdate();
@@ -5187,24 +5226,26 @@ public class Metodos {
             rs = ps.executeQuery();
             while (rs.next()) {
                 id = id + 1;
-                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_banco VALUES(?,?,?,?,?,?,?)");
+                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_banco VALUES(?,?,?,?,?,?,?,?)");
                 stUpdateProducto.setInt(1, id);
                 stUpdateProducto.setDate(2, rs.getDate("fecha"));
                 stUpdateProducto.setString(3, rs.getString("numero"));
                 stUpdateProducto.setLong(4, rs.getLong("importe"));
                 stUpdateProducto.setLong(5, 0);
                 stUpdateProducto.setLong(6, 0);
-                stUpdateProducto.setString(7, "CHEQUE a favor de " + rs.getString("nombre").trim());
+                stUpdateProducto.setString(7, "CHEQUE ");
+                stUpdateProducto.setString(8, rs.getString("nombre").trim());
                 stUpdateProducto.executeUpdate();
             }
             ps = conexion.prepareStatement(""
                     + "select * from transferencia "
+                    + "inner join proveedor on proveedor.id_proveedor = transferencia.id_proveedor "
                     + "where fecha >= '" + desde + "' and fecha <= '" + hasta + "' "
                     + "and id_cuenta_bancaria = '" + libro_banco_id_cuenta_bancaria + "'");
             rs = ps.executeQuery();
             while (rs.next()) {
                 id = id + 1;
-                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_banco VALUES(?,?,?,?,?,?,?)");
+                stUpdateProducto = conexion.prepareStatement("INSERT INTO imprimir_libro_banco VALUES(?,?,?,?,?,?,?,?)");
                 stUpdateProducto.setInt(1, id);
                 stUpdateProducto.setDate(2, rs.getDate("fecha"));
                 stUpdateProducto.setString(3, rs.getString("numero"));
@@ -5217,6 +5258,7 @@ public class Metodos {
                 }
                 stUpdateProducto.setLong(6, 0);
                 stUpdateProducto.setString(7, "TRANSFERENCIA BANCARIA");
+                stUpdateProducto.setString(8, rs.getString("nombre").trim());
                 stUpdateProducto.executeUpdate();
             }
             saldo = 0;
