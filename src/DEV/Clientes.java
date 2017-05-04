@@ -1,7 +1,5 @@
 package DEV;
 
-import DEV.Conexion;
-import DEV.Metodos;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -33,7 +31,6 @@ public class Clientes extends javax.swing.JFrame {
         jt_nombre = new javax.swing.JTextField();
         jt_direccion = new javax.swing.JTextField();
         jt_telefono = new javax.swing.JTextField();
-        jTextField_ci = new javax.swing.JTextField();
         jt_email = new javax.swing.JTextField();
         jButton_borrar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -173,8 +170,6 @@ public class Clientes extends javax.swing.JFrame {
 
         jt_telefono.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefono"));
 
-        jTextField_ci.setBorder(javax.swing.BorderFactory.createTitledBorder("CI"));
-
         jt_email.setBorder(javax.swing.BorderFactory.createTitledBorder("Correo Electrónico"));
 
         jButton_borrar.setBackground(new java.awt.Color(255, 255, 255));
@@ -242,7 +237,7 @@ public class Clientes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jt_email))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 175, Short.MAX_VALUE)
                         .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,9 +249,7 @@ public class Clientes extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jt_ruc, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_ci, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 148, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -265,9 +258,7 @@ public class Clientes extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jt_ruc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField_ci, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jt_ruc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -319,12 +310,12 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Metodos.Cliente_Guardar(jt_ruc.getText(), jTextField_ci.getText(), jt_direccion.getText(), jt_email.getText(), jt_nombre.getText(), jt_telefono.getText());
+        Metodos.Cliente_Guardar(jt_ruc.getText(), jt_direccion.getText(), jt_email.getText(), jt_nombre.getText(), jt_telefono.getText());
         jt_ruc.requestFocus();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        //  Metodos.Cliente_clear();
+ 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jt_nombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyReleased
@@ -332,7 +323,6 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_nombreKeyReleased
 
     private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
-        //  Metodos.Cliente_update();
         jButton_borrar.setVisible(false);
     }//GEN-LAST:event_jButton_borrarActionPerformed
 
@@ -344,19 +334,6 @@ public class Clientes extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
-        //Facturacion.jT_buscador.requestFocus();
-//        if (Metodos.formulario_que_pide == 1) {
-//            Metodos.Facturacion_update_cliente(Metodos.id_cliente);
-//            Metodos.formulario_que_pide = 0;
-//        }
-//        if (Metodos.formulario_que_pide == 4) {
-//            Metodos.formulario_que_pide = 0;
-//         //   Facturacion_Terminar.jTextField_ruc.setText(jt_ruc.getText());
-//         //   Facturacion_Terminar.jTextField_ci.setText(jTextField_ci.getText());
-//            Facturacion_Terminar.jTextField_nombre.setText(jt_nombre.getText());
-//            Facturacion_Terminar.jTextField_nombre.requestFocus();
-//
-//        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jt_nombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_nombreKeyPressed
@@ -368,20 +345,13 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_jt_nombreKeyPressed
 
     private void jt_rucFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jt_rucFocusLost
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jt_rucFocusLost
 
     private void jt_rucKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jt_rucKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
-//
-//        if (evt.getKeyCode() == KeyEvent.VK_F1) {
-//            new Cliente_buscar().setVisible(true);
-//            Cliente_buscar.jT_Buscar.setText("");
-//            Cliente_buscar.formulario = 1;
-//        }
-
     }//GEN-LAST:event_jt_rucKeyPressed
 
     private void jButton_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_buscarActionPerformed
@@ -467,7 +437,6 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTable_cliente;
     private javax.swing.JTextField jTextField_buscar;
-    public static javax.swing.JTextField jTextField_ci;
     public static javax.swing.JTextField jt_direccion;
     public static javax.swing.JTextField jt_email;
     public static javax.swing.JTextField jt_nombre;

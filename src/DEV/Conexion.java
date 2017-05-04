@@ -67,8 +67,8 @@ public class Conexion {
             }
             if (result.equals("1748823206")) { // dell 
                 db = "german_wilcke";
-//                host = "localhost"; 
-                host = "190.104.167.162";
+                host = "localhost"; 
+//                host = "190.104.167.162";
                 user = "postgres";
                 pass = "postgres";
 //                pass = "POSTGRES4K";
