@@ -728,7 +728,7 @@ public class Producto extends javax.swing.JFrame {
             }
         });
 
-        producto_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción"));
+        producto_nombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Descripción (F4 guardar)"));
         producto_nombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 producto_nombreFocusLost(evt);
@@ -1310,9 +1310,10 @@ public class Producto extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
             this.setVisible(false);
         }
-        if (evt.getKeyCode() == KeyEvent.VK_F1) {
-            //    new Producto_buscar().setVisible(true);
-            //    Producto_buscar.formulario = 1;
+        if (evt.getKeyCode() == KeyEvent.VK_F4) {
+            Metodos.Producto_Guardar(producto_nombre.getText(), producto_codigo.getText(), producto_precio.getText(), jTextField_iva.getText(),
+                    producto_stock_bajo.getText(), jDateChooser_vencimiento.getDate(), jTextField_porcentaje.getText());
+            Metodos.Producto_Nuevo();
         }
     }//GEN-LAST:event_producto_nombreKeyPressed
 
@@ -1359,6 +1360,7 @@ public class Producto extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Metodos.Producto_Guardar(producto_nombre.getText(), producto_codigo.getText(), producto_precio.getText(), jTextField_iva.getText(),
                 producto_stock_bajo.getText(), jDateChooser_vencimiento.getDate(), jTextField_porcentaje.getText());
+        Metodos.Producto_Nuevo();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

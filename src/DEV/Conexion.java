@@ -46,7 +46,7 @@ public class Conexion {
 
             String mac_adress2 = null;
             System.err.println(result);
-            if (result.equals("-792900638")) { // 4k 
+            if (result.equals("-792900638")) { // 4k dell
                 db = "german_wilcke";
 //                db = "pipas_bar"; 
                 //db = "mca_novedades_nuevo";
@@ -67,8 +67,8 @@ public class Conexion {
             }
             if (result.equals("1748823206")) { // dell 
                 db = "german_wilcke";
-                host = "localhost"; 
-//                host = "190.104.167.162";
+//                host = "localhost"; 
+                host = "190.104.167.162";
                 user = "postgres";
                 pass = "postgres";
 //                pass = "POSTGRES4K";

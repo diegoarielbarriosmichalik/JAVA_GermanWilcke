@@ -380,11 +380,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jPanel1" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -413,7 +409,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTabbedPane1" max="32767" attributes="0"/>
+                  <Component id="jTabbedPane1" pref="441" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -458,7 +454,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="JT_Ruc" min="-2" pref="223" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="JT_Telefono" pref="178" max="32767" attributes="0"/>
+                                  <Component id="JT_Telefono" pref="187" max="32767" attributes="0"/>
                               </Group>
                               <Component id="JT_Direccion" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
@@ -701,7 +697,7 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="jButton_salir1" min="-2" pref="34" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane2" pref="407" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="416" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>

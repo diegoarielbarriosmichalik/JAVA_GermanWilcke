@@ -14,7 +14,7 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("/Imagenes/4k_icon.png")).getImage());
 
         jDateChooser2.setDate(Metodos.hoy);
-        jButton_borrado.setVisible(false);
+        jButton_borrar.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -26,11 +26,16 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
         jTextField_proveedor_buscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_proveedor = new javax.swing.JTable();
+        jDialog_recibos = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jTextField_proveedoor_buscar_recibos = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable_recibos = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jTextField_concepto = new javax.swing.JTextField();
         jTextField_dinero = new javax.swing.JTextField();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        jButton_borrado = new javax.swing.JButton();
+        jButton_borrar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -77,9 +82,10 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
             jTable_proveedor.getColumnModel().getColumn(0).setResizable(false);
             jTable_proveedor.getColumnModel().getColumn(0).setPreferredWidth(30);
             jTable_proveedor.getColumnModel().getColumn(1).setResizable(false);
-            jTable_proveedor.getColumnModel().getColumn(1).setPreferredWidth(235);
+            jTable_proveedor.getColumnModel().getColumn(1).setPreferredWidth(470);
             jTable_proveedor.getColumnModel().getColumn(2).setResizable(false);
             jTable_proveedor.getColumnModel().getColumn(2).setPreferredWidth(235);
+            jTable_proveedor.getColumnModel().getColumn(2).setHeaderValue("Nombre Fantasia");
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -114,6 +120,86 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jDialog_recibos.setUndecorated(true);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 204)));
+
+        jTextField_proveedoor_buscar_recibos.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar"));
+        jTextField_proveedoor_buscar_recibos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_proveedoor_buscar_recibosActionPerformed(evt);
+            }
+        });
+        jTextField_proveedoor_buscar_recibos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField_proveedoor_buscar_recibosKeyReleased(evt);
+            }
+        });
+
+        jTable_recibos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Fantasía"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable_recibos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable_recibosKeyPressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable_recibos);
+        if (jTable_recibos.getColumnModel().getColumnCount() > 0) {
+            jTable_recibos.getColumnModel().getColumn(0).setResizable(false);
+            jTable_recibos.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jTable_recibos.getColumnModel().getColumn(1).setResizable(false);
+            jTable_recibos.getColumnModel().getColumn(1).setPreferredWidth(230);
+            jTable_recibos.getColumnModel().getColumn(2).setResizable(false);
+            jTable_recibos.getColumnModel().getColumn(2).setPreferredWidth(230);
+        }
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                    .addComponent(jTextField_proveedoor_buscar_recibos))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTextField_proveedoor_buscar_recibos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialog_recibosLayout = new javax.swing.GroupLayout(jDialog_recibos.getContentPane());
+        jDialog_recibos.getContentPane().setLayout(jDialog_recibosLayout);
+        jDialog_recibosLayout.setHorizontalGroup(
+            jDialog_recibosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jDialog_recibosLayout.setVerticalGroup(
+            jDialog_recibosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setUndecorated(true);
         setResizable(false);
 
@@ -141,12 +227,12 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
         jDateChooser2.setBackground(new java.awt.Color(255, 255, 255));
         jDateChooser2.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha"));
 
-        jButton_borrado.setBackground(new java.awt.Color(255, 255, 255));
-        jButton_borrado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/del_mini.png"))); // NOI18N
-        jButton_borrado.setBorder(null);
-        jButton_borrado.addActionListener(new java.awt.event.ActionListener() {
+        jButton_borrar.setBackground(new java.awt.Color(255, 255, 255));
+        jButton_borrar.setText("Borrar");
+        jButton_borrar.setBorder(null);
+        jButton_borrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_borradoActionPerformed(evt);
+                jButton_borrarActionPerformed(evt);
             }
         });
 
@@ -205,9 +291,8 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField_concepto)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 352, Short.MAX_VALUE)
-                        .addComponent(jButton_borrado, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_borrado1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_borrado2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,7 +309,7 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
                         .addComponent(jTextField_recibo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 127, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -248,7 +333,7 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton_borrado, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton_borrado1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton_borrado2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
@@ -272,11 +357,12 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
         jTextField_dinero.setText(Metodos.getSepararMiles(jTextField_dinero.getText().replace(".", "")));
     }//GEN-LAST:event_jTextField_dineroKeyReleased
 
-    private void jButton_borradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borradoActionPerformed
-//        Metodos.Recibo_de_dinero_borrar();
+    private void jButton_borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrarActionPerformed
+        Metodos.Recibo_de_dinero_borrar();
+        Clear();
 //        Metodos.Clientes_estado_de_cuenta_buscar_cliente_cargar_lista();
 //        this.setVisible(false);
-    }//GEN-LAST:event_jButton_borradoActionPerformed
+    }//GEN-LAST:event_jButton_borrarActionPerformed
 
     private void jTextField_dineroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_dineroKeyPressed
 //        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -330,8 +416,19 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
         jDialog_proveedor.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
     }
 
+    public void jDialog_recibos() {
+        jDialog_recibos.setVisible(true);
+        jDialog_recibos.setTitle("Recibos");
+        jDialog_recibos.setSize(500, 500);
+        jDialog_recibos.setLocationRelativeTo(null);
+        jDialog_recibos.setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
+    }
+
     private void jButton_borrado1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_borrado1ActionPerformed
-        // TODO add your handling code here:
+        jDialog_recibos();
+        jTextField_proveedoor_buscar_recibos.setText("");
+        jTextField_proveedoor_buscar_recibos.requestFocus();
+        Metodos.Recibo_de_dinero_buscar_jtable(jTextField_proveedoor_buscar_recibos.getText());
     }//GEN-LAST:event_jButton_borrado1ActionPerformed
 
     private void jTextField_proveedor_buscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_proveedor_buscarKeyReleased
@@ -385,6 +482,42 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_reciboKeyReleased
 
+    private void jTextField_proveedoor_buscar_recibosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_proveedoor_buscar_recibosKeyReleased
+
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_recibos.setVisible(false);
+        } else {
+            if ((evt.getKeyCode() == KeyEvent.VK_DOWN)) {
+                try {
+                    jTable_recibos.requestFocus();
+                    Robot r = new Robot();
+                    r.keyPress(KeyEvent.VK_DOWN);
+                } catch (AWTException ex) {
+                    System.err.println(ex);
+                }
+            } else {
+                Metodos.Recibo_de_dinero_buscar_jtable(jTextField_proveedoor_buscar_recibos.getText());
+            }
+        }
+    }//GEN-LAST:event_jTextField_proveedoor_buscar_recibosKeyReleased
+
+    private void jTable_recibosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable_recibosKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            jDialog_recibos.setVisible(false);
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            Metodos.Recibo_de_dinero_selected();
+            Metodos.Recibo_de_dinero_traer_datos();
+            jDialog_recibos.setVisible(false);
+            jButton_borrar.setVisible(true);
+            
+        }
+    }//GEN-LAST:event_jTable_recibosKeyPressed
+
+    private void jTextField_proveedoor_buscar_recibosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_proveedoor_buscar_recibosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_proveedoor_buscar_recibosActionPerformed
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -404,19 +537,24 @@ public class Recibo_de_dinero extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
-    public static javax.swing.JButton jButton_borrado;
     public static javax.swing.JButton jButton_borrado1;
     public static javax.swing.JButton jButton_borrado2;
+    public static javax.swing.JButton jButton_borrar;
     public static com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JDialog jDialog_proveedor;
+    private javax.swing.JDialog jDialog_recibos;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     public static javax.swing.JTable jTable_proveedor;
+    public static javax.swing.JTable jTable_recibos;
     public static javax.swing.JTextField jTextField_concepto;
     public static javax.swing.JTextField jTextField_dinero;
+    private javax.swing.JTextField jTextField_proveedoor_buscar_recibos;
     public static javax.swing.JTextField jTextField_proveedor;
     private javax.swing.JTextField jTextField_proveedor_buscar;
     public static javax.swing.JTextField jTextField_recibo;

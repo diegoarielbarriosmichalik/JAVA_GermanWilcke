@@ -83,7 +83,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
         jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem55 = new javax.swing.JMenuItem();
+        jMenuItem25 = new javax.swing.JMenuItem();
         jMenuItem57 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem40 = new javax.swing.JMenuItem();
@@ -93,7 +93,6 @@ public class Principal extends javax.swing.JFrame {
         jSeparator6 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem56 = new javax.swing.JMenuItem();
         jSeparator21 = new javax.swing.JPopupMenu.Separator();
         jMenu5 = new javax.swing.JMenu();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
@@ -123,7 +122,6 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem26 = new javax.swing.JMenuItem();
         jSeparator27 = new javax.swing.JPopupMenu.Separator();
         jMenuItem30 = new javax.swing.JMenuItem();
-        jMenuItem25 = new javax.swing.JMenuItem();
         jSeparator22 = new javax.swing.JPopupMenu.Separator();
         jMenuItem27 = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -135,6 +133,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem35 = new javax.swing.JMenuItem();
         jSeparator25 = new javax.swing.JPopupMenu.Separator();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem55 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         jSeparator20 = new javax.swing.JPopupMenu.Separator();
         jMenuItem21 = new javax.swing.JMenuItem();
@@ -440,13 +439,13 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu_ventas.add(jMenuItem10);
 
-        jMenuItem55.setText("Recibo de dinero de proveedores");
-        jMenuItem55.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem25.setText("Recibos a proveedores");
+        jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem55ActionPerformed(evt);
+                jMenuItem25ActionPerformed(evt);
             }
         });
-        jMenu_ventas.add(jMenuItem55);
+        jMenu_ventas.add(jMenuItem25);
 
         jMenuItem57.setText("Extracto de Cuenta de proveedores");
         jMenuItem57.addActionListener(new java.awt.event.ActionListener() {
@@ -510,9 +509,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu_ventas.add(jMenuItem3);
-
-        jMenuItem56.setText("Imprimir Recibo de Dinero");
-        jMenu_ventas.add(jMenuItem56);
         jMenu_ventas.add(jSeparator21);
 
         jMenuBar1.add(jMenu_ventas);
@@ -648,9 +644,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jMenu4.add(jMenuItem30);
-
-        jMenuItem25.setText("Recibos de Dinero");
-        jMenu4.add(jMenuItem25);
         jMenu4.add(jSeparator22);
 
         jMenuItem27.setText("Libro banco");
@@ -684,6 +677,15 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu1.setText("Informes");
+
+        jMenuItem55.setText("Recibo de dinero a proveedores");
+        jMenuItem55.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem55ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem55);
+
         jMenuBar1.add(jMenu1);
 
         jMenu8.setText("Configuración");
@@ -1001,6 +1003,10 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
         new Transferencias().setVisible(true);
     }//GEN-LAST:event_jMenuItem22ActionPerformed
+
+    private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
+        new Recibo_de_dinero().setVisible(true);
+    }//GEN-LAST:event_jMenuItem25ActionPerformed
     
     public static void main(String args[]) {
         try {
@@ -1084,7 +1090,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem53;
     private javax.swing.JMenuItem jMenuItem54;
     private javax.swing.JMenuItem jMenuItem55;
-    private javax.swing.JMenuItem jMenuItem56;
     private javax.swing.JMenuItem jMenuItem57;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="plan_de_cuentas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="65eb46d0-0dff-4bf9-862e-1b9c6c5a832e">
-	<property name="ireport.zoom" value="1.948717100000002"/>
+	<property name="ireport.zoom" value="1.100000000000001"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="desde" class="java.util.Date"/>
@@ -24,16 +24,26 @@ where compra.id_proveedor = $P{id_proveedor}]]>
 	<field name="total" class="java.math.BigDecimal"/>
 	<field name="id_compra_tipo" class="java.lang.Integer"/>
 	<field name="id_compra_forma_pago" class="java.lang.Integer"/>
+	<field name="id_usuario" class="java.lang.Integer"/>
+	<field name="modificado_por" class="java.lang.String"/>
+	<field name="modificado_fecha" class="java.sql.Date"/>
+	<field name="id_timbrado" class="java.lang.Integer"/>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="telefono" class="java.lang.String"/>
 	<field name="ruc" class="java.lang.String"/>
 	<field name="direccion" class="java.lang.String"/>
+	<field name="nombre_fantasia" class="java.lang.String"/>
 	<field name="id_compra_detalle" class="java.lang.Integer"/>
 	<field name="cantidad" class="java.math.BigDecimal"/>
 	<field name="precio" class="java.math.BigDecimal"/>
 	<field name="id_producto" class="java.lang.Integer"/>
 	<field name="id_productos_ubicacion" class="java.lang.Integer"/>
 	<field name="id_sector" class="java.lang.Integer"/>
+	<field name="id_cuenta" class="java.lang.Integer"/>
+	<field name="impuesto" class="java.lang.Integer"/>
+	<field name="iva_0" class="java.math.BigDecimal"/>
+	<field name="iva_5" class="java.math.BigDecimal"/>
+	<field name="iva_10" class="java.math.BigDecimal"/>
 	<field name="sector" class="java.lang.String"/>
 	<field name="codigo" class="java.lang.String"/>
 	<field name="iva" class="java.lang.Integer"/>
@@ -151,7 +161,7 @@ where compra.id_proveedor = $P{id_proveedor}]]>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{proveedor_nombre}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{proveedor_nombre}.trim() + " ( " + $F{nombre_fantasia} + " )"]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -162,13 +172,7 @@ where compra.id_proveedor = $P{id_proveedor}]]>
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="15" splitType="Stretch">
-			<line>
-				<reportElement x="0" y="13" width="555" height="1" uuid="d453baf0-3927-4f06-a990-13079a154a94"/>
-				<graphicElement>
-					<pen lineWidth="0.25"/>
-				</graphicElement>
-			</line>
+		<band height="13" splitType="Stretch">
 			<textField pattern="#,##0;-#,##0">
 				<reportElement x="414" y="1" width="51" height="11" uuid="de020fe2-c15a-4466-a651-8969e444e31d"/>
 				<textElement textAlignment="Right">
@@ -217,34 +221,34 @@ where compra.id_proveedor = $P{id_proveedor}]]>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="36" splitType="Stretch">
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="37" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="5" y="10" width="100" height="20" uuid="42a9e257-bbb5-4e43-96d4-47191c177ab7"/>
+				<reportElement x="4" y="6" width="100" height="20" uuid="42a9e257-bbb5-4e43-96d4-47191c177ab7"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<line>
-				<reportElement x="0" y="6" width="555" height="1" uuid="e0045206-b07a-4e3a-a2aa-13ef1fe05e5a"/>
-			</line>
 			<staticText>
-				<reportElement x="430" y="10" width="40" height="20" uuid="e5d8dbd1-3ef5-48f0-b35a-2a0b537956f5"/>
+				<reportElement x="424" y="7" width="40" height="20" uuid="e5d8dbd1-3ef5-48f0-b35a-2a0b537956f5"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
 			<textField pattern="#,##0;-#,##0">
-				<reportElement x="470" y="10" width="80" height="20" uuid="059dcfb1-d7b5-4af2-bcba-2d238073dc24"/>
+				<reportElement x="464" y="7" width="80" height="20" uuid="059dcfb1-d7b5-4af2-bcba-2d238073dc24"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="3" y="4" width="543" height="1" uuid="32be8d39-405b-46ee-9a4e-ad601e839ce3"/>
+			</line>
 		</band>
-	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>

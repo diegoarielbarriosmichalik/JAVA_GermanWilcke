@@ -1,8 +1,10 @@
-Agregar iva a agregar detalle de compras
-(modificar detalle de compras tipo factura)
-Agregar contado o credito a la factura 
+Agregar iva a agregar detalle de compras OK
+(modificar detalle de compras tipo factura) OK
+Agregar contado o credito a la factura  OK
+Timbrado OK
+Proveedor Nombre Real y Nombre de fantasia OK
+
+#Asientos
 Si es contado a fondo fijo 
 Si es credito va a cuenta pago a proveedores 
 si se firma pagare va a documentos a pagar
-Timbrado
-Proveedor Nombre Real y Noombre de fantasia 
