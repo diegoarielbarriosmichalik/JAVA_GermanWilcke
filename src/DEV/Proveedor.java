@@ -55,7 +55,6 @@ public class Proveedor extends javax.swing.JFrame {
         jButton_guardar = new javax.swing.JButton();
         jButton_nuevo = new javax.swing.JButton();
         jButton_borrar = new javax.swing.JButton();
-        jButton_salir = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable_timbrado = new javax.swing.JTable();
@@ -286,11 +285,9 @@ public class Proveedor extends javax.swing.JFrame {
 
         jButton3.setText("jButton3");
 
-        setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -377,16 +374,6 @@ public class Proveedor extends javax.swing.JFrame {
             }
         });
 
-        jButton_salir.setBackground(new java.awt.Color(255, 255, 255));
-        jButton_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/exit1.png"))); // NOI18N
-        jButton_salir.setMnemonic('x');
-        jButton_salir.setToolTipText("Alt + X");
-        jButton_salir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_salirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -399,7 +386,7 @@ public class Proveedor extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(JT_Ruc, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JT_Telefono, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
+                        .addComponent(JT_Telefono, javax.swing.GroupLayout.DEFAULT_SIZE, 189, Short.MAX_VALUE))
                     .addComponent(JT_Direccion)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -409,9 +396,7 @@ public class Proveedor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -431,10 +416,9 @@ public class Proveedor extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jButton_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_borrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Información general", jPanel3);
@@ -501,7 +485,7 @@ public class Proveedor extends javax.swing.JFrame {
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_salir1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -524,7 +508,7 @@ public class Proveedor extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -555,7 +539,7 @@ public class Proveedor extends javax.swing.JFrame {
 
     private void jButton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_guardarActionPerformed
         Metodos.Proveedor_guardar(JT_Nombre.getText(), JT_Ruc.getText(), JT_Telefono.getText(), JT_Direccion.getText(), JT_Nombre_Fantasia.getText());
-        clear();
+        
     }//GEN-LAST:event_jButton_guardarActionPerformed
 
     private void jButton_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_nuevoActionPerformed
@@ -583,10 +567,6 @@ public class Proveedor extends javax.swing.JFrame {
     private void JT_RucFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JT_RucFocusLost
         Metodos.Proveedor_buscar_por_ruc();
     }//GEN-LAST:event_JT_RucFocusLost
-
-    private void jButton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_salirActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton_salirActionPerformed
 
     private void JT_NombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JT_NombreKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_F1) {
@@ -765,7 +745,6 @@ public class Proveedor extends javax.swing.JFrame {
     public static javax.swing.JButton jButton_buscar;
     private javax.swing.JButton jButton_guardar;
     private javax.swing.JButton jButton_nuevo;
-    private javax.swing.JButton jButton_salir;
     private javax.swing.JButton jButton_salir1;
     public static com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JDialog jDialog_buscar;

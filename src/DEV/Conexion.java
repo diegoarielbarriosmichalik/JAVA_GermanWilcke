@@ -48,12 +48,7 @@ public class Conexion {
             System.err.println(result);
             if (result.equals("-792900638")) { // 4k dell
                 db = "german_wilcke";
-//                db = "pipas_bar"; 
-                //db = "mca_novedades_nuevo";
-//                db = "mca"; // del campo
-//                host = "localhost";
-//                host = "192.168.0.200";
-                host = "190.104.167.162";
+                host = "192.168.0.200";
                 user = "postgres";
                 pass = "postgres";
                 mac_adress = "-792900638";
@@ -68,10 +63,10 @@ public class Conexion {
             if (result.equals("1748823206")) { // dell 
                 db = "german_wilcke";
 //                host = "localhost"; 
-                host = "190.104.167.162";
+                host = "192.168.0.200";
                 user = "postgres";
                 pass = "postgres";
-//                pass = "POSTGRES4K";
+                pass = "POSTGRES4K";
                 mac_adress = "1748823206";
             }
             if (result.equals("1859179857")) { // Servidor GW 
