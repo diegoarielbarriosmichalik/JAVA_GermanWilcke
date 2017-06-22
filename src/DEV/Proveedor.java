@@ -1,6 +1,5 @@
 package DEV;
 
-import com.toedter.calendar.JDateChooser;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -12,7 +11,7 @@ public class Proveedor extends javax.swing.JFrame {
     public Proveedor() {
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Personas");
+        setTitle("Proveedores");
         setIconImage(new ImageIcon(getClass().getResource("/icon.png")).getImage());
         Conexion.Verificar_conexion();
         jButton_borrar.setVisible(false);

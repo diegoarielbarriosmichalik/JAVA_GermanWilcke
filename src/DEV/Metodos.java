@@ -631,6 +631,7 @@ public class Metodos {
         DefaultTableModel tm = (DefaultTableModel) Compras.jTable_proveedor.getModel();
         compras_id_proveedor = Integer.parseInt(String.valueOf(tm.getValueAt(Compras.jTable_proveedor.getSelectedRow(), 0)));
         Compras.jt_Proveedor.setText((String.valueOf(tm.getValueAt(Compras.jTable_proveedor.getSelectedRow(), 1)).trim()));
+        Compras.jt_fantasia.setText((String.valueOf(tm.getValueAt(Compras.jTable_proveedor.getSelectedRow(), 2))));
     }
 
 
@@ -944,7 +945,8 @@ public class Metodos {
                     Compras.jTextField_compra_sector.setText(result.getString("sector"));
                 }
                 if (result.getString("proveedor_nombre") != null) {
-                    Compras.jt_Proveedor.setText(result.getString("proveedor_nombre").trim() + " (" + result.getString("nombre_fantasia").trim() + ")");
+                    Compras.jt_Proveedor.setText(result.getString("proveedor_nombre").trim());
+                    Compras.jt_fantasia.setText(result.getString("nombre_fantasia"));
                 }
                 if (result.getString("compra_tipo") != null) {
                     Compras.jTextField_compra_tipo.setText(result.getString("compra_tipo").trim());

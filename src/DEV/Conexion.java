@@ -46,54 +46,40 @@ public class Conexion {
 
             String mac_adress2 = null;
             System.err.println(result);
-            if (result.equals("-792900638")) { // 4k dell
+            if (result.equals("-792900638")) { // 4k 
                 db = "german_wilcke";
                 host = "192.168.0.200";
                 user = "postgres";
-                pass = "postgres";
+                pass = "POSTGRES4K";
                 mac_adress = "-792900638";
-            }
-            if (result.equals("-1878214831")) { // muni 
-                db = "german_wilcke";
-                host = "190.104.167.162";
-                user = "postgres";
-                pass = "postgres";
-                mac_adress = "-1878214831";
             }
             if (result.equals("1748823206")) { // dell 
                 db = "german_wilcke";
 //                host = "localhost"; 
                 host = "192.168.0.200";
                 user = "postgres";
-                pass = "postgres";
                 pass = "POSTGRES4K";
                 mac_adress = "1748823206";
             }
             if (result.equals("1859179857")) { // Servidor GW 
                 db = "german_wilcke";
-                host = "190.104.167.162";
-//                host = "192.168.0.200"; 
+                host = "192.168.0.200"; 
                 user = "postgres";
-                pass = "postgres";
-                pass = "postgres";
+                pass = "POSTGRES4K";
                 mac_adress = "1859179857";
             }
             if (result.equals("2090310955")) { // Jessica GW 
                 db = "german_wilcke";
-                host = "190.104.167.162"; 
-                //host = "192.168.0.200";
+                host = "192.168.0.200";
                 user = "postgres";
-                pass = "postgres";
-                pass = "postgres";
+                pass = "POSTGRES4K";
                 mac_adress = "2090310955";
             }
             if (result.equals("-862396690")) { // clorinda GW 
                 db = "german_wilcke";
-                host = "190.104.167.162"; 
-//                host = "192.168.0.200";
+                host = "192.168.0.200";
                 user = "postgres";
-                pass = "postgres";
-                pass = "postgres";
+                pass = "POSTGRES4K";
                 mac_adress = "-862396690";
             }
 
